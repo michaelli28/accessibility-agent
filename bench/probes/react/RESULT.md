@@ -2,7 +2,7 @@
 
 Branch `bench/detector-eval` @ 6b2f270 · Chromium 143.0.7499.4 headless shell · React 18.3.1 / 19.3.0
 (versions read from `React.version` at runtime) · run 2026-09-18.
-Evidence class: **local e2e against local fixture pages**. No real Replit app was audited.
+Evidence class: **local e2e against local fixture pages**. No real third-party app was audited.
 
 **Short answer:** the hypothesis is wrong. The CDP listener check does see React `onClick` on a `<div>`,
 because React sets a no-op `el.onclick` on every element that has an `onClick` prop. React div-buttons get
@@ -93,9 +93,8 @@ pattern (ASSUMED broken the same way, not tested; it is not on the gap path).
 
 ## Reproduce
 
-Chromium steps must run outside the Bash sandbox. `build.mjs` hard-codes the scratch React installs under
-`/private/tmp/claude-501/.../scratchpad/react-probe/{r18,r19}`. Re-create them with
-`npm install --prefix <that dir>/r18 react@18 react-dom@18` (same for r19 with @19) if they're gone.
+Chromium steps must run outside the Bash sandbox. `build.mjs` installs the pinned React versions into the
+gitignored `bench/probes/react/.deps/{react18,react19}` the first time it runs.
 
 ```
 cd .
@@ -105,7 +104,6 @@ npx tsx bench/probes/react/e2e.ts        # existing taskgen detector end to end 
 node bench/probes/react/enumerate.mjs    # the two candidate discovery fixes
 node bench/probes/react/cursor-check.mjs # cursor-signal bug
 ```
-
 
 ## Verifier corrections (2026-09-18, workflow wf_25f6c5c5-8c4)
 

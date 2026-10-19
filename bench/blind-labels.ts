@@ -1,4 +1,4 @@
-// Builds the blind labelling worklist Phase 3 needs (prompts/2-at-agent.md): every flag raised on the
+// Builds the blind labelling worklist: every flag raised on the
 // held-out pages, shuffled, with the SOURCE HIDDEN, so precision can be scored without knowing which
 // version -- or which tool -- produced each claim while judging it.
 //
