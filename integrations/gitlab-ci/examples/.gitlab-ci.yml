@@ -1,0 +1,108 @@
+# Example GitLab CI Configuration for AT Agent
+# This file shows how to integrate AT Agent accessibility tests into your GitLab CI/CD pipeline
+
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  # Configure your test settings
+  TEST_CONFIG: "accessibility-tests.json"
+  PROVIDER: "openai"
+  HEADLESS: "true"
+  CONTINUE_ON_FAILURE: "true"
+
+# Example: Using the AT Agent Docker image
+accessibility-tests:
+  stage: test
+  image: your-registry/at-agent:latest
+  variables:
+    OPENAI_API_KEY: $OPENAI_API_KEY
+    # Optional: Dashboard integration for result tracking
+    DASHBOARD_URL: $DASHBOARD_URL
+    DASHBOARD_API_KEY: $DASHBOARD_API_KEY
+  script:
+    - /entrypoint.sh
+  artifacts:
+    when: always
+    paths:
+      - /output/accessibility-results.json
+    reports:
+      junit: /output/accessibility-results.xml
+    expire_in: 30 days
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# Example: Using the template include
+# Uncomment this section and comment out the above if using the remote template
+#
+# include:
+#   - remote: 'https://raw.githubusercontent.com/your-org/at-agent/main/gitlab-ci/.gitlab-ci-template.yml'
+#
+# accessibility-tests:
+#   extends: .at-agent-test
+#   variables:
+#     TEST_CONFIG: "accessibility-tests.json"
+#     OPENAI_API_KEY: $OPENAI_API_KEY
+#     DASHBOARD_URL: $DASHBOARD_URL
+#     DASHBOARD_API_KEY: $DASHBOARD_API_KEY
+
+# Example: Running on a self-hosted runner with Node.js installed
+accessibility-tests-native:
+  stage: test
+  tags:
+    - docker
+  image: mcr.microsoft.com/playwright:v1.40.0-jammy
+  variables:
+    OPENAI_API_KEY: $OPENAI_API_KEY
+  before_script:
+    - git clone https://github.com/your-org/at-agent.git /tmp/at-agent
+    - cd /tmp/at-agent && npm install
+  script:
+    - |
+      cd /tmp/at-agent
+      export HEADLESS=true
+
+      # Run each test from the config
+      cat "${CI_PROJECT_DIR}/${TEST_CONFIG}" | jq -c '.[]' | while read -r test; do
+        url=$(echo "$test" | jq -r '.url')
+        goal=$(echo "$test" | jq -r '.goal')
+
+        echo "=========================================="
+        echo "Testing: $url"
+        echo "Goal: $goal"
+        echo "=========================================="
+
+        npm run start:agent-cli -- "$url" "$goal" "$PROVIDER" --json || true
+        echo ""
+      done
+  artifacts:
+    when: always
+    expire_in: 30 days
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: manual
+  allow_failure: true
+
+# Example: Scheduled accessibility audit
+scheduled-accessibility-audit:
+  stage: test
+  image: your-registry/at-agent:latest
+  variables:
+    TEST_CONFIG: "full-accessibility-audit.json"
+    OPENAI_API_KEY: $OPENAI_API_KEY
+    DASHBOARD_URL: $DASHBOARD_URL
+    DASHBOARD_API_KEY: $DASHBOARD_API_KEY
+  script:
+    - /entrypoint.sh
+  artifacts:
+    when: always
+    paths:
+      - /output/accessibility-results.json
+    reports:
+      junit: /output/accessibility-results.xml
+    expire_in: 90 days
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"

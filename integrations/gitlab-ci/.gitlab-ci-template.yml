@@ -1,0 +1,115 @@
+# AT Agent GitLab CI Template
+# Include this file in your .gitlab-ci.yml to run accessibility tests
+#
+# Usage with manual test config:
+#   include:
+#     - remote: 'https://raw.githubusercontent.com/your-org/at-agent/main/gitlab-ci/.gitlab-ci-template.yml'
+#
+#   accessibility-tests:
+#     extends: .at-agent-test
+#     variables:
+#       TEST_CONFIG: "accessibility-tests.json"
+#       OPENAI_API_KEY: $OPENAI_API_KEY
+#
+# Usage with auto-discovery:
+#   accessibility-tests:
+#     extends: .at-agent-test
+#     variables:
+#       DISCOVERY_MODE: "auto"
+#       BASE_URL: "https://your-app.example.com"
+#       OPENAI_API_KEY: $OPENAI_API_KEY
+
+# Base job template for accessibility testing
+.at-agent-test:
+  image: your-registry/at-agent:latest
+  stage: test
+  variables:
+    # Test configuration (required if DISCOVERY_MODE is off)
+    # TEST_CONFIG: "accessibility-tests.json"
+    # OPENAI_API_KEY: $OPENAI_API_KEY
+
+    # Auto-discovery options (alternative to TEST_CONFIG)
+    # DISCOVERY_MODE: "off"  # Options: off, auto, guided
+    # BASE_URL: ""           # Required if DISCOVERY_MODE is not off
+    # DISCOVERY_FOCUS: ""    # Comma-separated focus areas (for guided mode)
+    # DISCOVERY_PROMPT: ""   # Custom instructions for discovery
+    # DISCOVERY_MAX_TESTS: "" # Maximum tests to generate
+    # DISCOVERY_EXCLUDE: ""  # Comma-separated directories to exclude
+
+    # Optional configuration
+    PROVIDER: "openai"
+    HEADLESS: "true"
+    CONTINUE_ON_FAILURE: "true"
+    OUTPUT_DIR: "./accessibility-output"
+
+    # Optional dashboard integration
+    # DASHBOARD_URL: "https://your-dashboard.example.com"
+    # DASHBOARD_API_KEY: $DASHBOARD_API_KEY
+  script:
+    - /entrypoint.sh
+  artifacts:
+    when: always
+    paths:
+      - $OUTPUT_DIR/accessibility-results.json
+    reports:
+      junit: $OUTPUT_DIR/accessibility-results.xml
+    expire_in: 30 days
+  allow_failure: false
+
+# Alternative: Run tests without the Docker image (self-hosted runner with Node.js)
+.at-agent-test-native:
+  stage: test
+  variables:
+    TEST_CONFIG: "accessibility-tests.json"
+    PROVIDER: "openai"
+    HEADLESS: "true"
+    CONTINUE_ON_FAILURE: "true"
+  before_script:
+    - git clone https://github.com/your-org/at-agent.git /tmp/at-agent
+    - cd /tmp/at-agent && npm install
+    - npx playwright install --with-deps chromium
+  script:
+    - |
+      cd /tmp/at-agent
+      RESULTS="[]"
+      PASSED=0
+      FAILED=0
+
+      # Parse JSON config and run tests
+      for row in $(cat "${CI_PROJECT_DIR}/${TEST_CONFIG}" | jq -c '.[]'); do
+        url=$(echo "$row" | jq -r '.url')
+        goal=$(echo "$row" | jq -r '.goal')
+
+        echo "Testing: $url"
+        echo "Goal: $goal"
+
+        result=$(npm run start:agent-cli -- "$url" "$goal" "$PROVIDER" --json 2>&1 | grep -o '{"url".*}' | head -1 || echo '{}')
+        success=$(echo "$result" | jq -r '.success // false')
+
+        RESULTS=$(echo "$RESULTS" | jq --argjson r "$result" '. + [$r]')
+
+        if [ "$success" = "true" ]; then
+          PASSED=$((PASSED + 1))
+          echo "PASSED"
+        else
+          FAILED=$((FAILED + 1))
+          echo "FAILED"
+          if [ "$CONTINUE_ON_FAILURE" != "true" ]; then
+            break
+          fi
+        fi
+        echo ""
+      done
+
+      echo "$RESULTS" > "${CI_PROJECT_DIR}/accessibility-results.json"
+
+      echo "Summary: Passed=$PASSED, Failed=$FAILED"
+
+      if [ "$FAILED" -gt 0 ]; then
+        exit 1
+      fi
+  artifacts:
+    when: always
+    paths:
+      - accessibility-results.json
+    expire_in: 30 days

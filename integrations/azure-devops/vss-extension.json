@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json.schemastore.org/vss-extension",
+  "manifestVersion": 1,
+  "id": "at-agent",
+  "name": "AT Agent - Accessibility Testing",
+  "version": "1.2.0",
+  "publisher": "at-agent",
+  "description": "Run AI-powered accessibility tests using a virtual screen reader in your Azure Pipelines",
+  "categories": ["Azure Pipelines"],
+  "tags": ["accessibility", "testing", "a11y", "wcag", "screen-reader", "ai"],
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "icons": {
+    "default": "images/icon.png"
+  },
+  "content": {
+    "details": {
+      "path": "overview.md"
+    }
+  },
+  "links": {
+    "repository": {
+      "uri": "https://github.com/your-org/at-agent"
+    },
+    "issues": {
+      "uri": "https://github.com/your-org/at-agent/issues"
+    }
+  },
+  "branding": {
+    "color": "#10b981",
+    "theme": "dark"
+  },
+  "files": [
+    {
+      "path": "tasks/accessibility-agent"
+    }
+  ],
+  "contributions": [
+    {
+      "id": "accessibility-agent-task",
+      "type": "ms.vss-distributed-task.task",
+      "targets": ["ms.vss-distributed-task.tasks"],
+      "properties": {
+        "name": "tasks/accessibility-agent"
+      }
+    }
+  ]
+}

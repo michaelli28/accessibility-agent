@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Bootstrap-style navbar</title>
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; }
+    .navbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 8px 16px; background: #f8f9fa; }
+    .navbar-brand { font-weight: bold; color: #212529; text-decoration: none; }
+    .navbar-toggler { width: 40px; height: 32px; border: 1px solid #adb5bd; border-radius: 4px; background: transparent; cursor: pointer; }
+    .navbar-toggler-icon { display: block; width: 18px; height: 2px; margin: 0 auto; background: #212529; box-shadow: 0 -6px 0 #212529, 0 6px 0 #212529; }
+    .collapse:not(.show) { display: none; }
+    .navbar-nav { display: flex; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .nav-link { padding: 4px 8px; border: 0; background: none; color: #0d6efd; font: inherit; text-decoration: none; cursor: pointer; }
+    .dropdown { position: relative; }
+    .dropdown-menu { display: none; position: absolute; top: 100%; left: 0; min-width: 160px; margin: 0; padding: 4px 0; list-style: none; background: #fff; border: 1px solid #ccc; }
+    .dropdown-menu.show { display: block; }
+    .dropdown-item { display: block; padding: 4px 16px; color: #212529; text-decoration: none; }
+    .search { display: flex; gap: 4px; }
+    .offcanvas { position: fixed; top: 0; bottom: 0; left: 0; width: 280px; padding: 16px; background: #fff; border-right: 1px solid #ccc; visibility: hidden; transform: translateX(-100%); }
+    .offcanvas.show { visibility: visible; transform: none; }
+    .offcanvas-header { display: flex; justify-content: space-between; align-items: center; }
+    .btn-close { position: relative; width: 24px; height: 24px; border: 0; background: transparent; cursor: pointer; }
+    .btn-close::before, .btn-close::after { content: ""; position: absolute; left: 4px; right: 4px; top: 11px; height: 2px; background: #212529; }
+    .btn-close::before { transform: rotate(45deg); }
+    .btn-close::after { transform: rotate(-45deg); }
+  </style>
+</head>
+<body>
+  <nav class="navbar" aria-label="Main">
+    <a class="navbar-brand" href="#" data-bench-id="brand">Brand</a>
+    <button class="navbar-toggler" id="navbar-toggler" type="button" aria-controls="navbar-nav" aria-expanded="true" aria-label="Toggle navigation" data-bench-id="toggler"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse show" id="navbar-nav">
+      <ul class="navbar-nav">
+        <li><a class="nav-link" href="#" aria-current="page" data-bench-id="nav-home">Home</a></li>
+        <li><a class="nav-link" href="#features" data-bench-id="nav-features">Features</a></li>
+        <li class="dropdown">
+          <button class="nav-link dropdown-toggle" id="products-toggle" type="button" aria-controls="products-menu" aria-expanded="false" data-bench-id="dropdown-toggle">Products</button>
+          <ul class="dropdown-menu" id="products-menu">
+            <li><a class="dropdown-item" href="#laptops" data-bench-id="dropdown-item-1">Laptops</a></li>
+            <li><a class="dropdown-item" href="#tablets" data-bench-id="dropdown-item-2">Tablets</a></li>
+            <li><a class="dropdown-item" href="#phones" data-bench-id="dropdown-item-3">Phones</a></li>
+            <li><a class="dropdown-item" href="#watches" data-bench-id="dropdown-item-4">Watches</a></li>
+            <li><a class="dropdown-item" href="#audio" data-bench-id="dropdown-item-5">Audio</a></li>
+            <li><a class="dropdown-item" href="#accessories" data-bench-id="dropdown-item-6">Accessories</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <form class="search" id="navbar-search" role="search" action="#">
+      <input type="hidden" name="csrf_token" value="3f9a1c07" data-bench-id="hidden-csrf">
+      <input type="hidden" name="locale" value="en-US" data-bench-id="hidden-locale">
+      <input type="hidden" name="ref" value="navbar" data-bench-id="hidden-ref">
+      <input type="search" name="q" placeholder="Search" aria-label="Search" data-bench-id="search-input">
+      <button type="submit" data-bench-id="search-submit">Search</button>
+    </form>
+    <button type="button" id="offcanvas-open" aria-controls="offcanvas-menu" aria-expanded="false" data-bench-id="offcanvas-open">Account menu</button>
+  </nav>
+  <div class="offcanvas" id="offcanvas-menu" role="dialog" aria-labelledby="offcanvas-title" tabindex="-1">
+    <div class="offcanvas-header">
+      <h2 id="offcanvas-title">Account</h2>
+      <button class="btn-close" id="offcanvas-close" type="button" aria-label="Close" data-bench-id="offcanvas-close"></button>
+    </div>
+    <ul>
+      <li><a href="#profile" data-bench-id="offcanvas-link-1">Profile</a></li>
+      <li><a href="#orders" data-bench-id="offcanvas-link-2">Orders</a></li>
+      <li><a href="#sign-out" data-bench-id="offcanvas-link-3">Sign out</a></li>
+    </ul>
+  </div>
+  <main>
+    <h1>Welcome</h1>
+    <p id="features">Features section.</p>
+  </main>
+  <script>
+    (function () {
+      var toggler = document.getElementById('navbar-toggler');
+      var collapse = document.getElementById('navbar-nav');
+      toggler.addEventListener('click', function () {
+        toggler.setAttribute('aria-expanded', String(collapse.classList.toggle('show')));
+      });
+
+      var toggle = document.getElementById('products-toggle');
+      var menu = document.getElementById('products-menu');
+      function setMenu(open) {
+        menu.classList.toggle('show', open);
+        toggle.setAttribute('aria-expanded', String(open));
+      }
+      toggle.addEventListener('click', function () { setMenu(!menu.classList.contains('show')); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && menu.classList.contains('show')) {
+          setMenu(false);
+          toggle.focus();
+        }
+      });
+
+      var opener = document.getElementById('offcanvas-open');
+      var panel = document.getElementById('offcanvas-menu');
+      var closer = document.getElementById('offcanvas-close');
+      function setPanel(open) {
+        panel.classList.toggle('show', open);
+        opener.setAttribute('aria-expanded', String(open));
+        (open ? closer : opener).focus();
+      }
+      opener.addEventListener('click', function () { setPanel(true); });
+      closer.addEventListener('click', function () { setPanel(false); });
+      panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') setPanel(false); });
+
+      document.getElementById('navbar-search').addEventListener('submit', function (e) { e.preventDefault(); });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+{
+  "name": "accessibility-driver-framework",
+  "version": "0.0.1",
+  "private": true,
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "puppeteer",
+      "playwright",
+      "@playwright/test"
+    ]
+  },
+  "workspaces": [
+    "packages/accessibility",
+    "packages/browser",
+    "packages/agent",
+    "packages/cli",
+    "apps/ui",
+    "apps/virtual-screen-reader",
+    "taskgen"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "build:packages": "npm run build -w @at-agent/browser && npm run build -w @at-agent/accessibility && npm run build -w @at-agent/agent && npm run build -w @at-agent/cli",
+    "test": "npm run test --workspaces --if-present",
+    "test:packages": "npm run test -w @at-agent/browser && npm run test -w @at-agent/accessibility && npm run test -w @at-agent/agent && npm run test -w @at-agent/cli",
+    "at-agent": "node packages/cli/dist/index.js",
+    "lint": "eslint . --ext .ts,.tsx",
+    "dev:sr": "tsx -r tsconfig-paths/register scripts/runScreenReaderDev.ts",
+    "audit": "tsx -r tsconfig-paths/register scripts/runAudit.ts",
+    "test-browser": "tsx scripts/testBrowserClient.ts",
+    "start:ui": "tsx -r tsconfig-paths/register apps/ui/server.ts",
+    "start:debug-ui": "tsx -r tsconfig-paths/register apps/ui/debug-server.ts",
+    "taskgen": "tsx -r tsconfig-paths/register taskgen/src/cli.ts",
+    "taskgen:detailed": "tsx -r tsconfig-paths/register taskgen/src/cli.ts --detailed",
+    "taskgen:run": "tsx -r tsconfig-paths/register scripts/runTaskgenTests.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.25",
+    "esbuild": "^0.27.1",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "puppeteer": "^24.31.0",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@playwright/test": "^1.57.0",
+    "@types/express": "^4.17.0",
+    "@types/ws": "^8.5.0",
+    "axe-core": "^4.11.0",
+    "boxen": "^8.0.1",
+    "chalk": "^5.6.2",
+    "dom-accessibility-api": "^0.7.0",
+    "dotenv": "^17.2.3",
+    "express": "^4.18.0",
+    "firebase-admin": "^12.0.0",
+    "jsonrepair": "^3.13.1",
+    "openai": "^6.9.1",
+    "ora": "^9.0.0",
+    "playwright": "^1.57.0",
+    "tiktoken": "^1.0.22",
+    "ws": "^8.14.0",
+    "zod": "^3.23.8"
+  }
+}

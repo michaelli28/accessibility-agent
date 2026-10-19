@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Focused aria-hidden named control</title>
+</head>
+<body>
+<main>
+<h1>Focused aria-hidden, named, tabindex=-1</h1>
+<!-- Focus keeps the aria-hidden node in the AX tree. Named and not generic, so it reaches not_focusable, which runs before hidden_but_interactive. -->
+<div role="button" aria-hidden="true" tabindex="-1" autofocus onclick="void 0" data-bench-id="aria-hidden-focused-named">Dismiss</div>
+<button type="button" data-bench-id="real-button">Continue</button>
+</main>
+</body>
+</html>

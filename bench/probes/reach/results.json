@@ -1,0 +1,989 @@
+{
+  "ranAt": "2026-09-18T22:18:42.158Z",
+  "runs": [
+    {
+      "mode": "shell",
+      "version": "143.0.7499.4",
+      "launchOpts": {},
+      "results": [
+        {
+          "site": "example",
+          "mode": "shell",
+          "url": "https://example.com",
+          "status": 200,
+          "dclMs": 126,
+          "redirectChain": [
+            "https://example.com/"
+          ],
+          "networkIdle": "reached",
+          "idleMs": 496,
+          "finalUrl": "https://example.com/",
+          "title": "Example Domain",
+          "focusable": 1,
+          "bodyChars": 129,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": false,
+          "botWallHit": null,
+          "screenshot": "shots/example-shell.png",
+          "totalMs": 640
+        },
+        {
+          "site": "amazon",
+          "mode": "shell",
+          "url": "https://www.amazon.com",
+          "status": 202,
+          "dclMs": 370,
+          "redirectChain": [
+            "https://www.amazon.com/"
+          ],
+          "networkIdle": "reached",
+          "idleMs": 2954,
+          "finalUrl": "https://www.amazon.com/",
+          "title": "Amazon.com. Spend less. Smile more.",
+          "focusable": 316,
+          "bodyChars": 8718,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": false,
+          "botWallHit": null,
+          "screenshot": "shots/amazon-shell.png",
+          "totalMs": 3428
+        },
+        {
+          "site": "mealkeyway",
+          "mode": "shell",
+          "url": "https://order.mealkeyway.com/customer/release/index?mid=75452b6a42425a6b4f31646a6e4633415168496f75673d3d#/main",
+          "status": 200,
+          "dclMs": 559,
+          "redirectChain": [
+            "https://order.mealkeyway.com/customer/release/index?mid=75452b6a42425a6b4f31646a6e4633415168496f75673d3d"
+          ],
+          "networkIdle": "reached",
+          "idleMs": 2299,
+          "finalUrl": "https://order.mealkeyway.com/customer/release/index?mid=75452b6a42425a6b4f31646a6e4633415168496f75673d3d#/main",
+          "title": "Trizest Resturant - Online Order",
+          "focusable": 261,
+          "bodyChars": 11010,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": false,
+          "botWallHit": null,
+          "screenshot": "shots/mealkeyway-shell.png",
+          "totalMs": 2896
+        },
+        {
+          "site": "troyroyalpalace",
+          "mode": "shell",
+          "url": "https://www.troyroyalpalace.com",
+          "status": 404,
+          "dclMs": 392,
+          "redirectChain": [
+            "https://www.troyroyalpalace.com/"
+          ],
+          "networkIdle": "reached",
+          "idleMs": 514,
+          "finalUrl": "https://www.troyroyalpalace.com/",
+          "title": "Squarespace - Website Expired",
+          "focusable": 1,
+          "bodyChars": 92,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": false,
+          "botWallHit": null,
+          "screenshot": "shots/troyroyalpalace-shell.png",
+          "totalMs": 922
+        },
+        {
+          "site": "fake-university",
+          "mode": "shell",
+          "url": "https://fake-university.com",
+          "status": 200,
+          "dclMs": 442,
+          "redirectChain": [
+            "https://fake-university.com/",
+            "https://www.fake-university.com/"
+          ],
+          "networkIdle": "reached",
+          "idleMs": 681,
+          "finalUrl": "https://www.fake-university.com/",
+          "title": "",
+          "focusable": 77,
+          "bodyChars": 2648,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": false,
+          "botWallHit": null,
+          "screenshot": "shots/fake-university-shell.png",
+          "totalMs": 1167
+        },
+        {
+          "site": "cmu",
+          "mode": "shell",
+          "url": "https://cmu.edu",
+          "status": 200,
+          "dclMs": 749,
+          "redirectChain": [
+            "https://cmu.edu/",
+            "https://www.cmu.edu/"
+          ],
+          "networkIdle": "reached",
+          "idleMs": 22661,
+          "finalUrl": "https://www.cmu.edu/",
+          "title": "Carnegie Mellon University | CMU",
+          "focusable": 178,
+          "bodyChars": 5100,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Robot",
+            "context": "otency of Going Analog: Reflections on the Hum… Community Robotics Innovation Center Earns LEED Platinum Certification for"
+          },
+          "screenshot": "shots/cmu-shell.png",
+          "totalMs": 23480
+        },
+        {
+          "site": "troy-k12",
+          "mode": "shell",
+          "url": "https://www.troy.k12.mi.us/",
+          "status": 200,
+          "dclMs": 673,
+          "redirectChain": [
+            "https://www.troy.k12.mi.us/"
+          ],
+          "networkIdle": "reached",
+          "idleMs": 1371,
+          "finalUrl": "https://www.troy.k12.mi.us/",
+          "title": "Home - Troy School District",
+          "focusable": 631,
+          "bodyChars": 5763,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": false,
+          "botWallHit": null,
+          "screenshot": "shots/troy-k12-shell.png",
+          "totalMs": 2289
+        },
+        {
+          "site": "bad-index",
+          "mode": "shell",
+          "url": "https://www.w3.org/WAI/demos/bad/",
+          "status": 403,
+          "dclMs": 123,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/",
+            "https://www.w3.org/WAI/demos/bad/"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-index-shell.png",
+          "totalMs": 30155
+        },
+        {
+          "site": "bad-before-home",
+          "mode": "shell",
+          "url": "https://www.w3.org/WAI/demos/bad/before/home.html",
+          "status": 403,
+          "dclMs": 131,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/before/home.html",
+            "https://www.w3.org/WAI/demos/bad/before/home.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/before/home.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-before-home-shell.png",
+          "totalMs": 30150
+        },
+        {
+          "site": "bad-before-news",
+          "mode": "shell",
+          "url": "https://www.w3.org/WAI/demos/bad/before/news.html",
+          "status": 403,
+          "dclMs": 125,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/before/news.html",
+            "https://www.w3.org/WAI/demos/bad/before/news.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/before/news.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-before-news-shell.png",
+          "totalMs": 30150
+        },
+        {
+          "site": "bad-before-tickets",
+          "mode": "shell",
+          "url": "https://www.w3.org/WAI/demos/bad/before/tickets.html",
+          "status": 403,
+          "dclMs": 122,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/before/tickets.html",
+            "https://www.w3.org/WAI/demos/bad/before/tickets.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/before/tickets.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-before-tickets-shell.png",
+          "totalMs": 30147
+        },
+        {
+          "site": "bad-before-survey",
+          "mode": "shell",
+          "url": "https://www.w3.org/WAI/demos/bad/before/survey.html",
+          "status": 403,
+          "dclMs": 121,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/before/survey.html",
+            "https://www.w3.org/WAI/demos/bad/before/survey.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/before/survey.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-before-survey-shell.png",
+          "totalMs": 30153
+        },
+        {
+          "site": "bad-after-home",
+          "mode": "shell",
+          "url": "https://www.w3.org/WAI/demos/bad/after/home.html",
+          "status": 403,
+          "dclMs": 121,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/after/home.html",
+            "https://www.w3.org/WAI/demos/bad/after/home.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/after/home.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-after-home-shell.png",
+          "totalMs": 30144
+        },
+        {
+          "site": "bad-after-news",
+          "mode": "shell",
+          "url": "https://www.w3.org/WAI/demos/bad/after/news.html",
+          "status": 403,
+          "dclMs": 120,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/after/news.html",
+            "https://www.w3.org/WAI/demos/bad/after/news.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/after/news.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-after-news-shell.png",
+          "totalMs": 30139
+        },
+        {
+          "site": "bad-after-tickets",
+          "mode": "shell",
+          "url": "https://www.w3.org/WAI/demos/bad/after/tickets.html",
+          "status": 403,
+          "dclMs": 138,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/after/tickets.html",
+            "https://www.w3.org/WAI/demos/bad/after/tickets.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/after/tickets.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-after-tickets-shell.png",
+          "totalMs": 30172
+        },
+        {
+          "site": "bad-after-survey",
+          "mode": "shell",
+          "url": "https://www.w3.org/WAI/demos/bad/after/survey.html",
+          "status": 403,
+          "dclMs": 116,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/after/survey.html",
+            "https://www.w3.org/WAI/demos/bad/after/survey.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/after/survey.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-after-survey-shell.png",
+          "totalMs": 30146
+        },
+        {
+          "site": "bad-report-before-home",
+          "mode": "shell",
+          "url": "https://www.w3.org/WAI/demos/bad/before/reports/home.html",
+          "status": 403,
+          "dclMs": 127,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/before/reports/home.html",
+            "https://www.w3.org/WAI/demos/bad/before/reports/home.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/before/reports/home.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-report-before-home-shell.png",
+          "totalMs": 30148
+        },
+        {
+          "site": "bad-report-before-news",
+          "mode": "shell",
+          "url": "https://www.w3.org/WAI/demos/bad/before/reports/news.html",
+          "status": 403,
+          "dclMs": 119,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/before/reports/news.html",
+            "https://www.w3.org/WAI/demos/bad/before/reports/news.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/before/reports/news.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-report-before-news-shell.png",
+          "totalMs": 30139
+        },
+        {
+          "site": "bad-report-before-tickets",
+          "mode": "shell",
+          "url": "https://www.w3.org/WAI/demos/bad/before/reports/tickets.html",
+          "status": 403,
+          "dclMs": 120,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/before/reports/tickets.html",
+            "https://www.w3.org/WAI/demos/bad/before/reports/tickets.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/before/reports/tickets.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-report-before-tickets-shell.png",
+          "totalMs": 30158
+        },
+        {
+          "site": "bad-report-before-survey",
+          "mode": "shell",
+          "url": "https://www.w3.org/WAI/demos/bad/before/reports/survey.html",
+          "status": 403,
+          "dclMs": 114,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/before/reports/survey.html",
+            "https://www.w3.org/WAI/demos/bad/before/reports/survey.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/before/reports/survey.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-report-before-survey-shell.png",
+          "totalMs": 30144
+        }
+      ]
+    },
+    {
+      "mode": "newheadless",
+      "version": "143.0.7499.4",
+      "launchOpts": {
+        "channel": "chromium"
+      },
+      "results": [
+        {
+          "site": "example",
+          "mode": "newheadless",
+          "url": "https://example.com",
+          "status": 200,
+          "dclMs": 163,
+          "redirectChain": [
+            "https://example.com/"
+          ],
+          "networkIdle": "reached",
+          "idleMs": 501,
+          "finalUrl": "https://example.com/",
+          "title": "Example Domain",
+          "focusable": 1,
+          "bodyChars": 129,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": false,
+          "botWallHit": null,
+          "screenshot": "shots/example-newheadless.png",
+          "totalMs": 1548
+        },
+        {
+          "site": "amazon",
+          "mode": "newheadless",
+          "url": "https://www.amazon.com",
+          "status": 200,
+          "dclMs": 381,
+          "redirectChain": [
+            "https://www.amazon.com/"
+          ],
+          "networkIdle": "reached",
+          "idleMs": 686,
+          "finalUrl": "https://www.amazon.com/",
+          "title": "Amazon.com",
+          "focusable": 3,
+          "bodyChars": 146,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": false,
+          "botWallHit": null,
+          "screenshot": "shots/amazon-newheadless.png",
+          "totalMs": 1548
+        },
+        {
+          "site": "mealkeyway",
+          "mode": "newheadless",
+          "url": "https://order.mealkeyway.com/customer/release/index?mid=75452b6a42425a6b4f31646a6e4633415168496f75673d3d#/main",
+          "status": 200,
+          "dclMs": 623,
+          "redirectChain": [
+            "https://order.mealkeyway.com/customer/release/index?mid=75452b6a42425a6b4f31646a6e4633415168496f75673d3d"
+          ],
+          "networkIdle": "reached",
+          "idleMs": 3252,
+          "finalUrl": "https://order.mealkeyway.com/customer/release/index?mid=75452b6a42425a6b4f31646a6e4633415168496f75673d3d#/main",
+          "title": "Trizest Resturant - Online Order",
+          "focusable": 261,
+          "bodyChars": 11010,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": false,
+          "botWallHit": null,
+          "screenshot": "shots/mealkeyway-newheadless.png",
+          "totalMs": 4216
+        },
+        {
+          "site": "troyroyalpalace",
+          "mode": "newheadless",
+          "url": "https://www.troyroyalpalace.com",
+          "status": 404,
+          "dclMs": 495,
+          "redirectChain": [
+            "https://www.troyroyalpalace.com/"
+          ],
+          "networkIdle": "reached",
+          "idleMs": 514,
+          "finalUrl": "https://www.troyroyalpalace.com/",
+          "title": "Squarespace - Website Expired",
+          "focusable": 1,
+          "bodyChars": 92,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": false,
+          "botWallHit": null,
+          "screenshot": "shots/troyroyalpalace-newheadless.png",
+          "totalMs": 1470
+        },
+        {
+          "site": "fake-university",
+          "mode": "newheadless",
+          "url": "https://fake-university.com",
+          "status": 200,
+          "dclMs": 464,
+          "redirectChain": [
+            "https://fake-university.com/",
+            "https://www.fake-university.com/"
+          ],
+          "networkIdle": "reached",
+          "idleMs": 605,
+          "finalUrl": "https://www.fake-university.com/",
+          "title": "",
+          "focusable": 77,
+          "bodyChars": 2648,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": false,
+          "botWallHit": null,
+          "screenshot": "shots/fake-university-newheadless.png",
+          "totalMs": 1342
+        },
+        {
+          "site": "cmu",
+          "mode": "newheadless",
+          "url": "https://cmu.edu",
+          "status": 200,
+          "dclMs": 976,
+          "redirectChain": [
+            "https://cmu.edu/",
+            "https://www.cmu.edu/"
+          ],
+          "networkIdle": "reached",
+          "idleMs": 19402,
+          "finalUrl": "https://www.cmu.edu/",
+          "title": "Carnegie Mellon University | CMU",
+          "focusable": 178,
+          "bodyChars": 5100,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Robot",
+            "context": "otency of Going Analog: Reflections on the Hum… Community Robotics Innovation Center Earns LEED Platinum Certification for"
+          },
+          "screenshot": "shots/cmu-newheadless.png",
+          "totalMs": 20465
+        },
+        {
+          "site": "troy-k12",
+          "mode": "newheadless",
+          "url": "https://www.troy.k12.mi.us/",
+          "status": 200,
+          "dclMs": 3968,
+          "redirectChain": [
+            "https://www.troy.k12.mi.us/"
+          ],
+          "networkIdle": "reached",
+          "idleMs": 1845,
+          "finalUrl": "https://www.troy.k12.mi.us/",
+          "title": "Home - Troy School District",
+          "focusable": 613,
+          "bodyChars": 5763,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": false,
+          "botWallHit": null,
+          "screenshot": "shots/troy-k12-newheadless.png",
+          "totalMs": 6008
+        },
+        {
+          "site": "bad-index",
+          "mode": "newheadless",
+          "url": "https://www.w3.org/WAI/demos/bad/",
+          "status": 403,
+          "dclMs": 150,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/",
+            "https://www.w3.org/WAI/demos/bad/"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-index-newheadless.png",
+          "totalMs": 30180
+        },
+        {
+          "site": "bad-before-home",
+          "mode": "newheadless",
+          "url": "https://www.w3.org/WAI/demos/bad/before/home.html",
+          "status": 403,
+          "dclMs": 145,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/before/home.html",
+            "https://www.w3.org/WAI/demos/bad/before/home.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/before/home.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-before-home-newheadless.png",
+          "totalMs": 30219
+        },
+        {
+          "site": "bad-before-news",
+          "mode": "newheadless",
+          "url": "https://www.w3.org/WAI/demos/bad/before/news.html",
+          "status": 403,
+          "dclMs": 145,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/before/news.html",
+            "https://www.w3.org/WAI/demos/bad/before/news.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/before/news.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-before-news-newheadless.png",
+          "totalMs": 30181
+        },
+        {
+          "site": "bad-before-tickets",
+          "mode": "newheadless",
+          "url": "https://www.w3.org/WAI/demos/bad/before/tickets.html",
+          "status": 403,
+          "dclMs": 116,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/before/tickets.html",
+            "https://www.w3.org/WAI/demos/bad/before/tickets.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/before/tickets.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-before-tickets-newheadless.png",
+          "totalMs": 30152
+        },
+        {
+          "site": "bad-before-survey",
+          "mode": "newheadless",
+          "url": "https://www.w3.org/WAI/demos/bad/before/survey.html",
+          "status": 403,
+          "dclMs": 151,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/before/survey.html",
+            "https://www.w3.org/WAI/demos/bad/before/survey.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/before/survey.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-before-survey-newheadless.png",
+          "totalMs": 30176
+        },
+        {
+          "site": "bad-after-home",
+          "mode": "newheadless",
+          "url": "https://www.w3.org/WAI/demos/bad/after/home.html",
+          "status": 403,
+          "dclMs": 151,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/after/home.html",
+            "https://www.w3.org/WAI/demos/bad/after/home.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/after/home.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-after-home-newheadless.png",
+          "totalMs": 30209
+        },
+        {
+          "site": "bad-after-news",
+          "mode": "newheadless",
+          "url": "https://www.w3.org/WAI/demos/bad/after/news.html",
+          "status": 403,
+          "dclMs": 122,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/after/news.html",
+            "https://www.w3.org/WAI/demos/bad/after/news.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/after/news.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-after-news-newheadless.png",
+          "totalMs": 30151
+        },
+        {
+          "site": "bad-after-tickets",
+          "mode": "newheadless",
+          "url": "https://www.w3.org/WAI/demos/bad/after/tickets.html",
+          "status": 403,
+          "dclMs": 122,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/after/tickets.html",
+            "https://www.w3.org/WAI/demos/bad/after/tickets.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/after/tickets.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-after-tickets-newheadless.png",
+          "totalMs": 30151
+        },
+        {
+          "site": "bad-after-survey",
+          "mode": "newheadless",
+          "url": "https://www.w3.org/WAI/demos/bad/after/survey.html",
+          "status": 403,
+          "dclMs": 154,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/after/survey.html",
+            "https://www.w3.org/WAI/demos/bad/after/survey.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/after/survey.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-after-survey-newheadless.png",
+          "totalMs": 30190
+        },
+        {
+          "site": "bad-report-before-home",
+          "mode": "newheadless",
+          "url": "https://www.w3.org/WAI/demos/bad/before/reports/home.html",
+          "status": 403,
+          "dclMs": 134,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/before/reports/home.html",
+            "https://www.w3.org/WAI/demos/bad/before/reports/home.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/before/reports/home.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-report-before-home-newheadless.png",
+          "totalMs": 30176
+        },
+        {
+          "site": "bad-report-before-news",
+          "mode": "newheadless",
+          "url": "https://www.w3.org/WAI/demos/bad/before/reports/news.html",
+          "status": 403,
+          "dclMs": 115,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/before/reports/news.html",
+            "https://www.w3.org/WAI/demos/bad/before/reports/news.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/before/reports/news.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-report-before-news-newheadless.png",
+          "totalMs": 30144
+        },
+        {
+          "site": "bad-report-before-tickets",
+          "mode": "newheadless",
+          "url": "https://www.w3.org/WAI/demos/bad/before/reports/tickets.html",
+          "status": 403,
+          "dclMs": 130,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/before/reports/tickets.html",
+            "https://www.w3.org/WAI/demos/bad/before/reports/tickets.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/before/reports/tickets.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-report-before-tickets-newheadless.png",
+          "totalMs": 30168
+        },
+        {
+          "site": "bad-report-before-survey",
+          "mode": "newheadless",
+          "url": "https://www.w3.org/WAI/demos/bad/before/reports/survey.html",
+          "status": 403,
+          "dclMs": 120,
+          "redirectChain": [
+            "https://www.w3.org/WAI/demos/bad/before/reports/survey.html",
+            "https://www.w3.org/WAI/demos/bad/before/reports/survey.html"
+          ],
+          "networkIdle": "timeout",
+          "finalUrl": "https://www.w3.org/WAI/demos/bad/before/reports/survey.html",
+          "title": "Just a moment...",
+          "focusable": 2,
+          "bodyChars": 258,
+          "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+          "webdriver": true,
+          "botWall": true,
+          "botWallHit": {
+            "term": "Just a moment",
+            "context": "Just a moment... www.w3.org Performing security verification This websit"
+          },
+          "screenshot": "shots/bad-report-before-survey-newheadless.png",
+          "totalMs": 30156
+        }
+      ]
+    }
+  ]
+}

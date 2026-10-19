@@ -1,0 +1,21 @@
+{
+  "name": "@adf/ui",
+  "version": "0.0.1",
+  "main": "server.ts",
+  "scripts": {
+    "start": "ts-node server.ts"
+  },
+  "dependencies": {
+    "express": "^4.18.0",
+    "ws": "^8.13.0",
+    "dotenv": "^17.2.3",
+    "@adf/browser": "*",
+    "@adf/drivers": "*",
+    "@adf/virtual-screen-reader": "*",
+    "@adf/agent": "*"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.0",
+    "@types/ws": "^8.5.0"
+  }
+}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Canvas tote bag</title>
+</head>
+<body>
+  <main id="app">
+    <h1>Canvas tote bag</h1>
+    <nav aria-label="Shop"><a href="#home" data-bench-id="home-link">Home</a> <a href="#about" data-bench-id="about-link">About</a></nav>
+    <p>$24.00</p>
+    <button type="button" data-action="buy" data-bench-id="buy-button">Buy now</button>
+    <div role="button" tabindex="0" data-action="cart" data-bench-id="cart-button">Add to cart</div>
+  </main>
+  <p id="status" role="status"></p>
+  <!-- External on purpose: bench/seed.ts skips pages with script[src]. This page replaces every node in <main> on its
+       first keydown, so a seeded operator's script, bound to the original nodes, would act on nothing afterwards and
+       every seeded label here would be false. -->
+  <script src="remount-on-keydown.js"></script>
+</body>
+</html>

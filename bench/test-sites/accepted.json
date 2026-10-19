@@ -1,0 +1,130 @@
+{
+  "seed": "at-agent-bench-2026-09-18",
+  "list": {
+    "id": "V3YPN",
+    "sha256": "eb755facd7174045ae81c41d0f8496d9b9ae667b6a7047c861cbe56c02a21445"
+  },
+  "complete": true,
+  "accepted": [
+    {
+      "i": 1,
+      "rank": 22399,
+      "domain": "topjobs.lk",
+      "finalUrl": "https://topjobs.lk/"
+    },
+    {
+      "i": 6,
+      "rank": 78760,
+      "domain": "apina.biz",
+      "finalUrl": "https://apina.biz/"
+    },
+    {
+      "i": 7,
+      "rank": 81702,
+      "domain": "pasarjaya.co.id",
+      "finalUrl": "https://pasarjaya.co.id/"
+    },
+    {
+      "i": 8,
+      "rank": 50741,
+      "domain": "anime.nexus",
+      "finalUrl": "https://anime.nexus/"
+    },
+    {
+      "i": 9,
+      "rank": 63899,
+      "domain": "fashionbeans.com",
+      "finalUrl": "https://www.fashionbeans.com/"
+    },
+    {
+      "i": 10,
+      "rank": 61381,
+      "domain": "noticiasdealava.eus",
+      "finalUrl": "https://www.noticiasdealava.eus/"
+    },
+    {
+      "i": 11,
+      "rank": 65562,
+      "domain": "hostway.com",
+      "finalUrl": "https://hostway.com/"
+    },
+    {
+      "i": 15,
+      "rank": 81383,
+      "domain": "ekdromi.gr",
+      "finalUrl": "https://www.ekdromi.gr/"
+    },
+    {
+      "i": 16,
+      "rank": 42791,
+      "domain": "afad.gov.tr",
+      "finalUrl": "https://afad.gov.tr/"
+    },
+    {
+      "i": 17,
+      "rank": 18434,
+      "domain": "financesonline.com",
+      "finalUrl": "https://financesonline.com/"
+    },
+    {
+      "i": 18,
+      "rank": 34400,
+      "domain": "ironplanet.com",
+      "finalUrl": "https://www.ironplanet.com/"
+    },
+    {
+      "i": 19,
+      "rank": 11722,
+      "domain": "hyros.com",
+      "finalUrl": "https://hyros.com/"
+    },
+    {
+      "i": 20,
+      "rank": 83360,
+      "domain": "beardo.in",
+      "finalUrl": "https://beardo.in/"
+    },
+    {
+      "i": 21,
+      "rank": 59467,
+      "domain": "hoolai.com",
+      "finalUrl": "https://www.hoolai.com/"
+    },
+    {
+      "i": 22,
+      "rank": 77440,
+      "domain": "dfbocai.net",
+      "finalUrl": "https://www.dfbocai.net/en"
+    },
+    {
+      "i": 27,
+      "rank": 66291,
+      "domain": "ixi.ru",
+      "finalUrl": "https://ixi.ru/"
+    },
+    {
+      "i": 28,
+      "rank": 88229,
+      "domain": "zelesta.nl",
+      "finalUrl": "https://zelesta.nl/"
+    },
+    {
+      "i": 29,
+      "rank": 54780,
+      "domain": "vdc.ru",
+      "finalUrl": "https://vdc.ru/"
+    },
+    {
+      "i": 31,
+      "rank": 73163,
+      "domain": "lionbridge.com",
+      "finalUrl": "https://www.lionbridge.com/"
+    },
+    {
+      "i": 33,
+      "rank": 29185,
+      "domain": "infinity-tracking.com",
+      "finalUrl": "https://www.infinity.co/us/"
+    }
+  ]
+}

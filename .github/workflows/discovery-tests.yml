@@ -1,0 +1,95 @@
+# Workflow for running accessibility tests with auto-discovery
+# The discovery agent analyzes your codebase to generate test cases automatically
+
+name: Accessibility Tests (Auto-Discovery)
+
+on:
+  # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      discovery_prompt:
+        description: 'Instructions for the discovery agent (e.g., "Focus on checkout flow, ignore admin pages")'
+        required: false
+        type: string
+      max_tests:
+        description: 'Maximum number of tests to generate'
+        required: false
+        default: '10'
+        type: string
+
+jobs:
+  accessibility-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Install discovery agent dependencies
+        run: pip install -r discovery-agent/requirements.txt
+
+      # Start your application in the background
+      # IMPORTANT: Adjust this command to match how your app starts
+      - name: Start application
+        run: |
+          npm run dev &
+          echo "Waiting for app to start..."
+        env:
+          PORT: 3001
+
+      - name: Wait for application to be ready
+        run: |
+          npx wait-on http://localhost:3001 --timeout 60000
+          echo "Application is ready!"
+
+      - name: Run Accessibility Tests with Discovery
+        uses: ./.github/actions/accessibility-agent
+        with:
+          discovery-mode: 'auto'
+          base-url: 'http://localhost:3001'
+          discovery-prompt: ${{ inputs.discovery_prompt }}
+          discovery-max-tests: ${{ inputs.max_tests || '10' }}
+          discovery-exclude: 'node_modules,dist,build,.next'
+          provider: 'openai'
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          agent-path: '.'
+          headless: 'true'
+          continue-on-failure: 'true'
+          # Optional: Dashboard integration for live tracking
+          # dashboard-url: ${{ secrets.DASHBOARD_URL }}
+          # dashboard-api-key: ${{ secrets.DASHBOARD_API_KEY }}
+
+      - name: Upload discovered tests
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: discovered-tests
+          path: ${{ steps.accessibility-test.outputs.discovered-tests-path }}
+          retention-days: 30
+          if-no-files-found: ignore
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: accessibility-results
+          path: |
+            accessibility-results.json
+          retention-days: 30
+          if-no-files-found: ignore

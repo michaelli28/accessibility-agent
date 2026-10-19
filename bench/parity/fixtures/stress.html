@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Verifier stress fixture</title>
+<style>.ptr { cursor: pointer; }</style>
+</head>
+<body>
+<!-- From the T1 verifier's 66-element stress page, data-v renamed to data-bench-id so parity keys tell elements apart.
+     Media elements dropped: their AX trees differed between two taskgen runs. -->
+<nav aria-label="Primary">
+<ul class="nav">
+  <li class="nav-item"><a class="nav-link" data-bench-id="nav-home" href="/home">Home</a></li>
+  <li class="nav-item" data-bench-id="li-onclick" onclick="void 0"><a href="/shop" data-bench-id="nav-shop">Shop</a></li>
+</ul>
+</nav>
+<main>
+<h2>Stress</h2>
+<h3 data-bench-id="h3">Sub heading</h3>
+
+<!-- [tabindex] divs -->
+<div tabindex="0" data-bench-id="div-tab0-onclick" onclick="void 0">Tab zero clickable</div>
+<div tabindex="0" data-bench-id="div-tab0-keydown-listener">Tab zero keydown listener</div>
+<div tabindex="3" data-bench-id="div-tab3-onclick" onclick="void 0">Positive tabindex</div>
+<div tabindex="-1" data-bench-id="div-tabneg-plain">Neg plain</div>
+<div tabindex="" data-bench-id="div-tab-empty" onclick="void 0">Empty tabindex</div>
+<div tabindex=" 2 " data-bench-id="div-tab-spaced" onclick="void 0">Spaced tabindex</div>
+<div tabindex="-2" data-bench-id="div-tab-neg2" onclick="void 0">Minus two</div>
+
+<!-- menus -->
+<ul role="menu" aria-label="Actions" data-bench-id="menu">
+  <li role="menuitem" data-bench-id="mi-onclick" onclick="void 0">Cut</li>
+  <li role="menuitem" tabindex="-1" data-bench-id="mi-tabneg">Copy</li>
+  <li role="menuitemcheckbox" aria-checked="false" data-bench-id="mi-checkbox" onclick="void 0">Bold</li>
+</ul>
+<div role="menubar" data-bench-id="menubar"><span role="menuitem" tabindex="0" data-bench-id="mb-file">File</span></div>
+
+<!-- listbox / option; opt-touch's only listener is touchstart (script below) -->
+<div role="listbox" aria-label="Sizes" tabindex="0" data-bench-id="listbox">
+  <div role="option" aria-selected="true" data-bench-id="opt-touch">S</div>
+  <div role="option" aria-selected="false" data-bench-id="opt-onclick" onclick="void 0">M</div>
+</div>
+
+<!-- grid / tree -->
+<div role="grid" aria-label="Table" data-bench-id="grid">
+  <div role="row"><div role="gridcell" data-bench-id="gc-onclick" onclick="void 0">A1</div><div role="gridcell" tabindex="0" data-bench-id="gc-empty"></div></div>
+</div>
+<ul role="tree" aria-label="Files" data-bench-id="tree"><li role="treeitem" aria-expanded="false" data-bench-id="ti-src">src</li></ul>
+
+<!-- framework attributes -->
+<div v-on:click="go" data-bench-id="vue-von">Vue v-on</div>
+<div @click="go" data-bench-id="vue-at">Vue at</div>
+<div ng-click="go()" data-bench-id="ng-click">Angular ng-click</div>
+<div (click)="go()" data-bench-id="ng2-click">Angular paren click</div>
+
+<!-- keyup / mouseup inline only; span-onkeyup is reachable only through the [onkeyup] selector -->
+<span data-bench-id="span-onkeyup" onkeyup="void 0">Keyup</span>
+<span data-bench-id="span-onmouseup" onmouseup="void 0">Mouseup</span>
+
+<!-- nested clickables -->
+<div class="card clickable" data-bench-id="card" onclick="void 0">
+  <h4>Card title</h4>
+  <button type="button" data-bench-id="card-btn" onclick="void 0">Details</button>
+  <a href="#more" class="card-link" data-bench-id="card-link">More</a>
+</div>
+<div role="button" tabindex="0" data-bench-id="outer-rb" onclick="void 0">Outer <span role="button" data-bench-id="inner-rb" onclick="void 0">Inner</span></div>
+
+<!-- semantic odds and ends -->
+<div contenteditable="true" data-bench-id="contenteditable">Edit me</div>
+<select data-bench-id="select" aria-label="Qty"><option>1</option><option>2</option></select>
+<textarea data-bench-id="textarea"></textarea>
+<!-- Numeric AX values: taskgen keeps numbers, the port stringifies them. -->
+<input type="range" data-bench-id="range" aria-label="Volume" value="30">
+<div role="slider" aria-valuenow="5" aria-valuemin="0" aria-valuemax="10" tabindex="0" aria-label="Level" data-bench-id="role-slider">5</div>
+<progress value="40" max="100" data-bench-id="progress"></progress>
+<input type="checkbox" data-bench-id="checkbox" id="cb"><label for="cb" data-bench-id="label-onclick" onclick="void 0">Agree</label>
+<input type="submit" value="Send" data-bench-id="submit">
+<input type="image" alt="" data-bench-id="input-image">
+<a href="/img" data-bench-id="img-link"><img src="data:," alt=""></a>
+<a href="javascript:void(0)" data-bench-id="js-link">JS link</a>
+<button role="switch" aria-checked="false" data-bench-id="switch-button">Dark mode</button>
+<button role="presentation" onclick="void 0" data-bench-id="presentation-button">Presentational</button>
+<div role="textbox" class="input-trigger" data-bench-id="role-textbox">Type here</div>
+<div role="" onclick="void 0" data-bench-id="empty-role">Empty role</div>
+<button aria-label="  " data-bench-id="blank-label"></button>
+<div role="combobox" aria-expanded="false" aria-label="City" data-bench-id="role-combobox">Pick</div>
+
+<!-- Unnamed group with a handler: no_accessible_name only because that check runs before wrong_role. -->
+<div role="group" data-bench-id="group-unnamed-onclick" onclick="void 0">Filters</div>
+
+<!-- class hints; BTN matches only through the lowercased hint -->
+<div class="tabular" data-bench-id="tabular" tabindex="0">Tabular</div>
+<div class="BTN" data-bench-id="upper-btn" onclick="void 0">Upper</div>
+<div class="btn-toggle dropdown" data-bench-id="multi-class" aria-expanded="false">Multi</div>
+<span class="actionable ptr" data-bench-id="action-ptr">Action</span>
+<div class="interactive-card" data-bench-id="interactive-card" aria-label="Promo card" onclick="void 0">Promo</div>
+
+<!-- svg -->
+<svg data-bench-id="svg-onclick" onclick="void 0" width="20" height="20" class="icon-btn"><circle cx="10" cy="10" r="8"></circle></svg>
+
+<!-- aria-hidden non-semantic element that gets focus -->
+<div aria-hidden="true" tabindex="-1" autofocus onclick="void 0" data-bench-id="aria-hidden-focused">Focused but hidden</div>
+
+<!-- visibility variants -->
+<button style="visibility:hidden" data-bench-id="visibility-hidden">Vis hidden</button>
+<button style="opacity:0" data-bench-id="opacity-0">Opacity zero</button>
+<button style="width:0;height:0;padding:0;border:0;overflow:hidden" data-bench-id="zero-size">Zero</button>
+<div inert><button data-bench-id="inert-button">Inert</button></div>
+
+<!-- shadow DOM and iframe -->
+<div id="host" data-bench-id="shadow-host"></div>
+<iframe srcdoc="<button onclick='void 0'>In frame</button>" title="frame" data-bench-id="iframe"></iframe>
+
+<!-- duplicate ids -->
+<button id="dup" data-bench-id="dup-1">Dup one</button>
+<button id="dup" data-bench-id="dup-2">Dup two</button>
+
+<!-- Filled at 1.5 s, inside the 3 s settle window: a shorter settle crawls before it exists. -->
+<div id="late-slot" data-bench-id="late-slot"></div>
+</main>
+<script>
+(function () {
+  var byId = function (id) { return document.querySelector('[data-bench-id="' + id + '"]'); };
+  var noop = function () {};
+  document.getElementById('host').attachShadow({ mode: 'open' }).innerHTML =
+    '<button onclick="void 0">Shadow</button><div class="btn" onclick="void 0">Shadow div</div>';
+  byId('div-tab0-keydown-listener').addEventListener('keydown', noop);
+  byId('opt-touch').addEventListener('touchstart', noop, { passive: true });
+  byId('role-textbox').addEventListener('keyup', noop);
+  byId('action-ptr').addEventListener('mouseup', noop);
+  setTimeout(function () {
+    byId('late-slot').innerHTML =
+      '<div class="btn" data-bench-id="late-btn" onclick="void 0">Late</div>' +
+      '<div role="button" data-bench-id="late-role-button" onclick="void 0">Late action</div>';
+  }, 1500);
+})();
+</script>
+</body>
+</html>

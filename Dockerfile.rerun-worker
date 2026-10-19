@@ -1,0 +1,59 @@
+# AT Agent Rerun Worker - Lightweight Fly.io Deployment
+# Uses Playwright's official image for browser automation
+
+FROM mcr.microsoft.com/playwright:v1.57.0-jammy AS builder
+
+WORKDIR /app
+
+# Copy the entire at-agent project (needed for running tests)
+COPY package*.json ./
+COPY tsconfig.json ./
+
+# Copy workspaces (only what's needed)
+COPY drivers/ ./drivers/
+COPY agent/ ./agent/
+COPY virtual-screen-reader/ ./virtual-screen-reader/
+COPY scripts/ ./scripts/
+
+# Create stub directories for workspaces that aren't needed
+RUN mkdir -p browser evaluation ui && \
+    echo '{"name":"browser","version":"1.0.0"}' > browser/package.json && \
+    echo '{"name":"evaluation","version":"1.0.0"}' > evaluation/package.json && \
+    echo '{"name":"ui","version":"1.0.0"}' > ui/package.json
+
+# Install at-agent dependencies
+RUN npm install
+
+# Build the injected screen reader script
+RUN npm run build:injected --workspace=@adf/virtual-screen-reader
+
+# Build the agent CLI with esbuild (much faster than tsx at runtime)
+RUN npm run build:cli
+
+# Copy and build rerun-worker
+COPY rerun-worker/package*.json ./rerun-worker/
+COPY rerun-worker/tsconfig.json ./rerun-worker/
+COPY rerun-worker/src/ ./rerun-worker/src/
+
+WORKDIR /app/rerun-worker
+RUN npm install
+RUN npm run build
+
+# Production stage
+FROM mcr.microsoft.com/playwright:v1.57.0-jammy
+
+WORKDIR /app
+
+# Copy built application
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/virtual-screen-reader/dist ./virtual-screen-reader/dist
+COPY --from=builder /app/rerun-worker ./rerun-worker
+
+ENV NODE_ENV=production
+ENV AGENT_PATH=/app
+ENV HEADLESS=true
+
+# Run the worker
+CMD ["node", "/app/rerun-worker/dist/worker.js"]

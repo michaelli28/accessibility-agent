@@ -1,0 +1,27 @@
+# fly.toml - Fly.io configuration for AT Agent Rerun Worker
+# Deploy from at-agent root: fly deploy -c rerun-worker/fly.toml
+
+app = 'at-agent-rerun-worker'
+primary_region = 'sjc'
+
+[build]
+  dockerfile = "Dockerfile.rerun-worker"
+
+[env]
+  NODE_ENV = "production"
+  AGENT_PATH = "/app"
+  HEADLESS = "true"
+  POLL_INTERVAL = "5000"
+  DASHBOARD_URL = "https://at-agent-dashboard.fly.dev"
+  # Connect to browser-viewer's Chrome via CDP on Fly.io private network
+  CDP_ENDPOINT = "http://at-agent-browser-viewer.internal:9222"
+  BROWSER_VIEWER_URL = "https://at-agent-browser-viewer.fly.dev/vnc.html"
+
+# No HTTP service - this is a background worker
+[processes]
+  worker = "node /app/rerun-worker/dist/worker.js"
+
+[[vm]]
+  memory = "2gb"
+  cpu_kind = "shared"
+  cpus = 2

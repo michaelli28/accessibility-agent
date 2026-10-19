@@ -1,0 +1,681 @@
+{
+  "schemaVersion": 1,
+  "pages": {
+    "good-operable": {
+      "file": "base/good-operable.html",
+      "page": {
+        "keyboardTrap": false,
+        "trapEscapable": null,
+        "contextChangeOnFocus": false,
+        "focusLostOnArrival": false
+      },
+      "elements": {
+        "skip-link": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Skip link to #main-content."
+        },
+        "search-input": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Text field named by <label for=search>."
+        },
+        "search-submit": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Native submit button 'Go'."
+        },
+        "nav-home": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Nav link (href=#)."
+        },
+        "nav-about": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Nav link (href=#)."
+        },
+        "nav-contact": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Nav link (href=#)."
+        },
+        "sitemap-link": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Link to /sitemap."
+        }
+      }
+    },
+    "identical-links": {
+      "file": "base/identical-links.html",
+      "page": {
+        "keyboardTrap": false,
+        "trapEscapable": null,
+        "contextChangeOnFocus": false,
+        "focusLostOnArrival": false
+      },
+      "elements": {
+        "read-more-01": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "One of 12 identical 'Read more' links (same text, same href, no id); only position tells them apart."
+        },
+        "read-more-02": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "One of 12 identical 'Read more' links (same text, same href, no id); only position tells them apart."
+        },
+        "read-more-03": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "One of 12 identical 'Read more' links (same text, same href, no id); only position tells them apart."
+        },
+        "read-more-04": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "One of 12 identical 'Read more' links (same text, same href, no id); only position tells them apart."
+        },
+        "read-more-05": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "One of 12 identical 'Read more' links (same text, same href, no id); only position tells them apart."
+        },
+        "read-more-06": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "One of 12 identical 'Read more' links (same text, same href, no id); only position tells them apart."
+        },
+        "read-more-07": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "One of 12 identical 'Read more' links (same text, same href, no id); only position tells them apart."
+        },
+        "read-more-08": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "One of 12 identical 'Read more' links (same text, same href, no id); only position tells them apart."
+        },
+        "read-more-09": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "One of 12 identical 'Read more' links (same text, same href, no id); only position tells them apart."
+        },
+        "read-more-10": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "One of 12 identical 'Read more' links (same text, same href, no id); only position tells them apart."
+        },
+        "read-more-11": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "One of 12 identical 'Read more' links (same text, same href, no id); only position tells them apart."
+        },
+        "read-more-12": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "One of 12 identical 'Read more' links (same text, same href, no id); only position tells them apart."
+        }
+      }
+    },
+    "three-links": {
+      "file": "base/three-links.html",
+      "page": {
+        "keyboardTrap": false,
+        "trapEscapable": null,
+        "contextChangeOnFocus": false,
+        "focusLostOnArrival": false
+      },
+      "elements": {
+        "link-1": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Link 'One'."
+        },
+        "link-2": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Link 'Two'."
+        },
+        "link-3": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Link 'Three'."
+        }
+      }
+    },
+    "navbar": {
+      "file": "base/navbar.html",
+      "page": {
+        "keyboardTrap": false,
+        "trapEscapable": null,
+        "contextChangeOnFocus": false,
+        "focusLostOnArrival": false
+      },
+      "elements": {
+        "brand": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Brand link."
+        },
+        "toggler": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Icon-only toggler; name from aria-label 'Toggle navigation'. Shows/hides the nav links."
+        },
+        "nav-home": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Nav link, visible on load (collapse starts expanded)."
+        },
+        "nav-features": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Nav link, visible on load (collapse starts expanded)."
+        },
+        "dropdown-toggle": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Native button that opens the Products dropdown; Escape closes it and refocuses the toggle."
+        },
+        "dropdown-item-1": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "revealedBy": "dropdown-toggle",
+          "note": "a.dropdown-item in the collapsed menu (display:none until opened). Hidden from everyone while closed, which is correct, not a gap."
+        },
+        "dropdown-item-2": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "revealedBy": "dropdown-toggle",
+          "note": "a.dropdown-item in the collapsed menu (display:none until opened). Hidden from everyone while closed, which is correct, not a gap."
+        },
+        "dropdown-item-3": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "revealedBy": "dropdown-toggle",
+          "note": "a.dropdown-item in the collapsed menu (display:none until opened). Hidden from everyone while closed, which is correct, not a gap."
+        },
+        "dropdown-item-4": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "revealedBy": "dropdown-toggle",
+          "note": "a.dropdown-item in the collapsed menu (display:none until opened). Hidden from everyone while closed, which is correct, not a gap."
+        },
+        "dropdown-item-5": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "revealedBy": "dropdown-toggle",
+          "note": "a.dropdown-item in the collapsed menu (display:none until opened). Hidden from everyone while closed, which is correct, not a gap."
+        },
+        "dropdown-item-6": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "revealedBy": "dropdown-toggle",
+          "note": "a.dropdown-item in the collapsed menu (display:none until opened). Hidden from everyone while closed, which is correct, not a gap."
+        },
+        "hidden-csrf": {
+          "interactive": false,
+          "keyboardAccessible": false,
+          "expectedGapType": null,
+          "note": "input[type=hidden]: never rendered, focusable or operable; not a control."
+        },
+        "hidden-locale": {
+          "interactive": false,
+          "keyboardAccessible": false,
+          "expectedGapType": null,
+          "note": "input[type=hidden]: never rendered, focusable or operable; not a control."
+        },
+        "hidden-ref": {
+          "interactive": false,
+          "keyboardAccessible": false,
+          "expectedGapType": null,
+          "note": "input[type=hidden]: never rendered, focusable or operable; not a control."
+        },
+        "search-input": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Search field named by aria-label 'Search'."
+        },
+        "search-submit": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Native submit button 'Search'."
+        },
+        "offcanvas-open": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Opens the off-canvas account menu and moves focus to its close button."
+        },
+        "offcanvas-close": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "revealedBy": "offcanvas-open",
+          "note": "Icon-only close button (aria-label 'Close') in the off-canvas menu, which is visibility:hidden + translateX(-100%) until opened; not focusable while closed, which is correct."
+        },
+        "offcanvas-link-1": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "revealedBy": "offcanvas-open",
+          "note": "Off-canvas link; visibility:hidden + translateX(-100%) until opened, so not focusable while closed, which is correct."
+        },
+        "offcanvas-link-2": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "revealedBy": "offcanvas-open",
+          "note": "Off-canvas link; visibility:hidden + translateX(-100%) until opened, so not focusable while closed, which is correct."
+        },
+        "offcanvas-link-3": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "revealedBy": "offcanvas-open",
+          "note": "Off-canvas link; visibility:hidden + translateX(-100%) until opened, so not focusable while closed, which is correct."
+        }
+      }
+    },
+    "form": {
+      "file": "base/form.html",
+      "page": {
+        "keyboardTrap": false,
+        "trapEscapable": null,
+        "contextChangeOnFocus": false,
+        "focusLostOnArrival": false
+      },
+      "elements": {
+        "name-input": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Text input with <label for>."
+        },
+        "email-input": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Email input with <label for>."
+        },
+        "topic-select": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Select with <label for>."
+        },
+        "message-textarea": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Textarea with <label for>."
+        },
+        "subscribe-checkbox": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Native checkbox with <label for>."
+        },
+        "submit-button": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Native submit button; the only way to submit (two text fields block implicit submission once it is gone)."
+        }
+      }
+    },
+    "js-handlers": {
+      "file": "base/js-handlers.html",
+      "page": {
+        "keyboardTrap": false,
+        "trapEscapable": null,
+        "contextChangeOnFocus": false,
+        "focusLostOnArrival": false
+      },
+      "elements": {
+        "custom-button": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "div role=button tabindex=0; click + keydown Enter/Space attached with addEventListener. Accessible: a clean positive."
+        },
+        "custom-checkbox": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "div role=checkbox tabindex=0 aria-checked; click + keydown Space attached with addEventListener. Accessible: a clean positive."
+        },
+        "native-button": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Native button with an addEventListener click handler."
+        }
+      }
+    },
+    "modal": {
+      "file": "base/modal.html",
+      "page": {
+        "keyboardTrap": true,
+        "trapEscapable": true,
+        "contextChangeOnFocus": false,
+        "focusLostOnArrival": false
+      },
+      "elements": {
+        "focus-guard-start": {
+          "interactive": false,
+          "keyboardAccessible": false,
+          "expectedGapType": null,
+          "note": "Radix-style focus guard: invisible tabindex=0 sentinel that bounces stray focus back into the dialog; not a control."
+        },
+        "trigger": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Opens the dialog. Inside the aria-hidden background while the dialog is open (correct modal pattern, not a gap); reachable after Escape, which returns focus here."
+        },
+        "help-link": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Background link. aria-hidden and unreachable while the dialog is open (correct modal pattern, not a gap); reachable after Escape."
+        },
+        "name-input": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Dialog field with <label for>; focus starts here on load."
+        },
+        "username-input": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Dialog field with <label for>."
+        },
+        "save-button": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Native button; saves and closes the dialog."
+        },
+        "close-button": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Icon-only close button (shadcn pattern): svg aria-hidden plus sr-only text 'Close' as its name."
+        },
+        "focus-guard-end": {
+          "interactive": false,
+          "keyboardAccessible": false,
+          "expectedGapType": null,
+          "note": "Radix-style focus guard: invisible tabindex=0 sentinel that bounces stray focus back into the dialog; not a control."
+        }
+      }
+    },
+    "react-div-button": {
+      "file": "base/react-div-button/index.html",
+      "page": {
+        "keyboardTrap": false,
+        "trapEscapable": null,
+        "contextChangeOnFocus": false,
+        "focusLostOnArrival": false
+      },
+      "elements": {
+        "add-to-cart-div": {
+          "interactive": true,
+          "keyboardAccessible": false,
+          "expectedGapType": "wrong_role",
+          "acceptableGapTypes": ["wrong_role", "not_focusable"],
+          "note": "React <div onClick> with cursor:pointer, no role, no tabIndex: mouse-only 'Add to cart'. Chromium exposes it as an unignored generic AX node, so it is in the tree with the wrong role."
+        },
+        "wishlist-button": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "React <button onClick>: accessible."
+        },
+        "plain-div": {
+          "interactive": false,
+          "keyboardAccessible": false,
+          "expectedGapType": null,
+          "note": "Plain text div with no handler (negative control)."
+        },
+        "portal-host": {
+          "interactive": false,
+          "keyboardAccessible": false,
+          "expectedGapType": null,
+          "note": "The header <div> React portals the share button into. React 17+ marks it _reactListening and delegates the portal's events from it, but it is a container, not a control."
+        },
+        "share-button": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "A native <button> React portals into the page header; focusable, named by its text, Enter works."
+        }
+      }
+    },
+    "disclosure-tabs": {
+      "file": "base/disclosure-tabs.html",
+      "page": {
+        "keyboardTrap": false,
+        "trapEscapable": null,
+        "contextChangeOnFocus": false,
+        "focusLostOnArrival": false
+      },
+      "elements": {
+        "a-skip-link": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Skip link to the product details; a native link."
+        },
+        "float-tablist": {
+          "interactive": false,
+          "keyboardAccessible": false,
+          "expectedGapType": null,
+          "note": "The first tablist's container: zero height, because its tabs float and nothing inside it clears them. Its keydown handler serves the arrow keys for its tabs; a container, not a control."
+        },
+        "float-tab-1": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "The selected tab (tabindex=0), a Tab stop; arrow keys move focus between the tabs (roving tabindex) and select the focused one."
+        },
+        "float-tab-2": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "The unselected tab (tabindex=-1): out of the Tab order by design and reached with ArrowRight from the first tab (the WAI-ARIA tabs pattern), so keyboard-accessible."
+        },
+        "contents-tablist": {
+          "interactive": false,
+          "keyboardAccessible": false,
+          "expectedGapType": null,
+          "note": "The second tablist's container: display: contents, so it has no box of its own. Its keydown handler serves the arrow keys for its tabs; a container, not a control."
+        },
+        "contents-tab-1": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "The selected tab (tabindex=0), a Tab stop; arrow keys move focus between the tabs (roving tabindex) and select the focused one."
+        },
+        "contents-tab-2": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "The unselected tab (tabindex=-1): out of the Tab order by design and reached with ArrowRight from the first tab (the WAI-ARIA tabs pattern), so keyboard-accessible."
+        },
+        "faq-shipping": {
+          "interactive": false,
+          "keyboardAccessible": false,
+          "expectedGapType": null,
+          "note": "A <details> disclosure: a group, not a control; its <summary> is the control."
+        },
+        "faq-shipping-summary": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "The <summary> that opens and closes its <details>: native, a Tab stop, Enter toggles it."
+        },
+        "faq-returns": {
+          "interactive": false,
+          "keyboardAccessible": false,
+          "expectedGapType": null,
+          "note": "A <details> disclosure: a group, not a control; its <summary> is the control."
+        },
+        "faq-returns-summary": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "The <summary> that opens and closes its <details>: native, a Tab stop, Enter toggles it."
+        }
+      }
+    },
+    "native-dialog": {
+      "file": "base/native-dialog.html",
+      "page": {
+        "keyboardTrap": false,
+        "trapEscapable": null,
+        "contextChangeOnFocus": false,
+        "focusLostOnArrival": false
+      },
+      "elements": {
+        "shop-link": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Behind the age-gate <dialog> that showModal() opens on load: inert until Confirm closes it, then reachable with Tab. Content a modal dialog blocks is not an accessibility gap."
+        },
+        "join-button": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "Behind the age-gate <dialog> that showModal() opens on load: inert until Confirm closes it, then reachable with Tab. Content a modal dialog blocks is not an accessibility gap."
+        },
+        "confirm-button": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "The age gate's Confirm button (a form method=dialog submit): focused when the dialog opens; Enter closes the dialog. Tab from it leaves the page for the browser's own UI, so the native modal is no trap."
+        }
+      }
+    },
+    "one-button": {
+      "file": "base/one-button.html",
+      "page": {
+        "keyboardTrap": false,
+        "trapEscapable": null,
+        "contextChangeOnFocus": false,
+        "focusLostOnArrival": false
+      },
+      "elements": {
+        "only-button": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "The page's only Tab stop: a native button; Enter subscribes."
+        }
+      }
+    },
+    "scroll-panel": {
+      "file": "base/scroll-panel.html",
+      "page": {
+        "keyboardTrap": false,
+        "trapEscapable": null,
+        "contextChangeOnFocus": false,
+        "focusLostOnArrival": false
+      },
+      "elements": {
+        "link-1": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "A native link."
+        },
+        "link-2": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "A native link."
+        },
+        "agree-button": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "A native button; Enter agrees. The two scroll regions after it are untagged Tab stops (keyboard-focusable scrollers) that the walk's focusable count does not include."
+        }
+      }
+    },
+    "remount-on-keydown": {
+      "file": "base/remount-on-keydown.html",
+      "page": {
+        "keyboardTrap": false,
+        "trapEscapable": null,
+        "contextChangeOnFocus": false,
+        "focusLostOnArrival": false
+      },
+      "elements": {
+        "home-link": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "A native link. The page re-renders <main> on its first keydown, so Tab reaches a new node with the same markup."
+        },
+        "about-link": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "A native link. The page re-renders <main> on its first keydown, so Tab reaches a new node with the same markup."
+        },
+        "buy-button": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "A native button; its click handler is delegated to the document, so Enter works on the re-rendered node too."
+        },
+        "cart-button": {
+          "interactive": true,
+          "keyboardAccessible": true,
+          "expectedGapType": null,
+          "note": "A role=button div with tabindex=0; Enter and Space are handled on the document, so it works on the re-rendered node too."
+        }
+      }
+    }
+  }
+}

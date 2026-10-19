@@ -1,0 +1,291 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:l="/lib/layout" xmlns:t="/lib/hudson">
+    <l:layout title="Accessibility Test Results">
+        <l:main-panel>
+            <style>
+                .a11y-dashboard {
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                }
+                .a11y-summary {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                    gap: 16px;
+                    margin-bottom: 24px;
+                }
+                .a11y-stat-card {
+                    background: #f8f9fa;
+                    border-radius: 8px;
+                    padding: 16px;
+                    text-align: center;
+                    border: 1px solid #e9ecef;
+                }
+                .a11y-stat-value {
+                    font-size: 32px;
+                    font-weight: bold;
+                    margin-bottom: 4px;
+                }
+                .a11y-stat-label {
+                    color: #6c757d;
+                    font-size: 14px;
+                }
+                .a11y-stat-value.success { color: #28a745; }
+                .a11y-stat-value.failure { color: #dc3545; }
+                .a11y-stat-value.neutral { color: #007bff; }
+
+                .a11y-results-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 16px;
+                }
+                .a11y-results-table th,
+                .a11y-results-table td {
+                    padding: 12px;
+                    text-align: left;
+                    border-bottom: 1px solid #e9ecef;
+                }
+                .a11y-results-table th {
+                    background: #f8f9fa;
+                    font-weight: 600;
+                }
+                .a11y-results-table tr:hover {
+                    background: #f8f9fa;
+                }
+
+                .a11y-status-badge {
+                    display: inline-block;
+                    padding: 4px 12px;
+                    border-radius: 20px;
+                    font-size: 12px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                }
+                .a11y-status-badge.success {
+                    background: #d4edda;
+                    color: #155724;
+                }
+                .a11y-status-badge.failure {
+                    background: #f8d7da;
+                    color: #721c24;
+                }
+
+                .a11y-expandable {
+                    cursor: pointer;
+                }
+                .a11y-expandable:hover {
+                    background: #e9ecef;
+                }
+                .a11y-details {
+                    display: none;
+                    padding: 16px;
+                    background: #f8f9fa;
+                }
+                .a11y-details.show {
+                    display: table-row;
+                }
+                .a11y-details-content {
+                    padding: 16px;
+                }
+
+                .a11y-steps-list {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                }
+                .a11y-step {
+                    padding: 8px 12px;
+                    border-left: 3px solid #007bff;
+                    margin-bottom: 8px;
+                    background: white;
+                }
+                .a11y-step-action {
+                    font-weight: 600;
+                    color: #007bff;
+                }
+                .a11y-step-observation {
+                    color: #6c757d;
+                    font-size: 13px;
+                    margin-top: 4px;
+                }
+
+                .a11y-violations {
+                    margin-top: 16px;
+                }
+                .a11y-violation {
+                    padding: 12px;
+                    margin-bottom: 8px;
+                    border-radius: 4px;
+                    border-left: 4px solid;
+                }
+                .a11y-violation.severity-critical {
+                    background: #f8d7da;
+                    border-color: #dc3545;
+                }
+                .a11y-violation.severity-serious {
+                    background: #fff3cd;
+                    border-color: #ffc107;
+                }
+                .a11y-violation.severity-moderate {
+                    background: #d1ecf1;
+                    border-color: #17a2b8;
+                }
+                .a11y-violation.severity-minor {
+                    background: #e2e3e5;
+                    border-color: #6c757d;
+                }
+
+                .a11y-progress-bar {
+                    width: 100%;
+                    height: 8px;
+                    background: #e9ecef;
+                    border-radius: 4px;
+                    overflow: hidden;
+                    margin-bottom: 16px;
+                }
+                .a11y-progress-fill {
+                    height: 100%;
+                    background: linear-gradient(90deg, #28a745, #20c997);
+                    transition: width 0.3s ease;
+                }
+            </style>
+
+            <div class="a11y-dashboard">
+                <h1>Accessibility Test Results</h1>
+
+                <j:if test="${it.hasDashboardResults()}">
+                    <div style="margin-bottom: 16px; padding: 12px 16px; background: #e3f2fd; border-radius: 8px; border: 1px solid #90caf9;">
+                        <span style="margin-right: 8px;">📊</span>
+                        <a href="${it.dashboardResultsUrl}" target="_blank" rel="noopener noreferrer" style="color: #1565c0; font-weight: 500;">
+                            View detailed results in Dashboard →
+                        </a>
+                    </div>
+                </j:if>
+
+                <div class="a11y-progress-bar">
+                    <div class="a11y-progress-fill" style="width: ${it.passRate}%"></div>
+                </div>
+
+                <div class="a11y-summary">
+                    <div class="a11y-stat-card">
+                        <div class="a11y-stat-value ${it.overallStatusClass}">${it.overallStatus}</div>
+                        <div class="a11y-stat-label">Overall Status</div>
+                    </div>
+                    <div class="a11y-stat-card">
+                        <div class="a11y-stat-value neutral">${it.totalTests}</div>
+                        <div class="a11y-stat-label">Total Tests</div>
+                    </div>
+                    <div class="a11y-stat-card">
+                        <div class="a11y-stat-value success">${it.passedTests}</div>
+                        <div class="a11y-stat-label">Passed</div>
+                    </div>
+                    <div class="a11y-stat-card">
+                        <div class="a11y-stat-value failure">${it.failedTests}</div>
+                        <div class="a11y-stat-label">Failed</div>
+                    </div>
+                    <div class="a11y-stat-card">
+                        <div class="a11y-stat-value neutral">${it.formattedPassRate}</div>
+                        <div class="a11y-stat-label">Pass Rate</div>
+                    </div>
+                    <div class="a11y-stat-card">
+                        <div class="a11y-stat-value neutral">${it.formattedTotalDuration}</div>
+                        <div class="a11y-stat-label">Duration</div>
+                    </div>
+                    <div class="a11y-stat-card">
+                        <div class="a11y-stat-value neutral">${it.totalSteps}</div>
+                        <div class="a11y-stat-label">Total Steps</div>
+                    </div>
+                    <div class="a11y-stat-card">
+                        <div class="a11y-stat-value failure">${it.totalViolations}</div>
+                        <div class="a11y-stat-label">Violations</div>
+                    </div>
+                </div>
+
+                <h2>Test Results</h2>
+
+                <table class="a11y-results-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px">#</th>
+                            <th>URL</th>
+                            <th>Goal</th>
+                            <th style="width: 100px">Status</th>
+                            <th style="width: 80px">Steps</th>
+                            <th style="width: 100px">Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <j:forEach var="result" items="${it.results}" varStatus="loop">
+                            <tr class="a11y-expandable" onclick="toggleDetails('details-${loop.index}')">
+                                <td>${loop.index + 1}</td>
+                                <td>${result.url}</td>
+                                <td>${result.goal}</td>
+                                <td>
+                                    <span class="a11y-status-badge ${result.statusClass}">
+                                        <j:choose>
+                                            <j:when test="${result.success}">Passed</j:when>
+                                            <j:otherwise>Failed</j:otherwise>
+                                        </j:choose>
+                                    </span>
+                                </td>
+                                <td>${result.stepCount}</td>
+                                <td>${result.formattedDuration}</td>
+                            </tr>
+                            <tr id="details-${loop.index}" class="a11y-details">
+                                <td colspan="6">
+                                    <div class="a11y-details-content">
+                                        <j:if test="${result.reason != null}">
+                                            <p><strong>Reason:</strong> ${result.reason}</p>
+                                        </j:if>
+                                        <j:if test="${result.error != null}">
+                                            <p><strong>Error:</strong> ${result.error}</p>
+                                        </j:if>
+
+                                        <j:if test="${!result.steps.isEmpty()}">
+                                            <h4>Agent Steps</h4>
+                                            <ul class="a11y-steps-list">
+                                                <j:forEach var="step" items="${result.steps}">
+                                                    <li class="a11y-step">
+                                                        <div class="a11y-step-action">Step ${step.stepNumber}: ${step.action}</div>
+                                                        <j:if test="${step.observation != null and !step.observation.isEmpty()}">
+                                                            <div class="a11y-step-observation">${step.observation}</div>
+                                                        </j:if>
+                                                    </li>
+                                                </j:forEach>
+                                            </ul>
+                                        </j:if>
+
+                                        <j:if test="${!result.violations.isEmpty()}">
+                                            <div class="a11y-violations">
+                                                <h4>Accessibility Violations</h4>
+                                                <j:forEach var="violation" items="${result.violations}">
+                                                    <div class="a11y-violation ${violation.severityClass}">
+                                                        <strong>${violation.type}</strong>
+                                                        <span style="float: right; font-size: 12px;">${violation.severity}</span>
+                                                        <p>${violation.message}</p>
+                                                        <j:if test="${violation.element != null and !violation.element.isEmpty()}">
+                                                            <code style="font-size: 12px;">${violation.element}</code>
+                                                        </j:if>
+                                                    </div>
+                                                </j:forEach>
+                                            </div>
+                                        </j:if>
+                                    </div>
+                                </td>
+                            </tr>
+                        </j:forEach>
+                    </tbody>
+                </table>
+            </div>
+
+            <script>
+                function toggleDetails(id) {
+                    var details = document.getElementById(id);
+                    if (details.classList.contains('show')) {
+                        details.classList.remove('show');
+                    } else {
+                        details.classList.add('show');
+                    }
+                }
+            </script>
+        </l:main-panel>
+    </l:layout>
+</j:jelly>

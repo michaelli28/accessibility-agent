@@ -1,0 +1,16 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+    <f:entry title="Test Configuration File" field="testConfigFile" description="Path to JSON or text file containing test URLs and goals">
+        <f:textbox />
+    </f:entry>
+
+    <f:advanced>
+        <f:entry title="Continue on Failure" field="continueOnFailure" description="Continue running remaining tests even if one fails">
+            <f:checkbox default="true" />
+        </f:entry>
+
+        <f:entry title="Fail Build on Test Failure" field="failBuildOnTestFailure" description="Mark the build as failed if any accessibility test fails">
+            <f:checkbox default="true" />
+        </f:entry>
+    </f:advanced>
+</j:jelly>

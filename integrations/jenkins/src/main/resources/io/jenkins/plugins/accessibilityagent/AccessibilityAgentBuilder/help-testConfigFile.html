@@ -1,0 +1,16 @@
+<div>
+    <p>Path to a file containing accessibility tests to run. The file can be in one of two formats:</p>
+
+    <h4>JSON Format</h4>
+    <pre>[
+  {"url": "https://example.com", "goal": "Navigate to the login form and verify it is accessible"},
+  {"url": "https://example.com/products", "goal": "Browse products using only keyboard navigation"}
+]</pre>
+
+    <h4>Text Format (pipe-delimited)</h4>
+    <pre># Comments start with #
+https://example.com|Navigate to the login form and verify it is accessible
+https://example.com/products|Browse products using only keyboard navigation</pre>
+
+    <p>Each test will be run by the AI accessibility agent, which simulates a screen reader user navigating your website.</p>
+</div>

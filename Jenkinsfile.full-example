@@ -1,0 +1,75 @@
+/**
+ * Full CI/CD Pipeline with Accessibility Testing
+ *
+ * This example shows how to integrate accessibility testing into a typical
+ * build-deploy-test workflow.
+ */
+pipeline {
+    agent any
+
+    environment {
+        // Your app's staging URL after deployment (replace with your actual staging URL)
+        STAGING_URL = 'https://staging.your-app.example.com'
+    }
+
+    stages {
+        stage('Install Dependencies') {
+            steps {
+                echo 'Installing dependencies...'
+                // Uncomment for a real Node.js project:
+                // sh 'npm ci'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building application...'
+                // Uncomment for a real build:
+                // sh 'npm run build'
+            }
+        }
+
+        stage('Start Application') {
+            steps {
+                echo 'Starting application for testing...'
+                // Start your app in the background
+                // sh 'npm start &'
+                // sh 'sleep 5'  // Wait for app to start
+            }
+        }
+
+        stage('Accessibility Tests') {
+            steps {
+                // Run accessibility tests against the running application
+                accessibilityAgent(
+                    testConfigFile: 'accessibility-tests.json',
+                    continueOnFailure: true,
+                    failBuildOnTestFailure: true
+                )
+            }
+        }
+
+        stage('Cleanup') {
+            steps {
+                echo 'Stopping test server...'
+                // sh 'pkill -f "npm start" || true'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo '======================================'
+            echo 'Pipeline complete!'
+            echo 'View accessibility results in the build sidebar'
+            echo '======================================'
+        }
+        failure {
+            echo 'Build failed - check accessibility test results'
+            // Uncomment to send notifications:
+            // mail to: 'team@example.com',
+            //      subject: "Accessibility Tests Failed - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            //      body: "Check ${env.BUILD_URL}accessibility-results/ for details"
+        }
+    }
+}

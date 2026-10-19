@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Branches: inline handlers and attributes</title>
+</head>
+<body>
+<main>
+<h1>Classifier branches, inline attributes only</h1>
+
+<!-- Unnamed generic with an inline handler. -->
+<div data-bench-id="div-onclick" onclick="void 0">Add to cart</div>
+
+<!-- role=button without tabindex, with and without a handler. -->
+<div data-bench-id="role-button-onclick" role="button" onclick="void 0">Buy now</div>
+<div data-bench-id="role-button-inert" role="button">Wishlist</div>
+
+<!-- tabindex=-1 clickables, with and without a role. -->
+<div data-bench-id="role-button-tabindex-neg" role="button" tabindex="-1" onclick="void 0">Compare</div>
+<span data-bench-id="span-tabindex-neg" tabindex="-1" onclick="void 0">Share</span>
+
+<!-- Invalid tabindex: the browser ignores it, the detector parses it as 0. -->
+<div data-bench-id="role-button-tabindex-junk" role="button" tabindex="abc" onclick="void 0">Save</div>
+
+<!-- Controls without an accessible name. -->
+<button data-bench-id="icon-button" type="button"><svg aria-hidden="true" width="16" height="16"><circle cx="8" cy="8" r="6"></circle></svg></button>
+<input data-bench-id="unlabelled-input" type="text" name="coupon">
+
+<!-- aria-hidden clickables. -->
+<div data-bench-id="aria-hidden-div" aria-hidden="true" onclick="void 0">Dismiss</div>
+<button data-bench-id="aria-hidden-button" type="button" aria-hidden="true" onclick="void 0">Close</button>
+
+<!-- Hidden and unrendered form controls. -->
+<form>
+<input data-bench-id="input-hidden" type="hidden" name="csrf" value="t0k3n">
+<input data-bench-id="input-display-none" type="text" name="honeypot" style="display:none">
+<button data-bench-id="button-hidden-attr" type="button" hidden>Retry</button>
+</form>
+
+<!-- Named generic / group with a handler. -->
+<div data-bench-id="generic-labelled-onclick" aria-label="Close banner" onclick="void 0">x</div>
+<div data-bench-id="group-labelled-onclick" role="group" aria-label="Filters" onclick="void 0">Filters</div>
+
+<!-- Disclosure widget and an anchor without href. -->
+<details data-bench-id="details"><summary data-bench-id="summary">Shipping info</summary><p>Ships in 3-5 days.</p></details>
+<a data-bench-id="anchor-no-href" onclick="void 0">Read more</a>
+
+<!-- Accessible controls (negatives). -->
+<button data-bench-id="real-button" type="button" onclick="void 0">Checkout</button>
+<a data-bench-id="real-link" href="#top">Back to top</a>
+<label for="email">Email</label> <input data-bench-id="labelled-input" id="email" type="email">
+<div data-bench-id="role-button-ok" role="button" tabindex="0" onclick="void 0">Apply</div>
+</main>
+</body>
+</html>

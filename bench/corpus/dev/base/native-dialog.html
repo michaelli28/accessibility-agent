@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Age check</title>
+</head>
+<body>
+  <header><a href="#shop" data-bench-id="shop-link">Shop</a></header>
+  <main>
+    <h1>Craft beer club</h1>
+    <button type="button" data-bench-id="join-button">Join the club</button>
+  </main>
+  <dialog id="age-gate" aria-labelledby="age-title">
+    <h2 id="age-title">Are you 18 or older?</h2>
+    <form method="dialog"><button value="yes" data-bench-id="confirm-button">Yes, enter</button></form>
+  </dialog>
+  <!-- External on purpose: bench/seed.ts skips pages with script[src], and with scripts off the dialog is closed. -->
+  <script src="native-dialog.js"></script>
+</body>
+</html>

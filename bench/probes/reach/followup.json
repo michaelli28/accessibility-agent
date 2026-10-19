@@ -1,0 +1,203 @@
+{
+  "ranAt": "2026-09-18T22:19:47.465Z",
+  "binaries": [
+    {
+      "mode": "shell",
+      "opts": {},
+      "spawnfile": "~/Library/Caches/ms-playwright/chromium_headless_shell-1200/chrome-headless-shell-mac-arm64/chrome-headless-shell",
+      "headlessArg": "--headless",
+      "version": "143.0.7499.4",
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36"
+    },
+    {
+      "mode": "newheadless",
+      "opts": {
+        "channel": "chromium"
+      },
+      "spawnfile": "~/Library/Caches/ms-playwright/chromium-1200/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+      "headlessArg": "--headless",
+      "version": "143.0.7499.4",
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36"
+    }
+  ],
+  "amazon": [
+    {
+      "mode": "shell",
+      "attempt": 1,
+      "url": "https://www.amazon.com",
+      "ua": "default",
+      "status": 202,
+      "networkIdle": "reached",
+      "title": "Amazon.com. Spend less. Smile more.",
+      "focusable": 329,
+      "continueShoppingWall": false,
+      "cloudflareWall": false
+    },
+    {
+      "mode": "shell",
+      "attempt": 2,
+      "url": "https://www.amazon.com",
+      "ua": "default",
+      "status": 202,
+      "networkIdle": "reached",
+      "title": "Amazon.com. Spend less. Smile more.",
+      "focusable": 309,
+      "continueShoppingWall": false,
+      "cloudflareWall": false
+    },
+    {
+      "mode": "shell",
+      "attempt": 3,
+      "url": "https://www.amazon.com",
+      "ua": "default",
+      "status": 202,
+      "networkIdle": "reached",
+      "title": "Amazon.com. Spend less. Smile more.",
+      "focusable": 308,
+      "continueShoppingWall": false,
+      "cloudflareWall": false
+    },
+    {
+      "mode": "newheadless",
+      "attempt": 1,
+      "url": "https://www.amazon.com",
+      "ua": "default",
+      "status": 202,
+      "networkIdle": "timeout",
+      "title": "Amazon.com. Spend less. Smile more.",
+      "focusable": 328,
+      "continueShoppingWall": false,
+      "cloudflareWall": false
+    },
+    {
+      "mode": "newheadless",
+      "attempt": 2,
+      "url": "https://www.amazon.com",
+      "ua": "default",
+      "status": 202,
+      "networkIdle": "timeout",
+      "title": "Amazon.com. Spend less. Smile more.",
+      "focusable": 315,
+      "continueShoppingWall": false,
+      "cloudflareWall": false
+    },
+    {
+      "mode": "newheadless",
+      "attempt": 3,
+      "url": "https://www.amazon.com",
+      "ua": "default",
+      "status": 202,
+      "networkIdle": "reached",
+      "title": "Amazon.com. Spend less. Smile more.",
+      "focusable": 306,
+      "continueShoppingWall": false,
+      "cloudflareWall": false
+    }
+  ],
+  "w3c": [
+    {
+      "via": "apirequest",
+      "url": "https://www.w3.org/WAI/demos/bad/",
+      "status": 200,
+      "bytes": 9301,
+      "title": "Before and After Demonstration: Overview",
+      "serverHeader": "cloudflare"
+    },
+    {
+      "via": "apirequest",
+      "url": "https://www.w3.org/WAI/demos/bad/before/home.html",
+      "status": 200,
+      "bytes": 24068,
+      "title": "Welcome to CityLights! [Inaccessible Home Page]",
+      "serverHeader": "cloudflare"
+    },
+    {
+      "via": "shell",
+      "url": "https://www.w3.org/WAI/demos/bad/",
+      "ua": "default",
+      "status": 403,
+      "networkIdle": "timeout",
+      "title": "Just a moment...",
+      "focusable": 2,
+      "continueShoppingWall": false,
+      "cloudflareWall": true
+    },
+    {
+      "via": "shell",
+      "url": "https://www.w3.org/WAI/demos/bad/",
+      "ua": "desktop-override",
+      "status": 403,
+      "networkIdle": "timeout",
+      "title": "Just a moment...",
+      "focusable": 2,
+      "continueShoppingWall": false,
+      "cloudflareWall": true
+    },
+    {
+      "via": "shell",
+      "url": "https://www.w3.org/WAI/demos/bad/before/home.html",
+      "ua": "default",
+      "status": 403,
+      "networkIdle": "timeout",
+      "title": "Just a moment...",
+      "focusable": 2,
+      "continueShoppingWall": false,
+      "cloudflareWall": true
+    },
+    {
+      "via": "shell",
+      "url": "https://www.w3.org/WAI/demos/bad/before/home.html",
+      "ua": "desktop-override",
+      "status": 403,
+      "networkIdle": "timeout",
+      "title": "Just a moment...",
+      "focusable": 2,
+      "continueShoppingWall": false,
+      "cloudflareWall": true
+    },
+    {
+      "via": "newheadless",
+      "url": "https://www.w3.org/WAI/demos/bad/",
+      "ua": "default",
+      "status": 403,
+      "networkIdle": "timeout",
+      "title": "Just a moment...",
+      "focusable": 2,
+      "continueShoppingWall": false,
+      "cloudflareWall": true
+    },
+    {
+      "via": "newheadless",
+      "url": "https://www.w3.org/WAI/demos/bad/",
+      "ua": "desktop-override",
+      "status": 403,
+      "networkIdle": "timeout",
+      "title": "Just a moment...",
+      "focusable": 2,
+      "continueShoppingWall": false,
+      "cloudflareWall": true
+    },
+    {
+      "via": "newheadless",
+      "url": "https://www.w3.org/WAI/demos/bad/before/home.html",
+      "ua": "default",
+      "status": 403,
+      "networkIdle": "timeout",
+      "title": "Just a moment...",
+      "focusable": 2,
+      "continueShoppingWall": false,
+      "cloudflareWall": true
+    },
+    {
+      "via": "newheadless",
+      "url": "https://www.w3.org/WAI/demos/bad/before/home.html",
+      "ua": "desktop-override",
+      "status": 403,
+      "networkIdle": "timeout",
+      "title": "Just a moment...",
+      "focusable": 2,
+      "continueShoppingWall": false,
+      "cloudflareWall": true
+    }
+  ]
+}

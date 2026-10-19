@@ -1,0 +1,88 @@
+name: 'Accessibility Agent'
+description: 'Run AI-powered accessibility tests using a virtual screen reader'
+author: 'at-agent'
+
+branding:
+  icon: 'eye'
+  color: 'green'
+
+inputs:
+  test-config:
+    description: 'Path to the test configuration file (JSON format). Not required if using auto-discovery.'
+    required: false
+
+  # Auto-discovery options
+  discovery-mode:
+    description: 'Enable automatic test discovery (auto, guided, or off)'
+    required: false
+    default: 'off'
+  base-url:
+    description: 'Base URL of the web application (required for auto-discovery)'
+    required: false
+  discovery-focus:
+    description: 'Comma-separated areas to focus discovery on (e.g., "checkout,login")'
+    required: false
+  discovery-prompt:
+    description: 'Custom prompt/instructions for the discovery agent'
+    required: false
+  discovery-max-tests:
+    description: 'Maximum number of tests to generate during discovery'
+    required: false
+  discovery-exclude:
+    description: 'Comma-separated directories to exclude from discovery'
+    required: false
+
+  # LLM configuration
+  provider:
+    description: 'LLM provider to use (openai or gemini)'
+    required: false
+    default: 'openai'
+  openai-api-key:
+    description: 'OpenAI API key (required for openai provider and auto-discovery)'
+    required: false
+  gemini-api-key:
+    description: 'Gemini API key (required if provider is gemini)'
+    required: false
+
+  # Execution options
+  headless:
+    description: 'Run browser in headless mode'
+    required: false
+    default: 'true'
+  continue-on-failure:
+    description: 'Continue running tests even if one fails'
+    required: false
+    default: 'true'
+
+  # Dashboard integration
+  dashboard-url:
+    description: 'Dashboard URL for live tracking and results (optional)'
+    required: false
+  dashboard-api-key:
+    description: 'Dashboard API key for authentication (required if dashboard-url is set)'
+    required: false
+
+  # Paths
+  agent-path:
+    description: 'Path to the at-agent installation directory'
+    required: true
+
+outputs:
+  total-tests:
+    description: 'Total number of tests run'
+  passed-tests:
+    description: 'Number of tests that passed'
+  failed-tests:
+    description: 'Number of tests that failed'
+  pass-rate:
+    description: 'Percentage of tests that passed'
+  dashboard-url:
+    description: 'URL to view results on the dashboard (if configured)'
+  results-json:
+    description: 'JSON string containing full test results'
+  discovered-tests-path:
+    description: 'Path to the discovered tests JSON file (if auto-discovery was used)'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

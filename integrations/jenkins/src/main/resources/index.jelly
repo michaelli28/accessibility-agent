@@ -1,0 +1,5 @@
+<?jelly escape-by-default='true'?>
+<div>
+    AI-powered accessibility testing agent that uses screen reader simulation to test web applications.
+    Configure test URLs and goals, and the agent will navigate your site and report accessibility issues.
+</div>

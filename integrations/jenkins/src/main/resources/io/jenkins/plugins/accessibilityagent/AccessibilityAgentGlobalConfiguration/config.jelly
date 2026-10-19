@@ -1,0 +1,43 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:c="/lib/credentials">
+    <f:section title="Accessibility Agent Configuration">
+        <f:entry title="Agent Installation Path" field="agentPath" description="Full path to the at-agent installation directory">
+            <f:textbox />
+        </f:entry>
+
+        <f:entry title="Node.js Path" field="nodePath" description="Path to Node.js executable (default: node)">
+            <f:textbox default="node" />
+        </f:entry>
+
+        <f:entry title="LLM Provider" field="llmProvider" description="Select the AI model provider to use">
+            <f:select />
+        </f:entry>
+
+        <f:entry title="OpenAI API Key" field="openaiApiKeyCredentialId" description="Credential containing OpenAI API key">
+            <c:select />
+        </f:entry>
+
+        <f:entry title="Gemini API Key" field="geminiApiKeyCredentialId" description="Credential containing Google Gemini API key">
+            <c:select />
+        </f:entry>
+
+        <f:entry title="Headless Browser" field="headlessBrowser" description="Run browser in headless mode (recommended for CI)">
+            <f:checkbox default="true" />
+        </f:entry>
+    </f:section>
+
+    <f:section title="Dashboard Integration">
+        <f:description>
+            Configure integration with the Accessibility Dashboard for centralized results viewing.
+            Leave empty to disable dashboard reporting.
+        </f:description>
+
+        <f:entry title="Dashboard URL" field="dashboardUrl" description="URL of the accessibility dashboard (e.g., https://a11y-dashboard.example.com)">
+            <f:textbox />
+        </f:entry>
+
+        <f:entry title="Dashboard API Key" field="dashboardApiKeyCredentialId" description="Credential containing the dashboard API key for your project">
+            <c:select />
+        </f:entry>
+    </f:section>
+</j:jelly>

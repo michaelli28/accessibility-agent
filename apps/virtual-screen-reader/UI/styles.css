@@ -1,0 +1,318 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --bg-tertiary: #0f3460;
+    --text-primary: #eee;
+    --text-secondary: #aaa;
+    --accent: #e94560;
+    --accent-light: #ff6b6b;
+    --success: #4ecca3;
+    --warning: #ffc107;
+    --border: #333;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+}
+
+.header h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.connection-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    background: var(--accent);
+}
+
+.connection-status.connected {
+    background: var(--success);
+    color: #000;
+}
+
+.controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.controls input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.controls input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.controls button {
+    padding: 0.75rem 1.5rem;
+    background: var(--accent);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.controls button:hover {
+    background: var(--accent-light);
+}
+
+.main-content {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    min-height: 0;
+}
+
+.tree-panel, .output-panel {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.tree-panel h2, .output-panel h2, .output-panel h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tree-stats {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0.5rem 0;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.tree-stats strong {
+    color: var(--accent);
+}
+
+.tree-container {
+    flex: 1;
+    overflow-y: auto;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.tree-container .placeholder {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.tree-node {
+    padding: 0.25rem 0.5rem;
+    padding-left: calc(var(--depth, 0) * 1.5rem + 0.5rem);
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.tree-node:hover:not(.current) {
+    background: var(--bg-tertiary);
+    opacity: 1 !important;
+}
+
+.tree-node.current {
+    background: var(--bg-tertiary);
+    border-left-color: var(--accent);
+    cursor: default;
+}
+
+.tree-node.visited {
+    opacity: 0.7;
+}
+
+.tree-node.unvisited {
+    opacity: 0.4;
+}
+
+.tree-node-role {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.tree-node-name {
+    color: var(--text-primary);
+    margin-left: 0.5rem;
+}
+
+.tree-node-visits {
+    color: var(--warning);
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+}
+
+.current-element {
+    background: var(--bg-tertiary);
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.element-role {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 0.25rem;
+}
+
+.element-name {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.element-context {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.output-log {
+    flex: 1;
+    overflow-y: auto;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.8rem;
+    background: var(--bg-primary);
+    border-radius: 4px;
+    padding: 0.75rem;
+}
+
+.log-entry {
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 0.75rem;
+}
+
+.log-entry:last-child {
+    border-bottom: none;
+}
+
+.log-time {
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.log-message {
+    color: var(--text-primary);
+    word-break: break-word;
+}
+
+.log-entry.navigation {
+    color: var(--success);
+}
+
+.log-entry.activation {
+    color: var(--warning);
+}
+
+.keyboard-help {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.keyboard-help h3 {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.key-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.key-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+kbd {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}

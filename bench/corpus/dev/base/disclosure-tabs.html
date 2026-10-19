@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Walnut desk</title>
+  <style>
+    /* Floated tabs without a clearfix: the tablist itself has zero height. */
+    .tabs [role="tab"] { float: left; margin-right: 8px; padding: 4px 8px; cursor: pointer; }
+    .clear { clear: both; }
+    [role="tab"] { cursor: pointer; }
+  </style>
+</head>
+<body>
+  <a href="#main" data-bench-id="a-skip-link">Skip to details</a>
+  <main id="main">
+    <h1>Walnut desk</h1>
+    <div role="tablist" aria-label="Product" class="tabs" data-roving data-bench-id="float-tablist">
+      <div role="tab" data-item tabindex="0" aria-selected="true" data-bench-id="float-tab-1">Description</div>
+      <div role="tab" data-item tabindex="-1" aria-selected="false" data-bench-id="float-tab-2">Reviews</div>
+    </div>
+    <div class="clear"></div>
+    <div role="tablist" aria-label="Finish" style="display: contents" data-roving data-bench-id="contents-tablist">
+      <div role="tab" data-item tabindex="0" aria-selected="true" data-bench-id="contents-tab-1">Oak</div>
+      <div role="tab" data-item tabindex="-1" aria-selected="false" data-bench-id="contents-tab-2">Walnut</div>
+    </div>
+    <h2>Questions</h2>
+    <details data-bench-id="faq-shipping"><summary data-bench-id="faq-shipping-summary">Shipping</summary><p>Ships in 3 days.</p></details>
+    <details data-bench-id="faq-returns"><summary data-bench-id="faq-returns-summary">Returns</summary><p>30-day returns.</p></details>
+  </main>
+  <script>
+    // Roving tabindex: the tablist's own keydown handler moves focus with the arrow keys; a click selects a tab.
+    document.querySelectorAll('[data-roving]').forEach(function (list) {
+      var tabs = [].slice.call(list.querySelectorAll('[data-item]'));
+      function select(tab) {
+        tabs.forEach(function (t) {
+          t.tabIndex = t === tab ? 0 : -1;
+          t.setAttribute('aria-selected', String(t === tab));
+        });
+        tab.focus();
+      }
+      tabs.forEach(function (t) { t.addEventListener('click', function () { select(t); }); });
+      list.addEventListener('keydown', function (e) {
+        var i = tabs.indexOf(document.activeElement);
+        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (i < 0 || !d) return;
+        e.preventDefault();
+        select(tabs[(i + d + tabs.length) % tabs.length]);
+      });
+    });
+  </script>
+</body>
+</html>

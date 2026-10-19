@@ -1,0 +1,68 @@
+# integrations/github-actions/audit/action.yml
+name: 'Accessibility Audit'
+description: 'Run accessibility audit on a URL using at-agent'
+author: 'at-agent'
+
+branding:
+  icon: 'check-circle'
+  color: 'blue'
+
+inputs:
+  url:
+    description: 'URL to audit'
+    required: true
+  fail-on:
+    description: 'Minimum impact level to fail: critical, serious, moderate, minor, or none'
+    required: false
+    default: 'serious'
+  tags:
+    description: 'Space-separated WCAG tags (e.g., wcag2a wcag2aa)'
+    required: false
+  node-version:
+    description: 'Node.js version to use'
+    required: false
+    default: '20'
+
+outputs:
+  violations:
+    description: 'Total violation count'
+    value: ${{ steps.audit.outputs.violations }}
+  critical:
+    description: 'Critical violation count'
+    value: ${{ steps.audit.outputs.critical }}
+  serious:
+    description: 'Serious violation count'
+    value: ${{ steps.audit.outputs.serious }}
+  json:
+    description: 'Full JSON results'
+    value: ${{ steps.audit.outputs.json }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Install at-agent CLI
+      shell: bash
+      run: npm install github:${{ github.repository }}#packages/cli
+
+    - name: Run audit
+      id: audit
+      shell: bash
+      env:
+        INPUT_URL: ${{ inputs.url }}
+        INPUT_FAIL_ON: ${{ inputs.fail-on }}
+        INPUT_TAGS: ${{ inputs.tags }}
+      run: bash ${{ github.action_path }}/run.sh
+
+    - name: Generate summary
+      if: always()
+      shell: bash
+      env:
+        AUDIT_JSON: ${{ steps.audit.outputs.json }}
+        AUDIT_URL: ${{ inputs.url }}
+        FAIL_ON: ${{ inputs.fail-on }}
+      run: bash ${{ github.action_path }}/../scripts/audit-summary.sh

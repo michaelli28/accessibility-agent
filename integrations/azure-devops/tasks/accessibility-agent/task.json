@@ -1,0 +1,145 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "name": "AccessibilityAgent",
+  "friendlyName": "AT Agent - Accessibility Testing",
+  "description": "Run AI-powered accessibility tests using a virtual screen reader",
+  "helpMarkDown": "[Learn more about AT Agent](https://github.com/your-org/at-agent)",
+  "category": "Test",
+  "author": "AT Agent",
+  "version": {
+    "Major": 1,
+    "Minor": 2,
+    "Patch": 0
+  },
+  "instanceNameFormat": "Run Accessibility Tests",
+  "groups": [
+    {
+      "name": "llm",
+      "displayName": "LLM Configuration",
+      "isExpanded": true
+    },
+    {
+      "name": "dashboard",
+      "displayName": "Dashboard Integration",
+      "isExpanded": false
+    },
+    {
+      "name": "advanced",
+      "displayName": "Advanced Options",
+      "isExpanded": false
+    }
+  ],
+  "inputs": [
+    {
+      "name": "testConfig",
+      "type": "filePath",
+      "label": "Test Configuration File",
+      "required": true,
+      "helpMarkDown": "Path to the test configuration file (JSON or text format with url|goal per line)"
+    },
+    {
+      "name": "agentPath",
+      "type": "filePath",
+      "label": "Agent Path",
+      "required": true,
+      "helpMarkDown": "Path to the AT Agent installation directory"
+    },
+    {
+      "name": "provider",
+      "type": "pickList",
+      "label": "LLM Provider",
+      "defaultValue": "openai",
+      "required": false,
+      "groupName": "llm",
+      "options": {
+        "openai": "OpenAI",
+        "gemini": "Google Gemini"
+      },
+      "helpMarkDown": "Select the LLM provider to use for the AI agent"
+    },
+    {
+      "name": "openaiApiKey",
+      "type": "string",
+      "label": "OpenAI API Key",
+      "required": false,
+      "groupName": "llm",
+      "helpMarkDown": "OpenAI API key (required if provider is OpenAI). Use a secret variable like $(OPENAI_API_KEY)",
+      "visibleRule": "provider = openai"
+    },
+    {
+      "name": "geminiApiKey",
+      "type": "string",
+      "label": "Gemini API Key",
+      "required": false,
+      "groupName": "llm",
+      "helpMarkDown": "Google Gemini API key (required if provider is Gemini). Use a secret variable like $(GEMINI_API_KEY)",
+      "visibleRule": "provider = gemini"
+    },
+    {
+      "name": "dashboardUrl",
+      "type": "string",
+      "label": "Dashboard URL",
+      "required": false,
+      "groupName": "dashboard",
+      "helpMarkDown": "URL of the AT Agent Dashboard for live tracking and results storage"
+    },
+    {
+      "name": "dashboardApiKey",
+      "type": "string",
+      "label": "Dashboard API Key",
+      "required": false,
+      "groupName": "dashboard",
+      "helpMarkDown": "API key for the AT Agent Dashboard. Use a secret variable like $(DASHBOARD_API_KEY)"
+    },
+    {
+      "name": "headless",
+      "type": "boolean",
+      "label": "Headless Browser",
+      "defaultValue": "true",
+      "required": false,
+      "groupName": "advanced",
+      "helpMarkDown": "Run the browser in headless mode (no visible window)"
+    },
+    {
+      "name": "continueOnFailure",
+      "type": "boolean",
+      "label": "Continue on Failure",
+      "defaultValue": "true",
+      "required": false,
+      "groupName": "advanced",
+      "helpMarkDown": "Continue running remaining tests if one test fails"
+    }
+  ],
+  "outputVariables": [
+    {
+      "name": "totalTests",
+      "description": "Total number of tests run"
+    },
+    {
+      "name": "passedTests",
+      "description": "Number of tests that passed"
+    },
+    {
+      "name": "failedTests",
+      "description": "Number of tests that failed"
+    },
+    {
+      "name": "passRate",
+      "description": "Percentage of tests that passed"
+    },
+    {
+      "name": "dashboardUrl",
+      "description": "URL to view results on the dashboard"
+    },
+    {
+      "name": "resultsJson",
+      "description": "JSON string containing full test results"
+    }
+  ],
+  "execution": {
+    "Node20_1": {
+      "target": "dist/index.js"
+    }
+  }
+}

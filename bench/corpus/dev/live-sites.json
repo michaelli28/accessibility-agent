@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "source": "bench/probes/reach/RESULT.md (Day-1 reachability probe, 2026-09-18). Dev sites: regression use only, never headline numbers.",
+  "sites": [
+    {
+      "id": "mealkeyway",
+      "url": "https://order.mealkeyway.com/customer/release/index?mid=75452b6a42425a6b4f31646a6e4633415168496f75673d3d#/main",
+      "status": "usable",
+      "flags": [],
+      "note": "200 in both headless modes; a 'Start Order' popup covers the page on load."
+    },
+    {
+      "id": "fake-university",
+      "url": "https://www.fake-university.com/",
+      "status": "usable",
+      "flags": [],
+      "note": "200; the apex domain redirects to www, so a sandboxed fetch needs both hosts allowed. Empty <title>."
+    },
+    {
+      "id": "cmu",
+      "url": "https://www.cmu.edu/",
+      "status": "usable",
+      "flags": [],
+      "note": "200; a cookie banner covers the page. Body text 'Robotics' false-matches a bare /robot/ bot-wall regex."
+    },
+    {
+      "id": "troy-k12",
+      "url": "https://www.troy.k12.mi.us/",
+      "status": "usable",
+      "flags": [],
+      "note": "200; a floating overlay panel sits over the hero."
+    },
+    {
+      "id": "amazon",
+      "url": "https://www.amazon.com/",
+      "status": "degraded",
+      "flags": ["second-navigation", "no-networkidle"],
+      "note": "First response is a 202 placeholder (empty title at domcontentloaded), then a second navigation ~0.6s later serves the store; the harness must wait for that second navigation. networkidle timed out in both headless modes. New headless once served a 'continue shopping' bot page."
+    }
+  ],
+  "excluded": [
+    {
+      "id": "troyroyalpalace",
+      "url": "https://www.troyroyalpalace.com/",
+      "reason": "Dead: 404 with Squarespace's 'Website Expired' page in both headless modes and curl (Day-1 probe)."
+    }
+  ]
+}

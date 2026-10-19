@@ -1,0 +1,24 @@
+{
+  "name": "@at-agent/accessibility",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@at-agent/browser": "*",
+    "axe-core": "^4.11.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.25",
+    "playwright": "^1.57.0",
+    "typescript": "^5.9.3",
+    "vitest": "^3.0.0"
+  }
+}

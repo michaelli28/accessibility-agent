@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Good Operable Page</title>
+</head>
+
+<body>
+  <header>
+    <h1>My Accessible Website</h1>
+    <a href="#main-content" data-bench-id="skip-link">Skip to main content</a>
+
+    <!-- Method 1: Search -->
+    <form role="search">
+      <label for="search">Search</label>
+      <input type="text" id="search" name="q" data-bench-id="search-input">
+      <button type="submit" data-bench-id="search-submit">Go</button>
+    </form>
+
+    <!-- Method 2: Navigation Landmark -->
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#" data-bench-id="nav-home">Home</a></li>
+        <li><a href="#" data-bench-id="nav-about">About</a></li>
+        <li><a href="#" data-bench-id="nav-contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main id="main-content">
+    <h2>Welcome</h2>
+    <p>This page has multiple ways to navigate: Search and Main Navigation.</p>
+    <p>It also has a skip link and proper landmarks.</p>
+
+    <!-- Method 3: Sitemap link -->
+    <footer>
+      <a href="/sitemap" data-bench-id="sitemap-link">Sitemap</a>
+    </footer>
+  </main>
+</body>
+
+</html>

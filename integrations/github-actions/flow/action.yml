@@ -1,0 +1,72 @@
+# integrations/github-actions/flow/action.yml
+name: 'Accessibility Flow Test'
+description: 'Run AI-guided accessibility flow test using at-agent'
+author: 'at-agent'
+
+branding:
+  icon: 'navigation'
+  color: 'purple'
+
+inputs:
+  url:
+    description: 'Starting URL for the flow'
+    required: true
+  goal:
+    description: 'Goal for the agent to achieve'
+    required: true
+  api-key:
+    description: 'OpenAI API key (falls back to OPENAI_API_KEY env var)'
+    required: false
+  max-steps:
+    description: 'Maximum steps before stopping'
+    required: false
+    default: '20'
+  node-version:
+    description: 'Node.js version to use'
+    required: false
+    default: '20'
+
+outputs:
+  success:
+    description: 'Whether the goal was achieved'
+    value: ${{ steps.flow.outputs.success }}
+  steps:
+    description: 'Number of steps taken'
+    value: ${{ steps.flow.outputs.steps }}
+  violations:
+    description: 'Number of violations found'
+    value: ${{ steps.flow.outputs.violations }}
+  json:
+    description: 'Full JSON results'
+    value: ${{ steps.flow.outputs.json }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Install at-agent CLI
+      shell: bash
+      run: npm install github:${{ github.repository }}#packages/cli
+
+    - name: Run flow test
+      id: flow
+      shell: bash
+      env:
+        INPUT_URL: ${{ inputs.url }}
+        INPUT_GOAL: ${{ inputs.goal }}
+        INPUT_API_KEY: ${{ inputs.api-key }}
+        INPUT_MAX_STEPS: ${{ inputs.max-steps }}
+      run: bash ${{ github.action_path }}/run.sh
+
+    - name: Generate summary
+      if: always()
+      shell: bash
+      env:
+        FLOW_JSON: ${{ steps.flow.outputs.json }}
+        FLOW_URL: ${{ inputs.url }}
+        FLOW_GOAL: ${{ inputs.goal }}
+      run: bash ${{ github.action_path }}/../scripts/flow-summary.sh

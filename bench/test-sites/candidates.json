@@ -1,0 +1,452 @@
+{
+  "rule": "bench/test-sites/SAMPLING-RULE.md @ 10f9c86 (Amendment 2)",
+  "seed": "at-agent-bench-2026-09-18",
+  "list": {
+    "id": "V3YPN",
+    "url": "https://tranco-list.eu/download/V3YPN/1000000",
+    "file": "bench/vendor/tranco/tranco_V3YPN-1000000.csv",
+    "sha256": "eb755facd7174045ae81c41d0f8496d9b9ae667b6a7047c861cbe56c02a21445",
+    "rows": 1000000
+  },
+  "notes": [
+    "i=10 (noticiasdealava.eus) was loaded once under Amendment 1 without a record. A draw.ts --resume run started 2026-09-18 20:08 EDT (2026-09-19T00:08Z) was killed while screening i=10, when the agent running it was cut off by an account usage limit. Its log's stack trace (page.waitForTimeout at draw.ts:320, inside the www-fallback attempt called at draw.ts:434, as the file stood then) shows the primary load of https://noticiasdealava.eus/ was classed as no HTTP response and the fallback https://www.noticiasdealava.eus/ reached load; the browser was closed during the 3 s settle, before the page was evaluated. Nothing was judged, recorded or viewed, and no candidate i>=11 was loaded. i=10 is re-attempted from its primary load under Amendment 1.",
+    "i=22 (dfbocai.net) stopped under bench/test-sites/SAMPLING-RULE.md @ 0467eb6 (Amendment 1) (load did not fire within 60000 ms after an HTTP 200 response (\u00a71 lists \"a 60 s load timeout\" but defines \"fails to connect\" as no HTTP response); Amendment 1 does not settle this); that stop record is dropped and i=22 re-attempted under bench/test-sites/SAMPLING-RULE.md @ 10f9c86 (Amendment 2) by the resume started 2026-09-19T04:30:40.378Z.",
+    "Amendment 2 \u00a72 (in-page read over 10 s is a rule-1 reject) is ASSUMED, not proven, not to change i=1,3,6,7,8,9: the 7440778 code had no bound on that read. Its whole run took 46.836 s, 30 s of which were the ten fixed 3 s settles, so a read over 10 s was possible only if every other load and read together took 6.84 s or less. The records are kept as recorded.",
+    "i=22 (dfbocai.net) was accepted under Amendment 2 \u00a71: the main document answered HTTP 200 but `load` never fired within 60 s, so it was judged as it stood at 60 s + 3 s. Harness runs on this site will meet a page that never finishes loading. Draw logs: bench/test-sites/logs/."
+  ],
+  "legacyRecords": {
+    "note": "i=0..9 are copied unchanged from commit 7440778: first loads under bench/test-sites/SAMPLING-RULE.md @ 68ffa0a, judged before Amendment 1. They have no fallbackUsed/netError fields because they predate them; nothing is back-filled. Amendment 1 keeps them as they are and resumes at i=10.",
+    "commit": "7440778",
+    "count": 10,
+    "rule": "bench/test-sites/SAMPLING-RULE.md @ 68ffa0a",
+    "browser": {
+      "launch": "playwright chromium.launch() default (headless shell)",
+      "version": "143.0.7499.4",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36"
+    },
+    "startedAt": "2026-09-18T23:06:58.249Z",
+    "updatedAt": "2026-09-18T23:07:45.085Z",
+    "stop": {
+      "i": 10,
+      "rank": 61381,
+      "domain": "noticiasdealava.eus",
+      "reasons": [
+        "rule 1: first load failed with ERR_CERT_DATE_INVALID; the rule doesn't say whether that counts as \"fails to connect\" (www retry or not)",
+        "rule 2: first load failed with ERR_CERT_DATE_INVALID; the rule doesn't say whether that counts as \"fails to connect\" (www retry or not)",
+        "rule 3: first load failed with ERR_CERT_DATE_INVALID; the rule doesn't say whether that counts as \"fails to connect\" (www retry or not)",
+        "rule 4: first load failed with ERR_CERT_DATE_INVALID; the rule doesn't say whether that counts as \"fails to connect\" (www retry or not)",
+        "rule 5: first load failed with ERR_CERT_DATE_INVALID; the rule doesn't say whether that counts as \"fails to connect\" (www retry or not)",
+        "rule 6: first load failed with ERR_CERT_DATE_INVALID; the rule doesn't say whether that counts as \"fails to connect\" (www retry or not)"
+      ]
+    }
+  },
+  "browser": {
+    "launch": "playwright chromium.launch() default (headless shell)",
+    "version": "143.0.7499.4",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.7499.4 Safari/537.36"
+  },
+  "timing": {
+    "waitUntil": "load",
+    "settleMs": 3000,
+    "loadTimeoutMs": 60000,
+    "evalTimeoutMs": 10000
+  },
+  "startedAt": "2026-09-19T02:17:23.442Z",
+  "updatedAt": "2026-09-19T04:33:22.951Z",
+  "complete": true,
+  "acceptedCount": 20,
+  "stop": null,
+  "inFlight": null,
+  "candidates": [
+    {
+      "i": 0,
+      "rank": 80782,
+      "domain": "pricecheck.co.za",
+      "finalUrl": "https://pricecheck.co.za/",
+      "status": 403,
+      "contentType": "text/html; charset=UTF-8",
+      "result": 1
+    },
+    {
+      "i": 1,
+      "rank": 22399,
+      "domain": "topjobs.lk",
+      "finalUrl": "https://topjobs.lk/",
+      "status": 200,
+      "contentType": "text/html;charset=utf-8",
+      "result": "accept"
+    },
+    {
+      "i": 2,
+      "rank": 90298,
+      "domain": "huntingbc.ca",
+      "finalUrl": "https://huntingbc.ca/",
+      "status": 403,
+      "contentType": "text/html; charset=UTF-8",
+      "result": 1
+    },
+    {
+      "i": 3,
+      "rank": 22996,
+      "domain": "recaptcha.cloud",
+      "finalUrl": "https://malware.expert/recaptcha/",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "result": 3
+    },
+    {
+      "i": 4,
+      "rank": 69549,
+      "domain": "bestcam.tv",
+      "finalUrl": "https://bestcam.tv/",
+      "status": 403,
+      "contentType": "text/html; charset=UTF-8",
+      "result": 1
+    },
+    {
+      "i": 5,
+      "rank": 65564,
+      "domain": "r-gol.com",
+      "finalUrl": "https://r-gol.com/",
+      "status": 403,
+      "contentType": "text/html; charset=UTF-8",
+      "result": 1
+    },
+    {
+      "i": 6,
+      "rank": 78760,
+      "domain": "apina.biz",
+      "finalUrl": "https://apina.biz/",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "result": "accept"
+    },
+    {
+      "i": 7,
+      "rank": 81702,
+      "domain": "pasarjaya.co.id",
+      "finalUrl": "https://pasarjaya.co.id/",
+      "status": 200,
+      "contentType": "text/html",
+      "result": "accept"
+    },
+    {
+      "i": 8,
+      "rank": 50741,
+      "domain": "anime.nexus",
+      "finalUrl": "https://anime.nexus/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "result": "accept"
+    },
+    {
+      "i": 9,
+      "rank": 63899,
+      "domain": "fashionbeans.com",
+      "finalUrl": "https://www.fashionbeans.com/",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "result": "accept"
+    },
+    {
+      "i": 10,
+      "rank": 61381,
+      "domain": "noticiasdealava.eus",
+      "finalUrl": "https://www.noticiasdealava.eus/",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "result": "accept",
+      "fallbackUsed": true,
+      "netError": "ERR_CERT_DATE_INVALID"
+    },
+    {
+      "i": 11,
+      "rank": 65562,
+      "domain": "hostway.com",
+      "finalUrl": "https://hostway.com/",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "result": "accept",
+      "fallbackUsed": false,
+      "netError": null
+    },
+    {
+      "i": 12,
+      "rank": 82213,
+      "domain": "zhanh.com",
+      "finalUrl": null,
+      "status": null,
+      "contentType": null,
+      "result": 1,
+      "fallbackUsed": true,
+      "netError": "ERR_SSL_VERSION_OR_CIPHER_MISMATCH"
+    },
+    {
+      "i": 13,
+      "rank": 71430,
+      "domain": "naoconto.com",
+      "finalUrl": "https://www.naoconto.com/",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "result": 5,
+      "fallbackUsed": false,
+      "netError": null
+    },
+    {
+      "i": 14,
+      "rank": 19447,
+      "domain": "xxxclub.to",
+      "finalUrl": null,
+      "status": null,
+      "contentType": null,
+      "result": 5,
+      "fallbackUsed": false,
+      "netError": null
+    },
+    {
+      "i": 15,
+      "rank": 81383,
+      "domain": "ekdromi.gr",
+      "finalUrl": "https://www.ekdromi.gr/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "result": "accept",
+      "fallbackUsed": false,
+      "netError": null
+    },
+    {
+      "i": 16,
+      "rank": 42791,
+      "domain": "afad.gov.tr",
+      "finalUrl": "https://afad.gov.tr/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "result": "accept",
+      "fallbackUsed": false,
+      "netError": null
+    },
+    {
+      "i": 17,
+      "rank": 18434,
+      "domain": "financesonline.com",
+      "finalUrl": "https://financesonline.com/",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "result": "accept",
+      "fallbackUsed": false,
+      "netError": null
+    },
+    {
+      "i": 18,
+      "rank": 34400,
+      "domain": "ironplanet.com",
+      "finalUrl": "https://www.ironplanet.com/",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "result": "accept",
+      "fallbackUsed": false,
+      "netError": null
+    },
+    {
+      "i": 19,
+      "rank": 11722,
+      "domain": "hyros.com",
+      "finalUrl": "https://hyros.com/",
+      "status": 200,
+      "contentType": "text/html",
+      "result": "accept",
+      "fallbackUsed": false,
+      "netError": null
+    },
+    {
+      "i": 20,
+      "rank": 83360,
+      "domain": "beardo.in",
+      "finalUrl": "https://beardo.in/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "result": "accept",
+      "fallbackUsed": false,
+      "netError": null
+    },
+    {
+      "i": 21,
+      "rank": 59467,
+      "domain": "hoolai.com",
+      "finalUrl": "https://www.hoolai.com/",
+      "status": 200,
+      "contentType": "text/html",
+      "result": "accept",
+      "fallbackUsed": false,
+      "netError": null
+    },
+    {
+      "i": 22,
+      "rank": 77440,
+      "domain": "dfbocai.net",
+      "finalUrl": "https://www.dfbocai.net/en",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "result": "accept",
+      "fallbackUsed": false,
+      "netError": null,
+      "primaryNetError": null,
+      "fallbackNetError": null,
+      "documentContentType": "text/html"
+    },
+    {
+      "i": 23,
+      "rank": 38752,
+      "domain": "assurancewireless.com",
+      "finalUrl": "https://assurancewireless.com/",
+      "status": 403,
+      "contentType": "text/html",
+      "result": 1,
+      "fallbackUsed": false,
+      "netError": null,
+      "primaryNetError": null,
+      "fallbackNetError": null,
+      "documentContentType": "text/html"
+    },
+    {
+      "i": 24,
+      "rank": 44405,
+      "domain": "santander.com.ar",
+      "finalUrl": null,
+      "status": null,
+      "contentType": null,
+      "result": 1,
+      "fallbackUsed": true,
+      "netError": "ERR_HTTP2_PROTOCOL_ERROR",
+      "primaryNetError": "ERR_HTTP2_PROTOCOL_ERROR",
+      "fallbackNetError": "ERR_HTTP2_PROTOCOL_ERROR",
+      "documentContentType": null
+    },
+    {
+      "i": 25,
+      "rank": 18777,
+      "domain": "pepper.pl",
+      "finalUrl": "https://pepper.pl/",
+      "status": 403,
+      "contentType": "text/html; charset=UTF-8",
+      "result": 1,
+      "fallbackUsed": false,
+      "netError": null,
+      "primaryNetError": null,
+      "fallbackNetError": null,
+      "documentContentType": "text/html"
+    },
+    {
+      "i": 26,
+      "rank": 14645,
+      "domain": "clonodes.top",
+      "finalUrl": null,
+      "status": null,
+      "contentType": null,
+      "result": 1,
+      "fallbackUsed": true,
+      "netError": "ERR_NAME_NOT_RESOLVED",
+      "primaryNetError": "ERR_NAME_NOT_RESOLVED",
+      "fallbackNetError": "ERR_NAME_NOT_RESOLVED",
+      "documentContentType": null
+    },
+    {
+      "i": 27,
+      "rank": 66291,
+      "domain": "ixi.ru",
+      "finalUrl": "https://ixi.ru/",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "result": "accept",
+      "fallbackUsed": false,
+      "netError": null,
+      "primaryNetError": null,
+      "fallbackNetError": null,
+      "documentContentType": "text/html"
+    },
+    {
+      "i": 28,
+      "rank": 88229,
+      "domain": "zelesta.nl",
+      "finalUrl": "https://zelesta.nl/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "result": "accept",
+      "fallbackUsed": false,
+      "netError": null,
+      "primaryNetError": null,
+      "fallbackNetError": null,
+      "documentContentType": "text/html"
+    },
+    {
+      "i": 29,
+      "rank": 54780,
+      "domain": "vdc.ru",
+      "finalUrl": "https://vdc.ru/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "result": "accept",
+      "fallbackUsed": false,
+      "netError": null,
+      "primaryNetError": null,
+      "fallbackNetError": null,
+      "documentContentType": "text/html"
+    },
+    {
+      "i": 30,
+      "rank": 71952,
+      "domain": "eyoodns.com",
+      "finalUrl": null,
+      "status": null,
+      "contentType": null,
+      "result": 1,
+      "fallbackUsed": true,
+      "netError": "ERR_TIMED_OUT",
+      "primaryNetError": "ERR_CERT_COMMON_NAME_INVALID",
+      "fallbackNetError": "ERR_TIMED_OUT",
+      "documentContentType": null
+    },
+    {
+      "i": 31,
+      "rank": 73163,
+      "domain": "lionbridge.com",
+      "finalUrl": "https://www.lionbridge.com/",
+      "status": 200,
+      "contentType": "text/html;charset=utf-8",
+      "result": "accept",
+      "fallbackUsed": false,
+      "netError": null,
+      "primaryNetError": null,
+      "fallbackNetError": null,
+      "documentContentType": "text/html"
+    },
+    {
+      "i": 32,
+      "rank": 26242,
+      "domain": "lswf.net",
+      "finalUrl": null,
+      "status": null,
+      "contentType": null,
+      "result": 1,
+      "fallbackUsed": true,
+      "netError": "ERR_NAME_NOT_RESOLVED",
+      "primaryNetError": "ERR_NAME_NOT_RESOLVED",
+      "fallbackNetError": "ERR_NAME_NOT_RESOLVED",
+      "documentContentType": null
+    },
+    {
+      "i": 33,
+      "rank": 29185,
+      "domain": "infinity-tracking.com",
+      "finalUrl": "https://www.infinity.co/us/",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "result": "accept",
+      "fallbackUsed": false,
+      "netError": null,
+      "primaryNetError": null,
+      "fallbackNetError": null,
+      "documentContentType": "text/html"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Contact form</title>
+  <style>
+    form { display: grid; gap: 12px; max-width: 420px; }
+    label { display: block; }
+  </style>
+</head>
+<body>
+  <h1>Contact us</h1>
+  <form id="contact-form" action="#">
+    <div><label for="name">Name</label><input type="text" id="name" name="name" autocomplete="name" data-bench-id="name-input"></div>
+    <div><label for="email">Email</label><input type="email" id="email" name="email" autocomplete="email" data-bench-id="email-input"></div>
+    <div>
+      <label for="topic">Topic</label>
+      <select id="topic" name="topic" data-bench-id="topic-select">
+        <option>General</option>
+        <option>Billing</option>
+        <option>Support</option>
+      </select>
+    </div>
+    <div><label for="message">Message</label><textarea id="message" name="message" rows="4" data-bench-id="message-textarea"></textarea></div>
+    <div><input type="checkbox" id="subscribe" name="subscribe" data-bench-id="subscribe-checkbox"><label for="subscribe">Subscribe to the newsletter</label></div>
+    <div><button type="submit" id="send" data-bench-id="submit-button">Send message</button></div>
+  </form>
+  <p id="status" role="status"></p>
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      document.getElementById('status').textContent = 'Message sent';
+    });
+  </script>
+</body>
+</html>

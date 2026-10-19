@@ -1,0 +1,51 @@
+// Example Jenkinsfile showing how to use the Accessibility Agent plugin
+
+pipeline {
+    agent any
+
+    environment {
+        // Your website URL (could be a deployed staging environment)
+        SITE_URL = 'https://your-staging-site.com'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                // Your normal build steps here
+                echo 'Building application...'
+                // sh 'npm install && npm run build'
+            }
+        }
+
+        stage('Deploy to Staging') {
+            steps {
+                echo 'Deploying to staging...'
+                // Deploy your built application to a staging server
+            }
+        }
+
+        stage('Accessibility Tests') {
+            steps {
+                // Run accessibility tests using the agent
+                accessibilityAgent(
+                    testConfigFile: 'accessibility-tests.json',
+                    continueOnFailure: true,
+                    failBuildOnTestFailure: true
+                )
+            }
+        }
+    }
+
+    post {
+        always {
+            // The accessibility results are automatically attached to the build
+            // and viewable via the "Accessibility Test Results" link
+            echo 'Accessibility testing complete. View results in the build dashboard.'
+        }
+        failure {
+            // Notify team of accessibility failures
+            echo 'Accessibility tests failed!'
+            // mail to: 'team@example.com', subject: 'Accessibility Tests Failed', body: 'Check Jenkins for details'
+        }
+    }
+}

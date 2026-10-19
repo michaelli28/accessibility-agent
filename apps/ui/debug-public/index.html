@@ -1,0 +1,2144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Debug UI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #FAFAFA;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #F3F4F6;
+            --bg-sidebar: #F9FAFB;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --text-muted: #9CA3AF;
+            --accent-primary: #10B981;
+            --accent-hover: #059669;
+            --accent-light: rgba(16, 185, 129, 0.1);
+            --border-light: #E5E7EB;
+            --border-medium: #D1D5DB;
+            --success: #10B981;
+            --error: #EF4444;
+            --warning: #F59E0B;
+            --info: #3B82F6;
+            --purple: #8B5CF6;
+            --cyan: #06B6D4;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            font-size: 13px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            grid-template-rows: auto auto 1fr;
+            height: 100vh;
+        }
+
+        .header {
+            grid-column: 1 / -1;
+        }
+
+        .confirmation-banner {
+            grid-column: 1 / -1;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 16px 28px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .header h1 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .header h1 svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-group label {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .input-group input, .input-group select {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            padding: 8px 12px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 13px;
+            min-width: 160px;
+            transition: all 0.15s;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            background: var(--bg-secondary);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-danger {
+            background: var(--error);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            filter: brightness(1.1);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--border-medium);
+        }
+
+        .btn-confirm {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        .btn-reject {
+            background: var(--error);
+            color: white;
+        }
+
+        /* Toggle Switch */
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .toggle {
+            position: relative;
+            width: 40px;
+            height: 22px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-medium);
+            border-radius: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s;
+        }
+
+        .toggle.active {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
+
+        .toggle.active::after {
+            left: 20px;
+        }
+
+        /* Confirmation Banner */
+        .confirmation-banner {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 12px 24px;
+            background: var(--warning);
+            color: white;
+            font-weight: 500;
+            animation: slideDown 0.3s ease;
+        }
+
+        .confirmation-banner.visible {
+            display: flex;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .confirmation-banner .btn {
+            padding: 6px 16px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+        }
+
+        .status-dot.connected {
+            background: var(--success);
+        }
+
+        .status-dot.running {
+            background: var(--warning);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Main Content */
+        .main-panel {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border-light);
+            min-height: 0;
+            background: var(--bg-secondary);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .panel-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .panel-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .filter-btn {
+            padding: 5px 10px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .filter-btn:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--border-medium);
+        }
+
+        .filter-btn.active {
+            background: var(--accent-light);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* Event Stream */
+        .event-stream {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+        }
+
+        .event-item {
+            margin-bottom: 10px;
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .event-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--bg-secondary);
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.15s;
+        }
+
+        .event-header:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .event-type {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .event-type.init { background: var(--purple); color: white; }
+        .event-type.llm_request { background: var(--info); color: white; }
+        .event-type.llm_response { background: var(--cyan); color: white; }
+        .event-type.tool_call { background: var(--warning); color: white; }
+        .event-type.tool_result { background: var(--success); color: white; }
+        .event-type.observation { background: #7C3AED; color: white; }
+        .event-type.finish { background: var(--success); color: white; }
+        .event-type.error { background: var(--error); color: white; }
+
+        .event-time {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: 'SF Mono', Monaco, monospace;
+        }
+
+        .event-summary {
+            flex: 1;
+            font-size: 12px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .event-toggle {
+            color: var(--text-muted);
+            font-size: 10px;
+            transition: transform 0.2s;
+        }
+
+        .event-item.expanded .event-toggle {
+            transform: rotate(90deg);
+        }
+
+        .event-body {
+            display: none;
+            padding: 14px;
+            border-top: 1px solid var(--border-light);
+            background: var(--bg-tertiary);
+            max-height: 400px;
+            overflow: auto;
+        }
+
+        .event-item.expanded .event-body {
+            display: block;
+        }
+
+        .json-view {
+            font-size: 12px;
+            font-family: 'SF Mono', Monaco, Consolas, monospace;
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.6;
+        }
+
+        .json-key { color: var(--purple); }
+        .json-string { color: var(--success); }
+        .json-number { color: var(--warning); }
+        .json-boolean { color: var(--cyan); }
+        .json-null { color: var(--text-muted); }
+
+        /* Preview Panel */
+        .preview-panel {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-height: 0;
+            background: var(--bg-secondary);
+        }
+
+        .preview-content {
+            flex: 1;
+            overflow: auto;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preview-content img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .preview-placeholder {
+            color: var(--text-muted);
+            font-size: 13px;
+            text-align: center;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .preview-placeholder svg {
+            width: 40px;
+            height: 40px;
+            opacity: 0.4;
+        }
+
+        /* Stats Footer */
+        .stats-bar {
+            display: flex;
+            gap: 20px;
+            padding: 10px 16px;
+            background: var(--bg-tertiary);
+            border-top: 1px solid var(--border-light);
+            font-size: 12px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+        }
+
+        .stat-value {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-medium);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 2px;
+            background: var(--bg-tertiary);
+            padding: 6px;
+        }
+
+        .tab {
+            padding: 8px 14px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            transition: all 0.15s;
+        }
+
+        .tab:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .tab.active {
+            background: var(--bg-secondary);
+            color: var(--accent-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-content {
+            display: none;
+            flex: 1;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        .tab-content.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Messages View */
+        .messages-view {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+        }
+
+        .message-item {
+            margin-bottom: 12px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+        }
+
+        .message-role {
+            padding: 8px 14px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .message-item.system .message-role { background: var(--purple); color: white; }
+        .message-item.user .message-role { background: var(--info); color: white; }
+        .message-item.assistant .message-role { background: var(--accent-primary); color: white; }
+        .message-item.tool .message-role { background: var(--warning); color: white; }
+
+        .message-content {
+            padding: 14px;
+            background: var(--bg-secondary);
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-size: 12px;
+            font-family: 'SF Mono', Monaco, monospace;
+            max-height: 300px;
+            overflow: auto;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+
+        /* Benchmark Panel Styles */
+        .benchmark-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            gap: 16px;
+            padding: 16px;
+        }
+
+        .benchmark-config {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 16px;
+        }
+
+        .benchmark-config h3 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .benchmark-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .benchmark-form .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .benchmark-form label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .benchmark-form select,
+        .benchmark-form input {
+            padding: 8px 10px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.15s;
+        }
+
+        .checkbox-item:hover {
+            border-color: var(--accent-primary);
+        }
+
+        .checkbox-item.selected {
+            background: var(--accent-light);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .benchmark-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .benchmark-progress {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 16px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .progress-header h3 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .progress-bar-container {
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent-primary);
+            transition: width 0.3s;
+            width: 0%;
+        }
+
+        .progress-details {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .benchmark-terminal {
+            margin-top: 12px;
+            background: #1e1e1e;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 10px;
+            background: #2d2d2d;
+            font-size: 11px;
+            color: #888;
+        }
+
+        .terminal-clear-btn {
+            background: transparent;
+            border: 1px solid #444;
+            color: #888;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .terminal-clear-btn:hover {
+            background: #333;
+            color: #aaa;
+        }
+
+        .terminal-content {
+            height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 11px;
+            line-height: 1.5;
+            color: #d4d4d4;
+        }
+
+        .terminal-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .terminal-content::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .terminal-content::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 3px;
+        }
+
+        .terminal-line {
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .terminal-line.action { color: #569cd6; }
+        .terminal-line.thought { color: #6a9955; }
+        .terminal-line.content { color: #ce9178; }
+        .terminal-line.finish { color: #dcdcaa; }
+        .terminal-line.error { color: #f14c4c; }
+        .terminal-line.warning { color: #cca700; }
+        .terminal-line.retry { color: #d7ba7d; }
+        .terminal-line.start { color: #4ec9b0; }
+
+        .benchmark-results {
+            flex: 1;
+            overflow: auto;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+        }
+
+        .results-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .results-header h3 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        .results-table th {
+            text-align: left;
+            padding: 10px 12px;
+            background: var(--bg-tertiary);
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .results-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-primary);
+        }
+
+        .results-table tr:hover td {
+            background: var(--bg-tertiary);
+        }
+
+        .result-pass {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .result-fail {
+            color: var(--error);
+            font-weight: 600;
+        }
+
+
+        .reports-list {
+            padding: 12px;
+        }
+
+        .report-item {
+            padding: 10px 12px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .report-item:hover {
+            border-color: var(--accent-primary);
+            background: var(--accent-light);
+        }
+
+        .report-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .report-item-name {
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .report-item-date {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .report-item-stats {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <header class="header">
+            <h1>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                </svg>
+                Debug UI
+            </h1>
+            <div class="controls">
+                <div class="input-group">
+                    <label>Test Case</label>
+                    <select id="testCaseSelect">
+                        <option value="">-- Custom --</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>URL</label>
+                    <input type="url" id="urlInput" placeholder="https://example.com" value="https://example.com">
+                </div>
+                <div class="input-group">
+                    <label>Goal</label>
+                    <input type="text" id="goalInput" placeholder="Describe the goal..." value="Find the main heading on the page">
+                </div>
+                <div class="input-group">
+                    <label>Model</label>
+                    <select id="modelSelect">
+                        <option value="google/gemini-2.5-flash">Gemini 2.5 Flash</option>
+                        <option value="google/gemini-3-pro-preview">Gemini 3 Pro Preview</option>
+                        <option value="google/gemini-3-flash-preview">Gemini 3 Flash Preview</option>
+                        <option value="anthropic/claude-sonnet-4">Claude 4 Sonnet</option>
+                        <option value="anthropic/claude-sonnet-4.5">Claude 4.5 Sonnet</option>
+                        <option value="anthropic/claude-opus-4.5">Claude 4.5 Opus</option>
+                        <option value="openai/gpt-5">GPT 5</option>
+                        <option value="openai/gpt-5.2">GPT 5.2</option>
+                        <option value="openai/gpt-oss-120b">GPT OSS 120B</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Agent Type</label>
+                    <select id="agentTypeSelect">
+                        <option value="full">Full (Screen Reader)</option>
+                        <option value="minimal">Minimal (Tab Only)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="toggle-group">
+                <span class="toggle-label">Stepwise Mode</span>
+                <div class="toggle" id="stepwiseToggle" title="Parse goal into steps and run each with fresh context (saves tokens)"></div>
+            </div>
+            <div class="toggle-group">
+                <span class="toggle-label">Manual Oversight</span>
+                <div class="toggle" id="oversightToggle" title="Pause before each LLM request for manual approval"></div>
+            </div>
+            <div class="toggle-group">
+                <span class="toggle-label">PageRank Mode</span>
+                <div class="toggle" id="pagerankToggle" title="Enable PageRank-based navigation (crawls site first)"></div>
+            </div>
+            <button class="btn btn-primary" id="runBtn">Run Agent</button>
+            <button class="btn btn-danger" id="stopBtn" style="display:none;">Stop</button>
+            <button class="btn btn-secondary" id="clearBtn">Clear</button>
+            <div class="status-indicator">
+                <span class="status-dot" id="statusDot"></span>
+                <span id="statusText">Disconnected</span>
+            </div>
+        </header>
+
+        <div class="confirmation-banner" id="confirmationBanner">
+            <span id="confirmationText">Awaiting confirmation for LLM request (Loop 1)</span>
+            <button class="btn btn-confirm" id="confirmBtn">Continue</button>
+            <button class="btn btn-reject" id="rejectBtn">Stop</button>
+        </div>
+
+        <div class="main-panel">
+            <div class="tabs">
+                <button class="tab active" data-tab="events">Events Stream</button>
+                <button class="tab" data-tab="messages">Messages</button>
+                <button class="tab" data-tab="benchmark">Benchmark</button>
+            </div>
+
+            <div class="tab-content active" id="eventsTab">
+                <div class="panel-header">
+                    <span class="panel-title">Debug Events</span>
+                    <div class="panel-actions">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="llm">LLM</button>
+                        <button class="filter-btn" data-filter="tool">Tools</button>
+                        <button class="filter-btn" data-filter="observation">Observations</button>
+                    </div>
+                </div>
+                <div class="event-stream" id="eventStream"></div>
+            </div>
+
+            <div class="tab-content" id="messagesTab">
+                <div class="panel-header">
+                    <span class="panel-title">Full Message History</span>
+                </div>
+                <div class="messages-view" id="messagesView"></div>
+            </div>
+
+            <div class="tab-content" id="benchmarkTab">
+                <div class="benchmark-container">
+                    <div class="benchmark-config">
+                        <h3>Run Benchmark</h3>
+                        <div class="benchmark-form">
+                            <div class="input-group">
+                                <label>Test Cases</label>
+                                <div class="checkbox-group" id="testCaseCheckboxes">
+                                    <span class="empty-state" style="padding: 10px;">Loading test cases...</span>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label>Models</label>
+                                <div class="checkbox-group" id="modelCheckboxes">
+                                    <div class="checkbox-item selected" data-model="google/gemini-2.5-flash">Gemini 2.5 Flash</div>
+                                    <div class="checkbox-item" data-model="google/gemini-3-pro-preview">Gemini 3 Pro Preview</div>
+                                    <div class="checkbox-item" data-model="google/gemini-3-flash-preview">Gemini 3 Flash Preview</div>
+                                    <div class="checkbox-item" data-model="anthropic/claude-sonnet-4">Claude 4 Sonnet</div>
+                                    <div class="checkbox-item" data-model="anthropic/claude-sonnet-4.5">Claude 4.5 Sonnet</div>
+                                    <div class="checkbox-item" data-model="anthropic/claude-opus-4.5">Claude 4.5 Opus</div>
+                                    <div class="checkbox-item" data-model="openai/gpt-5">GPT 5</div>
+                                    <div class="checkbox-item" data-model="openai/gpt-5.2">GPT 5.2</div>
+                                    <div class="checkbox-item" data-model="openai/gpt-oss-120b">GPT OSS 120B</div>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label>Runs per Test Case</label>
+                                <input type="number" id="runsPerTestCase" value="1" min="1" max="10">
+                            </div>
+                            <div class="input-group">
+                                <label>Agent Type</label>
+                                <div class="checkbox-group" id="benchmarkAgentType">
+                                    <div class="checkbox-item selected" data-agenttype="full">Full (Screen Reader)</div>
+                                    <div class="checkbox-item" data-agenttype="minimal">Minimal (Tab Only)</div>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                    <input type="checkbox" id="benchmarkStepwise" style="width: 16px; height: 16px;">
+                                    <span>Stepwise Mode</span>
+                                    <span style="font-size: 10px; color: #666;">(parse goal into steps, fresh context each)</span>
+                                </label>
+                            </div>
+                            <div class="benchmark-actions">
+                                <button class="btn btn-primary" id="runBenchmarkBtn">Run Benchmark</button>
+                                <button class="btn btn-secondary" id="loadReportsBtn">Load Reports</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="benchmark-progress" id="benchmarkProgress" style="display: none;">
+                        <div class="progress-header">
+                            <h3>Running Benchmark...</h3>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span id="progressPercent">0%</span>
+                                <button class="btn btn-danger" id="stopBenchmarkBtn" style="padding: 4px 12px; font-size: 11px;">Stop</button>
+                            </div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="progressBar"></div>
+                        </div>
+                        <div id="progressDetails" style="font-size: 12px; color: var(--text-muted); margin-top: 8px;"></div>
+
+                        <!-- Live Summary Stats -->
+                        <div class="live-stats" id="liveStats" style="display: flex; gap: 16px; margin: 12px 0; padding: 10px; background: var(--bg-tertiary); border-radius: 6px; font-size: 12px;">
+                            <div><span style="color: var(--text-muted);">Completed:</span> <span id="liveCompleted">0</span>/<span id="liveTotal">0</span></div>
+                            <div><span style="color: #4ade80;">✓ Pass:</span> <span id="livePass">0</span></div>
+                            <div><span style="color: #f87171;">✗ Fail:</span> <span id="liveFail">0</span></div>
+                            <div><span style="color: var(--text-muted);">Pass Rate:</span> <span id="livePassRate">-</span></div>
+                        </div>
+
+                        <!-- Current Test Indicator -->
+                        <div class="current-test" id="currentTest" style="display: none; padding: 12px; background: var(--bg-tertiary); border-radius: 6px; margin-bottom: 12px; border-left: 3px solid var(--accent);">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                                <div class="running-indicator" style="width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse 1.5s infinite;"></div>
+                                <span style="font-weight: 500; color: var(--text-primary);">Currently Running</span>
+                            </div>
+                            <div style="font-size: 13px;">
+                                <span style="color: var(--text-muted);">Test:</span> <span id="currentTestId" style="color: var(--text-primary); font-weight: 500;">-</span>
+                            </div>
+                            <div style="font-size: 13px;">
+                                <span style="color: var(--text-muted);">Model:</span> <span id="currentModel" style="color: var(--accent);">-</span>
+                            </div>
+                            <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;" id="currentRunInfo">Run 1</div>
+                        </div>
+
+                        <!-- Live Results Table -->
+                        <div class="live-results" id="liveResults" style="margin-bottom: 12px;">
+                            <div style="font-size: 12px; font-weight: 500; color: var(--text-secondary); margin-bottom: 8px;">Completed Runs</div>
+                            <div class="live-results-table" id="liveResultsTable" style="max-height: 200px; overflow-y: auto; background: var(--bg-tertiary); border-radius: 6px;">
+                                <div style="padding: 12px; text-align: center; color: var(--text-muted); font-size: 12px;">No completed runs yet</div>
+                            </div>
+                        </div>
+
+                        <div class="benchmark-terminal" id="benchmarkTerminal">
+                            <div class="terminal-header">
+                                <span>Agent Output</span>
+                                <button class="terminal-clear-btn" id="clearTerminalBtn">Clear</button>
+                            </div>
+                            <div class="terminal-content" id="terminalContent"></div>
+                        </div>
+                    </div>
+
+                    <style>
+                        @keyframes pulse {
+                            0%, 100% { opacity: 1; }
+                            50% { opacity: 0.4; }
+                        }
+                        .live-result-row {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr 80px 60px 80px;
+                            padding: 8px 12px;
+                            font-size: 11px;
+                            border-bottom: 1px solid var(--border);
+                            align-items: center;
+                        }
+                        .live-result-row:last-child {
+                            border-bottom: none;
+                        }
+                        .live-result-row.header {
+                            font-weight: 500;
+                            color: var(--text-muted);
+                            background: var(--bg-secondary);
+                            position: sticky;
+                            top: 0;
+                        }
+                        .result-badge {
+                            padding: 2px 8px;
+                            border-radius: 4px;
+                            font-size: 10px;
+                            font-weight: 600;
+                            text-transform: uppercase;
+                        }
+                        .result-badge.pass {
+                            background: rgba(74, 222, 128, 0.2);
+                            color: #4ade80;
+                        }
+                        .result-badge.fail {
+                            background: rgba(248, 113, 113, 0.2);
+                            color: #f87171;
+                        }
+                    </style>
+
+                    <div class="benchmark-results" id="benchmarkResults">
+                        <div class="results-header">
+                            <h3>Results</h3>
+                            <select id="reportSelector" style="font-size: 11px; padding: 4px 8px;">
+                                <option value="">Select a report...</option>
+                            </select>
+                        </div>
+                        <div id="resultsContent">
+                            <div class="empty-state">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                                <p>No benchmark results yet.<br>Run a benchmark or load a previous report.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-label">Events:</span>
+                    <span class="stat-value" id="eventCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Observations:</span>
+                    <span class="stat-value" id="obsCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Loops:</span>
+                    <span class="stat-value" id="loopCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Tools:</span>
+                    <span class="stat-value" id="toolCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Tokens:</span>
+                    <span class="stat-value" id="tokenCount">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-panel">
+            <div class="panel-header">
+                <span class="panel-title">Browser Preview</span>
+                <span id="previewUrl" style="font-size: 11px; color: var(--text-muted); margin-left: auto;"></span>
+            </div>
+            <div class="preview-content" id="previewContent">
+                <div class="preview-placeholder">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                        <line x1="8" y1="21" x2="16" y2="21"/>
+                        <line x1="12" y1="17" x2="12" y2="21"/>
+                    </svg>
+                    <span>Browser preview will appear here</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let ws = null;
+        let events = [];
+        let messages = [];
+        let stats = { events: 0, observations: 0, loops: 0, tools: 0, tokens: 0 };
+        let currentFilter = 'all';
+        let stepwiseMode = false;
+        let manualOversight = false;
+        let pagerankMode = false;
+
+        // Benchmark state
+        let testCases = [];
+        let selectedTestCases = new Set();
+        let selectedModels = new Set(['google/gemini-2.5-flash']);
+        let selectedBenchmarkAgentType = 'full';
+        let benchmarkReports = [];
+        let currentReport = null;
+        let benchmarkRunning = false;
+        let benchmarkProgress = { completed: 0, total: 0 };
+        let liveStats = { pass: 0, fail: 0 };
+
+        // DOM Elements
+        const testCaseSelect = document.getElementById('testCaseSelect');
+        const urlInput = document.getElementById('urlInput');
+        const goalInput = document.getElementById('goalInput');
+        const modelSelect = document.getElementById('modelSelect');
+        const agentTypeSelect = document.getElementById('agentTypeSelect');
+        const runBtn = document.getElementById('runBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const eventStream = document.getElementById('eventStream');
+        const messagesView = document.getElementById('messagesView');
+        const previewContent = document.getElementById('previewContent');
+        const previewUrl = document.getElementById('previewUrl');
+        const stepwiseToggle = document.getElementById('stepwiseToggle');
+        const oversightToggle = document.getElementById('oversightToggle');
+        const pagerankToggle = document.getElementById('pagerankToggle');
+        const confirmationBanner = document.getElementById('confirmationBanner');
+        const confirmationText = document.getElementById('confirmationText');
+        const confirmBtn = document.getElementById('confirmBtn');
+        const rejectBtn = document.getElementById('rejectBtn');
+
+        // Benchmark DOM elements
+        const testCaseCheckboxes = document.getElementById('testCaseCheckboxes');
+        const modelCheckboxes = document.getElementById('modelCheckboxes');
+        const benchmarkAgentTypeEl = document.getElementById('benchmarkAgentType');
+        const benchmarkStepwiseCheckbox = document.getElementById('benchmarkStepwise');
+        const runsPerTestCaseInput = document.getElementById('runsPerTestCase');
+        const runBenchmarkBtn = document.getElementById('runBenchmarkBtn');
+        const stopBenchmarkBtn = document.getElementById('stopBenchmarkBtn');
+        const loadReportsBtn = document.getElementById('loadReportsBtn');
+        const benchmarkProgressEl = document.getElementById('benchmarkProgress');
+        const progressBar = document.getElementById('progressBar');
+        const progressPercent = document.getElementById('progressPercent');
+        const progressDetails = document.getElementById('progressDetails');
+        const terminalContent = document.getElementById('terminalContent');
+        const clearTerminalBtn = document.getElementById('clearTerminalBtn');
+        const reportSelector = document.getElementById('reportSelector');
+        const resultsContent = document.getElementById('resultsContent');
+
+        // Live stats DOM elements
+        const liveCompleted = document.getElementById('liveCompleted');
+        const liveTotal = document.getElementById('liveTotal');
+        const livePass = document.getElementById('livePass');
+        const liveFail = document.getElementById('liveFail');
+        const livePassRate = document.getElementById('livePassRate');
+        const currentTest = document.getElementById('currentTest');
+        const currentTestId = document.getElementById('currentTestId');
+        const currentModel = document.getElementById('currentModel');
+        const currentRunInfo = document.getElementById('currentRunInfo');
+        const liveResultsTable = document.getElementById('liveResultsTable');
+
+        // Connect WebSocket
+        function connect() {
+            ws = new WebSocket(`ws://${window.location.host}`);
+
+            ws.onopen = () => {
+                statusDot.classList.add('connected');
+                statusText.textContent = 'Connected';
+                // Load test cases for benchmark
+                ws.send(JSON.stringify({ type: 'get_test_cases' }));
+                ws.send(JSON.stringify({ type: 'get_reports' }));
+            };
+
+            ws.onclose = () => {
+                statusDot.classList.remove('connected', 'running');
+                statusText.textContent = 'Disconnected';
+                runBtn.style.display = '';
+                stopBtn.style.display = 'none';
+                runBtn.disabled = false;
+                setTimeout(connect, 2000);
+            };
+
+            ws.onerror = (error) => {
+                console.error('WebSocket error:', error);
+            };
+
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                handleMessage(data);
+            };
+        }
+
+        // Handle incoming messages
+        function handleMessage(data) {
+            switch (data.type) {
+                case 'debug_event':
+                    addEvent(data.event);
+                    break;
+                case 'screenshot':
+                    updateScreenshot(data.screenshot, data.url);
+                    break;
+                case 'status':
+                    statusText.textContent = data.message;
+                    break;
+                case 'complete':
+                    statusDot.classList.remove('running');
+                    statusDot.classList.add('connected');
+                    statusText.textContent = data.success ? 'Completed' : 'Failed: ' + (data.error || 'Unknown');
+                    runBtn.style.display = '';
+                    stopBtn.style.display = 'none';
+                    runBtn.disabled = false;
+                    hideConfirmation();
+                    break;
+                case 'error':
+                    statusText.textContent = 'Error: ' + data.message;
+                    break;
+                case 'awaiting_confirmation':
+                    showConfirmation(data.loopCount, data.messageCount);
+                    break;
+
+                // Benchmark events
+                case 'test_cases':
+                    testCases = data.testCases;
+                    renderTestCaseCheckboxes();
+                    renderTestCaseDropdown();
+                    break;
+                case 'benchmark_reports':
+                    benchmarkReports = data.reports;
+                    renderReportSelector();
+                    break;
+                case 'benchmark_report':
+                    currentReport = data.report;
+                    renderBenchmarkResults();
+                    break;
+                case 'benchmark_event':
+                    handleBenchmarkEvent(data.event);
+                    break;
+                case 'benchmark_complete':
+                    handleBenchmarkComplete(data.report);
+                    break;
+                case 'benchmark_stopped':
+                    handleBenchmarkStopped(data.report);
+                    break;
+                case 'benchmark_error':
+                    handleBenchmarkError(data.error);
+                    break;
+            }
+        }
+
+        // Show confirmation banner
+        function showConfirmation(loopCount, messageCount) {
+            confirmationText.textContent = `Awaiting confirmation for LLM request (Loop ${loopCount}, ${messageCount} messages)`;
+            confirmationBanner.classList.add('visible');
+            statusText.textContent = 'Waiting for confirmation...';
+        }
+
+        // Hide confirmation banner
+        function hideConfirmation() {
+            confirmationBanner.classList.remove('visible');
+        }
+
+        // Confirm LLM request
+        function confirm() {
+            ws.send(JSON.stringify({ type: 'confirm' }));
+            hideConfirmation();
+            statusText.textContent = 'Running...';
+        }
+
+        // Reject LLM request
+        function reject() {
+            ws.send(JSON.stringify({ type: 'reject' }));
+            hideConfirmation();
+        }
+
+        // Add event to stream
+        function addEvent(event) {
+            events.push(event);
+            stats.events++;
+
+            // Update stats based on event type
+            if (event.type === 'observation') stats.observations++;
+            if (event.type === 'tool_call') stats.tools++;
+            if (event.type === 'llm_request') stats.loops = event.data?.loopCount || stats.loops;
+            if (event.type === 'finish' && event.data?.totalTokens) stats.tokens = event.data.totalTokens.total || 0;
+
+            updateStats();
+
+            // Track messages from llm_request events
+            if (event.type === 'llm_request' && event.data?.request?.messages) {
+                messages = event.data.request.messages;
+                updateMessagesView();
+            }
+
+            if (shouldShowEvent(event)) {
+                renderEvent(event);
+            }
+        }
+
+        // Check if event matches current filter
+        function shouldShowEvent(event) {
+            if (currentFilter === 'all') return true;
+            if (currentFilter === 'llm') return event.type === 'llm_request' || event.type === 'llm_response';
+            if (currentFilter === 'tool') return event.type === 'tool_call' || event.type === 'tool_result';
+            if (currentFilter === 'observation') return event.type === 'observation';
+            return true;
+        }
+
+        // Render event
+        function renderEvent(event) {
+            const div = document.createElement('div');
+            div.className = 'event-item';
+            div.innerHTML = `
+                <div class="event-header">
+                    <span class="event-type ${event.type}">${event.type.replace('_', ' ')}</span>
+                    <span class="event-time">${formatTime(event.timestamp)}</span>
+                    <span class="event-summary">${escapeHtml(getEventSummary(event))}</span>
+                    <span class="event-toggle">&#9654;</span>
+                </div>
+                <div class="event-body">
+                    <div class="json-view">${syntaxHighlight(JSON.stringify(event.data, null, 2))}</div>
+                </div>
+            `;
+
+            div.querySelector('.event-header').onclick = () => {
+                div.classList.toggle('expanded');
+            };
+
+            // Check if user is near bottom before adding (within 100px)
+            const isNearBottom = eventStream.scrollHeight - eventStream.scrollTop - eventStream.clientHeight < 100;
+
+            eventStream.appendChild(div);
+
+            // Only auto-scroll if user was already near bottom
+            if (isNearBottom) {
+                eventStream.scrollTop = eventStream.scrollHeight;
+            }
+        }
+
+        // Get event summary
+        function getEventSummary(event) {
+            const data = event.data;
+            switch (event.type) {
+                case 'init':
+                    return `Goal: "${data?.goal?.substring(0, 50)}..." | Model: ${data?.model}`;
+                case 'llm_request':
+                    return `Loop ${data?.loopCount} | ${data?.request?.messages?.length} messages`;
+                case 'llm_response':
+                    return `Loop ${data?.loopCount} | ${data?.message?.toolCalls?.length || 0} tool calls`;
+                case 'tool_call':
+                    return `${data?.toolName}(${JSON.stringify(data?.parsedArguments)})`;
+                case 'tool_result':
+                    return `${data?.toolName} -> ${data?.result?.status || 'ok'}`;
+                case 'observation':
+                    return data?.snapshot?.text?.substring(0, 60) || 'No text';
+                case 'finish':
+                    const tokenInfo = data?.totalTokens ? ` | Tokens: ${data.totalTokens.total?.toLocaleString()}` : '';
+                    return `Success: ${data?.success} | Reason: ${data?.reason?.substring(0, 40)}${tokenInfo}`;
+                case 'error':
+                    return data?.message || 'Unknown error';
+                default:
+                    return JSON.stringify(data).substring(0, 60);
+            }
+        }
+
+        // Format timestamp
+        function formatTime(ts) {
+            const d = new Date(ts);
+            return d.toLocaleTimeString('en-US', { hour12: false }) + '.' + String(d.getMilliseconds()).padStart(3, '0');
+        }
+
+        // Syntax highlight JSON (with HTML escaping)
+        function syntaxHighlight(json) {
+            // First escape HTML entities to prevent tags from being interpreted
+            const escaped = json
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+
+            return escaped.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, (match) => {
+                let cls = 'json-number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'json-key';
+                    } else {
+                        cls = 'json-string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'json-boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'json-null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+
+        // Update stats display
+        function updateStats() {
+            document.getElementById('eventCount').textContent = stats.events;
+            document.getElementById('obsCount').textContent = stats.observations;
+            document.getElementById('loopCount').textContent = stats.loops;
+            document.getElementById('toolCount').textContent = stats.tools;
+            document.getElementById('tokenCount').textContent = stats.tokens.toLocaleString();
+        }
+
+        // Update screenshot
+        function updateScreenshot(base64, url) {
+            previewContent.innerHTML = `<img src="data:image/png;base64,${base64}" alt="Browser screenshot">`;
+            previewUrl.textContent = url || '';
+        }
+
+        // Update messages view
+        function updateMessagesView() {
+            // Check if user is near bottom before update (within 100px)
+            const isNearBottom = messagesView.scrollHeight - messagesView.scrollTop - messagesView.clientHeight < 100;
+
+            messagesView.innerHTML = '';
+            messages.forEach((msg, idx) => {
+                const div = document.createElement('div');
+                div.className = `message-item ${msg.role}`;
+
+                let content = msg.content;
+                if (typeof content === 'object') {
+                    content = JSON.stringify(content, null, 2);
+                }
+
+                // Truncate very long content
+                const displayContent = content?.length > 2000
+                    ? content.substring(0, 2000) + '\n\n... [truncated]'
+                    : content;
+
+                div.innerHTML = `
+                    <div class="message-role">${msg.role} ${msg.toolCallId ? `(${msg.toolCallId})` : ''}</div>
+                    <div class="message-content">${escapeHtml(displayContent || '[No content]')}</div>
+                `;
+                messagesView.appendChild(div);
+            });
+
+            // Only auto-scroll if user was already near bottom
+            if (isNearBottom) {
+                messagesView.scrollTop = messagesView.scrollHeight;
+            }
+        }
+
+        // Escape HTML
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        // Run agent
+        function run() {
+            const url = urlInput.value.trim();
+            const goal = goalInput.value.trim();
+            const model = modelSelect.value;
+            const agentType = agentTypeSelect.value;
+
+            if (!url || !goal) {
+                alert('Please enter both URL and goal');
+                return;
+            }
+
+            const navigationMode = pagerankMode ? 'pagerank' : 'default';
+            ws.send(JSON.stringify({ type: 'run', url, goal, model, manualOversight, agentType, stepwise: stepwiseMode, navigationMode }));
+            statusDot.classList.add('running');
+            const agentLabel = agentType === 'minimal' ? 'minimal' : 'full';
+            const stepwiseLabel = stepwiseMode ? 'stepwise + ' : '';
+            const pagerankLabel = pagerankMode ? ' (PageRank)' : '';
+            statusText.textContent = manualOversight ? `Starting ${stepwiseLabel}${agentLabel} agent${pagerankLabel} (manual oversight enabled)...` : `Running ${stepwiseLabel}${agentLabel} agent${pagerankLabel}...`;
+            runBtn.style.display = 'none';
+            stopBtn.style.display = '';
+        }
+
+        // Toggle stepwise mode
+        function toggleStepwise() {
+            stepwiseMode = !stepwiseMode;
+            stepwiseToggle.classList.toggle('active', stepwiseMode);
+        }
+
+        // Toggle manual oversight
+        function toggleOversight() {
+            manualOversight = !manualOversight;
+            oversightToggle.classList.toggle('active', manualOversight);
+        }
+
+        // Toggle pagerank mode
+        function togglePagerank() {
+            pagerankMode = !pagerankMode;
+            pagerankToggle.classList.toggle('active', pagerankMode);
+        }
+
+        // Stop agent
+        function stop() {
+            ws.send(JSON.stringify({ type: 'stop' }));
+        }
+
+        // Clear events
+        function clearEvents() {
+            events = [];
+            messages = [];
+            stats = { events: 0, observations: 0, loops: 0, tools: 0, tokens: 0 };
+            eventStream.innerHTML = '';
+            messagesView.innerHTML = '';
+            previewContent.innerHTML = `<div class="preview-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+                <span>Browser preview will appear here</span>
+            </div>`;
+            previewUrl.textContent = '';
+            updateStats();
+        }
+
+        // Filter events
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.filter === filter);
+            });
+
+            // Re-render all events with filter
+            eventStream.innerHTML = '';
+            events.filter(shouldShowEvent).forEach(renderEvent);
+        }
+
+        // Tab switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+            document.getElementById(tabId + 'Tab').classList.add('active');
+        }
+
+        // ============== BENCHMARK FUNCTIONS ==============
+
+        // Render test case checkboxes
+        function renderTestCaseCheckboxes() {
+            if (testCases.length === 0) {
+                testCaseCheckboxes.innerHTML = '<span class="empty-state" style="padding: 10px;">No test cases found</span>';
+                return;
+            }
+
+            testCaseCheckboxes.innerHTML = testCases.map(tc => `
+                <div class="checkbox-item" data-testcase="${tc.id}" title="${tc.goal}">
+                    ${escapeHtml(tc.name)}
+                </div>
+            `).join('');
+
+            // Add click handlers
+            testCaseCheckboxes.querySelectorAll('.checkbox-item').forEach(item => {
+                item.onclick = () => {
+                    const id = item.dataset.testcase;
+                    if (selectedTestCases.has(id)) {
+                        selectedTestCases.delete(id);
+                        item.classList.remove('selected');
+                    } else {
+                        selectedTestCases.add(id);
+                        item.classList.add('selected');
+                    }
+                };
+            });
+        }
+
+        // Render test case dropdown in header
+        function renderTestCaseDropdown() {
+            testCaseSelect.innerHTML = '<option value="">-- Custom --</option>';
+            testCases.forEach(tc => {
+                const option = document.createElement('option');
+                option.value = tc.id;
+                option.textContent = tc.name || tc.id;
+                option.title = tc.goal;
+                testCaseSelect.appendChild(option);
+            });
+        }
+
+        // Handle test case selection from dropdown
+        function handleTestCaseSelect() {
+            const selectedId = testCaseSelect.value;
+            if (!selectedId) return; // Custom selected, don't change anything
+
+            const tc = testCases.find(t => t.id === selectedId);
+            if (tc) {
+                urlInput.value = tc.url;
+                goalInput.value = tc.goal;
+            }
+        }
+
+        // Setup model checkbox handlers
+        function setupModelCheckboxes() {
+            modelCheckboxes.querySelectorAll('.checkbox-item').forEach(item => {
+                // Set initial state based on selectedModels
+                if (selectedModels.has(item.dataset.model)) {
+                    item.classList.add('selected');
+                }
+
+                item.onclick = () => {
+                    const model = item.dataset.model;
+                    if (selectedModels.has(model)) {
+                        selectedModels.delete(model);
+                        item.classList.remove('selected');
+                    } else {
+                        selectedModels.add(model);
+                        item.classList.add('selected');
+                    }
+                };
+            });
+        }
+
+        // Setup benchmark agent type selector (single selection)
+        function setupBenchmarkAgentType() {
+            benchmarkAgentTypeEl.querySelectorAll('.checkbox-item').forEach(item => {
+                item.onclick = () => {
+                    // Deselect all
+                    benchmarkAgentTypeEl.querySelectorAll('.checkbox-item').forEach(i => i.classList.remove('selected'));
+                    // Select clicked one
+                    item.classList.add('selected');
+                    selectedBenchmarkAgentType = item.dataset.agenttype;
+                };
+            });
+        }
+
+        // Render report selector dropdown
+        function renderReportSelector() {
+            reportSelector.innerHTML = '<option value="">Select a report...</option>';
+            benchmarkReports.forEach(report => {
+                const date = new Date(report.createdAt).toLocaleString();
+                reportSelector.innerHTML += `<option value="${report.id}">${escapeHtml(report.name)} (${date})</option>`;
+            });
+        }
+
+        // Load a specific report
+        function loadReport(reportId) {
+            if (!reportId) {
+                currentReport = null;
+                renderBenchmarkResults();
+                return;
+            }
+            ws.send(JSON.stringify({ type: 'get_report', reportId }));
+        }
+
+        // Run benchmark
+        function runBenchmark() {
+            if (selectedTestCases.size === 0) {
+                alert('Please select at least one test case');
+                return;
+            }
+            if (selectedModels.size === 0) {
+                alert('Please select at least one model');
+                return;
+            }
+
+            const runsPerTestCase = parseInt(runsPerTestCaseInput.value) || 1;
+            const name = `Benchmark ${new Date().toLocaleString()}`;
+
+            benchmarkRunning = true;
+            benchmarkProgress = { completed: 0, total: selectedTestCases.size * selectedModels.size * runsPerTestCase };
+
+            // Show progress, hide config
+            benchmarkProgressEl.style.display = 'block';
+            runBenchmarkBtn.disabled = true;
+            updateBenchmarkProgress();
+
+            ws.send(JSON.stringify({
+                type: 'run_benchmark',
+                testCaseIds: Array.from(selectedTestCases),
+                models: Array.from(selectedModels),
+                runsPerTestCase,
+                name,
+                agentType: selectedBenchmarkAgentType,
+                stepwise: benchmarkStepwiseCheckbox.checked
+            }));
+        }
+
+        // Stop benchmark
+        function stopBenchmark() {
+            if (!benchmarkRunning) return;
+
+            ws.send(JSON.stringify({ type: 'stop_benchmark' }));
+            progressDetails.textContent = 'Stopping benchmark...';
+            appendTerminalLine('\n[Stopping benchmark...]', 'warning');
+        }
+
+        // Handle benchmark events
+        function handleBenchmarkEvent(event) {
+            switch (event.type) {
+                case 'benchmark_started':
+                    benchmarkProgress.total = event.totalRuns;
+                    benchmarkProgress.completed = 0;
+                    liveStats = { pass: 0, fail: 0 };
+                    progressDetails.textContent = 'Starting benchmark...';
+                    clearTerminal();
+
+                    // Initialize live stats display
+                    liveCompleted.textContent = '0';
+                    liveTotal.textContent = event.totalRuns;
+                    livePass.textContent = '0';
+                    liveFail.textContent = '0';
+                    livePassRate.textContent = '-';
+
+                    // Reset results table with header
+                    liveResultsTable.innerHTML = `
+                        <div class="live-result-row header">
+                            <div>Test Case</div>
+                            <div>Model</div>
+                            <div>Result</div>
+                            <div>Steps</div>
+                            <div>Duration</div>
+                        </div>
+                    `;
+                    break;
+
+                case 'run_started':
+                    progressDetails.textContent = `Running: ${event.testCaseId} with ${event.model} (run ${event.runNumber})`;
+                    appendTerminalLine(`\n=== ${event.testCaseId} | ${event.model} | Run ${event.runNumber} ===`, 'start');
+
+                    // Show and update current test indicator
+                    currentTest.style.display = 'block';
+                    currentTestId.textContent = event.testCaseId;
+                    currentModel.textContent = event.model.split('/').pop();
+                    currentRunInfo.textContent = `Run ${event.runNumber}`;
+                    break;
+
+                case 'run_completed':
+                    benchmarkProgress.completed++;
+                    updateBenchmarkProgress();
+                    const run = event.run;
+
+                    // Update live stats
+                    if (run.criteriaResult === 'pass') {
+                        liveStats.pass++;
+                    } else {
+                        liveStats.fail++;
+                    }
+
+                    liveCompleted.textContent = benchmarkProgress.completed;
+                    livePass.textContent = liveStats.pass;
+                    liveFail.textContent = liveStats.fail;
+                    const passRate = benchmarkProgress.completed > 0
+                        ? Math.round((liveStats.pass / benchmarkProgress.completed) * 100)
+                        : 0;
+                    livePassRate.textContent = passRate + '%';
+
+                    // Add row to results table
+                    const resultRow = document.createElement('div');
+                    resultRow.className = 'live-result-row';
+                    const durationSec = (run.durationMs / 1000).toFixed(1);
+                    resultRow.innerHTML = `
+                        <div style="color: var(--text-primary);">${escapeHtml(run.testCaseId)}</div>
+                        <div style="color: var(--text-secondary);">${escapeHtml(run.model.split('/').pop())}</div>
+                        <div><span class="result-badge ${run.criteriaResult}">${run.criteriaResult}</span></div>
+                        <div style="color: var(--text-muted);">${run.stepsCount}</div>
+                        <div style="color: var(--text-muted);">${durationSec}s</div>
+                    `;
+                    liveResultsTable.appendChild(resultRow);
+                    liveResultsTable.scrollTop = liveResultsTable.scrollHeight;
+
+                    progressDetails.textContent = `Completed: ${run.testCaseId} - ${run.criteriaResult.toUpperCase()} (${run.stepsCount} steps)`;
+
+                    // Hide current test indicator briefly before next run
+                    currentTest.style.display = 'none';
+                    break;
+
+                case 'agent_log':
+                    appendTerminalLine(event.message);
+                    break;
+
+                case 'benchmark_completed':
+                    // Hide current test indicator
+                    currentTest.style.display = 'none';
+                    break;
+            }
+        }
+
+        // Terminal functions
+        function appendTerminalLine(message, forceClass = null) {
+            const line = document.createElement('div');
+            line.className = 'terminal-line';
+
+            // Determine line class based on content
+            if (forceClass) {
+                line.classList.add(forceClass);
+            } else if (message.startsWith('[Action]')) {
+                line.classList.add('action');
+            } else if (message.startsWith('[Thought]')) {
+                line.classList.add('thought');
+            } else if (message.startsWith('[Content]')) {
+                line.classList.add('content');
+            } else if (message.startsWith('[Finish]')) {
+                line.classList.add('finish');
+            } else if (message.startsWith('[Error]')) {
+                line.classList.add('error');
+            } else if (message.startsWith('[Warning]')) {
+                line.classList.add('warning');
+            } else if (message.startsWith('[Retry]')) {
+                line.classList.add('retry');
+            } else if (message.includes('Starting Agent Goal')) {
+                line.classList.add('start');
+            }
+
+            line.textContent = message;
+            terminalContent.appendChild(line);
+        }
+
+        function clearTerminal() {
+            terminalContent.innerHTML = '';
+        }
+
+        // Update benchmark progress bar
+        function updateBenchmarkProgress() {
+            const percent = benchmarkProgress.total > 0
+                ? Math.round((benchmarkProgress.completed / benchmarkProgress.total) * 100)
+                : 0;
+            progressBar.style.width = percent + '%';
+            progressPercent.textContent = percent + '%';
+        }
+
+        // Handle benchmark completion
+        function handleBenchmarkComplete(report) {
+            benchmarkRunning = false;
+            benchmarkProgressEl.style.display = 'none';
+            runBenchmarkBtn.disabled = false;
+            currentTest.style.display = 'none';
+
+            currentReport = report;
+            renderBenchmarkResults();
+
+            // Refresh reports list
+            ws.send(JSON.stringify({ type: 'get_reports' }));
+
+            // Select the new report in dropdown
+            setTimeout(() => {
+                reportSelector.value = report.id;
+            }, 100);
+        }
+
+        // Handle benchmark error
+        function handleBenchmarkError(error) {
+            benchmarkRunning = false;
+            benchmarkProgressEl.style.display = 'none';
+            runBenchmarkBtn.disabled = false;
+            currentTest.style.display = 'none';
+            progressDetails.textContent = 'Error: ' + error;
+            alert('Benchmark error: ' + error);
+        }
+
+        // Handle benchmark stopped
+        function handleBenchmarkStopped(report) {
+            benchmarkRunning = false;
+            benchmarkProgressEl.style.display = 'none';
+            runBenchmarkBtn.disabled = false;
+            currentTest.style.display = 'none';
+            appendTerminalLine('\n[Benchmark stopped by user]', 'warning');
+
+            if (report) {
+                currentReport = report;
+                renderBenchmarkResults();
+
+                // Refresh reports list
+                ws.send(JSON.stringify({ type: 'get_reports' }));
+
+                // Select the report in dropdown
+                setTimeout(() => {
+                    reportSelector.value = report.id;
+                }, 100);
+            }
+        }
+
+        // Render benchmark results
+        function renderBenchmarkResults() {
+            if (!currentReport) {
+                resultsContent.innerHTML = `
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        <p>No benchmark results yet.<br>Run a benchmark or load a previous report.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const summary = currentReport.summary;
+            const passRate = (summary.overallPassRate * 100).toFixed(1);
+
+            let html = `
+                <div style="padding: 16px; border-bottom: 1px solid var(--border-light);">
+                    <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                        <div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Overall Pass Rate</div>
+                            <div style="font-size: 24px; font-weight: 600; color: ${summary.overallPassRate >= 0.5 ? 'var(--success)' : 'var(--error)'};">${passRate}%</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Total Runs</div>
+                            <div style="font-size: 24px; font-weight: 600;">${summary.totalRuns}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Test Cases</div>
+                            <div style="font-size: 24px; font-weight: 600;">${summary.totalTests}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding: 16px; border-bottom: 1px solid var(--border-light);">
+                    <h4 style="font-size: 12px; margin-bottom: 12px; color: var(--text-secondary);">Results by Model</h4>
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+            `;
+
+            for (const [model, stats] of Object.entries(summary.byModel)) {
+                const modelPassRate = (stats.passRate * 100).toFixed(1);
+                const tokenDisplay = stats.avgTokens ? `, ${Math.round(stats.avgTokens).toLocaleString()} tokens` : '';
+                html += `
+                    <div style="padding: 12px; background: var(--bg-tertiary); border-radius: var(--radius-sm); min-width: 150px;">
+                        <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">${escapeHtml(model.split('/').pop())}</div>
+                        <div style="font-size: 18px; font-weight: 600; color: ${stats.passRate >= 0.5 ? 'var(--success)' : 'var(--error)'};">${modelPassRate}%</div>
+                        <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+                            Avg: ${stats.avgSteps.toFixed(1)} steps, ${(stats.avgDurationMs / 1000).toFixed(1)}s${tokenDisplay}
+                        </div>
+                    </div>
+                `;
+            }
+
+            html += `
+                    </div>
+                </div>
+
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Test Case</th>
+                            <th>Model</th>
+                            <th>Result</th>
+                            <th>Steps</th>
+                            <th>Tokens</th>
+                            <th>Duration</th>
+                            <th>Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            for (const testResult of currentReport.results) {
+                for (const run of testResult.runs) {
+                    const resultClass = run.criteriaResult === 'pass' ? 'result-pass' : 'result-fail';
+                    const tokenCount = run.totalTokens?.total ? run.totalTokens.total.toLocaleString() : '-';
+                    html += `
+                        <tr>
+                            <td>${escapeHtml(testResult.testCase.name)}</td>
+                            <td style="font-size: 11px;">${escapeHtml(run.model.split('/').pop())}</td>
+                            <td class="${resultClass}">${run.criteriaResult.toUpperCase()}</td>
+                            <td>${run.stepsCount}</td>
+                            <td>${tokenCount}</td>
+                            <td>${(run.durationMs / 1000).toFixed(1)}s</td>
+                            <td style="font-size: 11px; max-width: 200px; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(run.agentReason)}">${escapeHtml(run.agentReason?.substring(0, 50) || '-')}</td>
+                        </tr>
+                    `;
+                }
+            }
+
+            html += `
+                    </tbody>
+                </table>
+            `;
+
+            resultsContent.innerHTML = html;
+        }
+
+        // Event listeners
+        runBtn.onclick = run;
+        stopBtn.onclick = stop;
+        clearBtn.onclick = clearEvents;
+        stepwiseToggle.onclick = toggleStepwise;
+        oversightToggle.onclick = toggleOversight;
+        pagerankToggle.onclick = togglePagerank;
+        confirmBtn.onclick = confirm;
+        rejectBtn.onclick = reject;
+        testCaseSelect.onchange = handleTestCaseSelect;
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.onclick = () => setFilter(btn.dataset.filter);
+        });
+
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.onclick = () => switchTab(tab.dataset.tab);
+        });
+
+        // Benchmark event listeners
+        runBenchmarkBtn.onclick = runBenchmark;
+        stopBenchmarkBtn.onclick = stopBenchmark;
+        loadReportsBtn.onclick = () => ws.send(JSON.stringify({ type: 'get_reports' }));
+        reportSelector.onchange = () => loadReport(reportSelector.value);
+        clearTerminalBtn.onclick = clearTerminal;
+
+        // Setup model checkboxes
+        setupModelCheckboxes();
+
+        // Setup benchmark agent type selector
+        setupBenchmarkAgentType();
+
+        // Start connection
+        connect();
+    </script>
+</body>
+</html>

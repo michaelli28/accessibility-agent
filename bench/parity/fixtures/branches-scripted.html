@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Branches: scripted listeners and a collapsed dropdown</title>
+<style>.clickable { cursor: pointer; }</style>
+</head>
+<body>
+<header>
+<nav aria-label="Account">
+<div class="dropdown" data-bench-id="dropdown">
+  <button class="dropdown-toggle" data-bench-id="dropdown-toggle" type="button" aria-expanded="false" aria-controls="account-menu">Account</button>
+  <ul class="dropdown-menu" id="account-menu" data-bench-id="dropdown-menu" hidden>
+    <li><a class="dropdown-item" data-bench-id="menu-profile" href="#profile">Profile</a></li>
+    <li><a class="dropdown-item" data-bench-id="menu-orders" href="#orders">Orders</a></li>
+    <li><a data-bench-id="menu-logout" href="#logout">Log out</a></li>
+  </ul>
+</div>
+</nav>
+</header>
+<main>
+<h1>Classifier branches, script listeners</h1>
+
+<!-- addEventListener divs: one reachable through a class-substring selector, one with no selector hook. -->
+<div class="btn btn-primary" data-bench-id="div-btn-listener">Add to cart</div>
+<div data-bench-id="div-listener-plain">Add to wishlist</div>
+
+<!-- cursor:pointer and a hint class, no handler. -->
+<div class="clickable" data-bench-id="div-cursor-only" tabindex="0">Quick view</div>
+
+<!-- Roles without tabindex, handlers attached by script. -->
+<span role="button" data-bench-id="role-button-listener">Remove</span>
+<span role="checkbox" aria-checked="false" data-bench-id="checkbox-keydown">Subscribe</span>
+
+<!-- Tabs with roving tabindex. -->
+<div role="tablist" aria-label="Details" data-bench-id="tablist">
+  <div role="tab" aria-selected="true" tabindex="0" data-bench-id="tab-1">Description</div>
+  <div role="tab" aria-selected="false" tabindex="-1" data-bench-id="tab-2">Reviews</div>
+</div>
+
+<!-- Unnamed icon control with a mousedown listener. -->
+<i class="icon toggle" role="button" tabindex="0" data-bench-id="icon-toggle-listener"></i>
+
+<!-- Named generic with a click listener. -->
+<div class="action-link" aria-label="Edit address" data-bench-id="generic-labelled-listener">Edit</div>
+
+<!-- Autofocused aria-hidden button. -->
+<button data-bench-id="aria-hidden-autofocus" type="button" aria-hidden="true" autofocus onclick="void 0">Dismiss</button>
+</main>
+<script>
+(function () {
+  var byId = function (id) { return document.querySelector('[data-bench-id="' + id + '"]'); };
+  var noop = function () {};
+  var toggle = byId('dropdown-toggle');
+  var menu = byId('dropdown-menu');
+  toggle.addEventListener('click', function () {
+    var open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    menu.hidden = open;
+  });
+  byId('div-btn-listener').addEventListener('click', noop);
+  byId('div-listener-plain').addEventListener('click', noop);
+  byId('role-button-listener').addEventListener('click', noop);
+  byId('checkbox-keydown').addEventListener('keydown', noop);
+  byId('tab-1').addEventListener('click', noop);
+  byId('tab-2').addEventListener('click', noop);
+  byId('icon-toggle-listener').addEventListener('mousedown', noop);
+  byId('generic-labelled-listener').addEventListener('click', noop);
+})();
+</script>
+</body>
+</html>

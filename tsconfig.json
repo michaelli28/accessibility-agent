@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@adf/browser/*": ["packages/browser/src/*"],
+      "@adf/shared/*": ["packages/shared/*"],
+      "@adf/drivers/*": ["packages/drivers/src/*"],
+      "@adf/evaluation/*": ["packages/evaluation/src/*"],
+      "@adf/agent/*": ["apps/agent/src/*"],
+      "@adf/virtual-screen-reader": ["apps/virtual-screen-reader/src/index.ts"],
+      "@adf/virtual-screen-reader/*": ["apps/virtual-screen-reader/src/*"],
+      "@adf/ui/*": ["apps/ui/src/*"],
+      "@adf/shopping": ["shopping/index.ts"],
+      "@adf/shopping/*": ["shopping/*"],
+      "@langchain/core/*": ["node_modules/@langchain/core/dist/*"],
+    },
+  },
+  "exclude": ["node_modules", "dist"],
+}

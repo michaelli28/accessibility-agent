@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Terms of service</title>
+  <style>
+    /* Fixed-height overflow boxes with no focusable content: Chromium makes each a keyboard-focusable scroller, a Tab
+       stop that tab-walk.ts's focusable count does not include. */
+    .region { height: 80px; width: 320px; overflow: auto; border: 1px solid #999; padding: 4px 8px; }
+  </style>
+</head>
+<body>
+  <h1>Terms of service</h1>
+  <p><a href="#about" data-bench-id="link-1">About us</a></p>
+  <p><a href="#billing" data-bench-id="link-2">Billing help</a></p>
+  <div role="group" aria-label="Agreement">
+    <button type="button" id="agree" data-bench-id="agree-button">I agree</button>
+    <div class="region" role="region" aria-label="Terms of service text"><p>These terms govern your use of the service. You may cancel at any time from your account page. Payments are taken monthly in advance and are not refundable for part months. We may change these terms with thirty days' notice by email. Your content stays yours; you grant us a licence only to host and display it for you. We are not liable for losses you could not reasonably have expected. These terms are governed by the law of the country where you live. These terms govern your use of the service. You may cancel at any time from your account page. Payments are taken monthly in advance and are not refundable for part months. We may change these terms with thirty days' notice by email. Your content stays yours; you grant us a licence only to host and display it for you. We are not liable for losses you could not reasonably have expected. These terms are governed by the law of the country where you live. These terms govern your use of the service. You may cancel at any time from your account page. Payments are taken monthly in advance and are not refundable for part months. We may change these terms with thirty days' notice by email. Your content stays yours; you grant us a licence only to host and display it for you. We are not liable for losses you could not reasonably have expected. These terms are governed by the law of the country where you live.</p></div>
+    <div class="region" role="region" aria-label="Privacy notice text"><p>We collect your name, email address and payment details to run your account. We never sell your data. We keep invoices for seven years because the law requires it, and everything else until you close your account. You can ask for a copy of your data, or for it to be deleted, at any time. We use one cookie to keep you signed in and none for advertising. Our payment processor handles card numbers; we never see them. We collect your name, email address and payment details to run your account. We never sell your data. We keep invoices for seven years because the law requires it, and everything else until you close your account. You can ask for a copy of your data, or for it to be deleted, at any time. We use one cookie to keep you signed in and none for advertising. Our payment processor handles card numbers; we never see them. We collect your name, email address and payment details to run your account. We never sell your data. We keep invoices for seven years because the law requires it, and everything else until you close your account. You can ask for a copy of your data, or for it to be deleted, at any time. We use one cookie to keep you signed in and none for advertising. Our payment processor handles card numbers; we never see them.</p></div>
+  </div>
+  <p id="status" role="status"></p>
+  <script>
+    document.getElementById('agree').addEventListener('click', function () {
+      document.getElementById('status').textContent = 'Thanks, you have agreed';
+    });
+  </script>
+</body>
+</html>

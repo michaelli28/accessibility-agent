@@ -1,0 +1,27 @@
+{
+  "name": "@at-agent/cli",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "at-agent": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@at-agent/agent": "*",
+    "@at-agent/browser": "*",
+    "@at-agent/accessibility": "*",
+    "commander": "^12.1.0",
+    "dotenv": "^17.2.3",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.25",
+    "typescript": "^5.9.3",
+    "vitest": "^3.0.0"
+  }
+}

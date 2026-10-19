@@ -1,0 +1,20 @@
+# Regenerable probe/bench output: bundles, screenshots, raw logs, pinned installs, vendored W3C pages
+probes/**/dist/
+probes/**/shots/
+probes/**/out/
+probes/**/.deps/
+vendor/
+probes/reach/*.txt
+corpus/dev/variants/
+corpus/dev/.deps/
+corpus/dev/base/react-div-button/app.js
+# Full per-page harness records (bench/run.ts); summary.json and reports stay committable.
+# Except the cd3b122 dev walks (35 files, 116 KB): the packages/accessibility judge tests read them as fixtures.
+results/**/raw/*
+!results/cd3b122/dev-fixtures/raw/*
+!results/cd3b122/dev-variants/raw/*
+# The blind worklist and its key, regenerated deterministically from (sha, seed, sets, --sample, --origin) by
+# bench/blind-labels.ts. The KEY must not be read while labelling; the verdicts
+# (BLIND-LABELS-answers.json) are the record worth keeping and are NOT ignored.
+BLIND-LABELS.md
+BLIND-LABELS.key.json

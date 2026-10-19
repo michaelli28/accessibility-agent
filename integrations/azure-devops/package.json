@@ -1,0 +1,15 @@
+{
+  "name": "at-agent-azure-devops-extension",
+  "version": "1.0.0",
+  "description": "AT Agent Azure DevOps Extension",
+  "scripts": {
+    "build": "npm run build:task && npm run package",
+    "build:task": "cd tasks/accessibility-agent && npm run build",
+    "package": "tfx extension create --manifest-globs vss-extension.json --output-path dist",
+    "package:dev": "tfx extension create --manifest-globs vss-extension.json --output-path dist --rev-version",
+    "clean": "rm -rf dist && cd tasks/accessibility-agent && rm -rf dist node_modules"
+  },
+  "devDependencies": {
+    "tfx-cli": "^0.17.0"
+  }
+}

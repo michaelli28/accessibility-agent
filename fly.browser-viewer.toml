@@ -1,0 +1,36 @@
+# fly.toml - Fly.io configuration for AT Agent Browser Viewer (noVNC)
+# Deploy from at-agent root: fly deploy -c fly.browser-viewer.toml
+
+app = 'at-agent-browser-viewer'
+primary_region = 'sjc'
+
+[build]
+  dockerfile = "docker/Dockerfile"
+
+[env]
+  RESOLUTION = "1280x720x24"
+
+[http_service]
+  internal_port = 6080
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+
+  [http_service.concurrency]
+    type = "connections"
+    hard_limit = 25
+    soft_limit = 20
+
+# Expose CDP port for internal use (private network)
+[[services]]
+  protocol = "tcp"
+  internal_port = 9222
+
+  [[services.ports]]
+    port = 9222
+
+[[vm]]
+  memory = "2gb"
+  cpu_kind = "shared"
+  cpus = 2

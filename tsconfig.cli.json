@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": ".",
+    "declaration": false,
+    "paths": {}
+  },
+  "include": [
+    "scripts/runAgentCli.ts",
+    "browser/src/**/*.ts",
+    "virtual-screen-reader/src/**/*.ts",
+    "agent/src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
+}

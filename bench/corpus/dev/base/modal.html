@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Edit profile dialog</title>
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; }
+    .page { padding: 24px; }
+    .overlay { position: fixed; inset: 0; background: rgb(0 0 0 / 0.8); }
+    .dialog { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); display: grid; gap: 16px; width: min(90vw, 425px); padding: 24px; border-radius: 8px; background: #fff; }
+    .overlay[hidden], .dialog[hidden] { display: none; }
+    .field { display: grid; grid-template-columns: 1fr 3fr; align-items: center; gap: 16px; }
+    .dialog-close { position: absolute; top: 16px; right: 16px; border: 0; background: transparent; opacity: 0.7; cursor: pointer; }
+    .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  </style>
+</head>
+<body>
+  <span data-radix-focus-guard="" tabindex="0" style="outline: none; opacity: 0; position: fixed; pointer-events: none;" data-bench-id="focus-guard-start"></span>
+  <div class="page" id="page" aria-hidden="true">
+    <h1>Account settings</h1>
+    <button type="button" id="dialog-trigger" aria-haspopup="dialog" aria-expanded="true" aria-controls="profile-dialog" data-state="open" data-bench-id="trigger">Edit profile</button>
+    <a href="#help" data-bench-id="help-link">Help</a>
+  </div>
+  <div class="overlay" id="dialog-overlay" data-state="open"></div>
+  <div class="dialog" id="profile-dialog" role="dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description" data-state="open" tabindex="-1">
+    <h2 id="dialog-title">Edit profile</h2>
+    <p id="dialog-description">Make changes to your profile here. Click save when you're done.</p>
+    <div class="field"><label for="name">Name</label><input id="name" value="Pedro Duarte" data-bench-id="name-input"></div>
+    <div class="field"><label for="username">Username</label><input id="username" value="@peduarte" data-bench-id="username-input"></div>
+    <div><button type="button" id="dialog-save" data-bench-id="save-button">Save changes</button></div>
+    <button type="button" class="dialog-close" id="dialog-close" data-bench-id="close-button"><svg width="15" height="15" viewBox="0 0 15 15" aria-hidden="true" focusable="false"><path d="M11.5 3.5l-8 8M3.5 3.5l8 8" stroke="currentColor" stroke-width="1.5"></path></svg><span class="sr-only">Close</span></button>
+  </div>
+  <span data-radix-focus-guard="" tabindex="0" style="outline: none; opacity: 0; position: fixed; pointer-events: none;" data-bench-id="focus-guard-end"></span>
+  <script>
+    // Radix-style modal: siblings aria-hidden, Tab/Shift+Tab loop inside, focus guards bounce stray focus back,
+    // Escape closes and returns focus to the trigger.
+    (function () {
+      var dialog = document.getElementById('profile-dialog');
+      var overlay = document.getElementById('dialog-overlay');
+      var page = document.getElementById('page');
+      var trigger = document.getElementById('dialog-trigger');
+      var guards = Array.prototype.slice.call(document.querySelectorAll('[data-radix-focus-guard]'));
+      var TABBABLE = 'a[href], button, input, select, textarea, [tabindex]';
+
+      function isOpen() { return !dialog.hidden; }
+      function tabbables() {
+        return Array.prototype.filter.call(dialog.querySelectorAll(TABBABLE), function (el) {
+          return el.tabIndex >= 0 && !el.disabled && el.getClientRects().length > 0;
+        });
+      }
+      function setOpen(open) {
+        var state = open ? 'open' : 'closed';
+        dialog.hidden = !open;
+        overlay.hidden = !open;
+        dialog.dataset.state = state;
+        overlay.dataset.state = state;
+        trigger.dataset.state = state;
+        trigger.setAttribute('aria-expanded', String(open));
+        if (open) {
+          page.setAttribute('aria-hidden', 'true');
+          document.body.prepend(guards[0]);
+          document.body.append(guards[1]);
+          tabbables()[0].focus();
+        } else {
+          page.removeAttribute('aria-hidden');
+          guards.forEach(function (g) { g.remove(); });
+          trigger.focus();
+        }
+      }
+
+      document.addEventListener('keydown', function (e) {
+        if (!isOpen()) return;
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          setOpen(false);
+          return;
+        }
+        if (e.key !== 'Tab') return;
+        var items = tabbables();
+        var first = items[0];
+        var last = items[items.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      });
+      document.addEventListener('focusin', function (e) {
+        if (isOpen() && !dialog.contains(e.target)) tabbables()[0].focus();
+      });
+      trigger.addEventListener('click', function () { setOpen(true); });
+      document.getElementById('dialog-close').addEventListener('click', function () { setOpen(false); });
+      document.getElementById('dialog-save').addEventListener('click', function () { setOpen(false); });
+
+      tabbables()[0].focus();
+    })();
+  </script>
+</body>
+</html>

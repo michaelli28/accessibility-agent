@@ -1,0 +1,18 @@
+# 1. Homebrew (package manager)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# 2. Node.js (via nvm for version management)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+nvm install 20
+nvm use 20
+
+# 3. pnpm (faster than npm, required for Bazel npm integration)
+corepack enable
+corepack prepare pnpm@latest --activate
+
+# 4. Bazelisk (Bazel version manager)
+brew install bazelisk
+
+# 5. Python (for discovery-agent)
+brew install python@3.11
+pip3 install pip-tools  # For generating requirements lock

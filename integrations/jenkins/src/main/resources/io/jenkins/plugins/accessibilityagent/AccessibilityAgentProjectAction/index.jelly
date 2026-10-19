@@ -1,0 +1,193 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:l="/lib/layout">
+    <l:layout title="Accessibility Test Trends">
+        <l:main-panel>
+            <style>
+                .a11y-trends {
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                }
+                .a11y-chart-container {
+                    background: #fff;
+                    border: 1px solid #e9ecef;
+                    border-radius: 8px;
+                    padding: 20px;
+                    margin-bottom: 24px;
+                }
+                .a11y-chart {
+                    width: 100%;
+                    height: 300px;
+                    position: relative;
+                }
+                .a11y-bar-chart {
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: space-around;
+                    height: 250px;
+                    padding: 20px 0;
+                    border-bottom: 2px solid #e9ecef;
+                }
+                .a11y-bar-group {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    flex: 1;
+                    max-width: 60px;
+                }
+                .a11y-bar {
+                    width: 30px;
+                    background: linear-gradient(180deg, #28a745, #20c997);
+                    border-radius: 4px 4px 0 0;
+                    transition: height 0.3s ease;
+                    position: relative;
+                }
+                .a11y-bar.failure {
+                    background: linear-gradient(180deg, #dc3545, #c82333);
+                }
+                .a11y-bar-label {
+                    font-size: 11px;
+                    color: #6c757d;
+                    margin-top: 8px;
+                    text-align: center;
+                }
+                .a11y-bar-value {
+                    position: absolute;
+                    top: -20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    font-size: 11px;
+                    font-weight: bold;
+                }
+
+                .a11y-trends-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+                .a11y-trends-table th,
+                .a11y-trends-table td {
+                    padding: 12px;
+                    text-align: left;
+                    border-bottom: 1px solid #e9ecef;
+                }
+                .a11y-trends-table th {
+                    background: #f8f9fa;
+                    font-weight: 600;
+                }
+                .a11y-trends-table tr:hover {
+                    background: #f8f9fa;
+                }
+
+                .a11y-mini-bar {
+                    display: inline-block;
+                    height: 8px;
+                    border-radius: 4px;
+                    margin-right: 8px;
+                }
+                .a11y-mini-bar.passed {
+                    background: #28a745;
+                }
+                .a11y-mini-bar.failed {
+                    background: #dc3545;
+                }
+
+                .a11y-stat-inline {
+                    display: inline-block;
+                    padding: 2px 8px;
+                    border-radius: 12px;
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+                .a11y-stat-inline.good {
+                    background: #d4edda;
+                    color: #155724;
+                }
+                .a11y-stat-inline.bad {
+                    background: #f8d7da;
+                    color: #721c24;
+                }
+            </style>
+
+            <div class="a11y-trends">
+                <h1>Accessibility Test Trends</h1>
+                <p>Tracking accessibility test results across recent builds.</p>
+
+                <j:set var="builds" value="${it.recentBuilds}" />
+
+                <j:if test="${builds.isEmpty()}">
+                    <div class="a11y-chart-container">
+                        <p>No accessibility test results found yet. Run a build with the Accessibility Agent to see trends.</p>
+                    </div>
+                </j:if>
+
+                <j:if test="${!builds.isEmpty()}">
+                    <div class="a11y-chart-container">
+                        <h3>Pass Rate Trend</h3>
+                        <div class="a11y-bar-chart">
+                            <j:forEach var="build" items="${builds}">
+                                <div class="a11y-bar-group">
+                                    <div class="a11y-bar" style="height: ${build.passRate * 2.5}px">
+                                        <span class="a11y-bar-value">${build.formattedPassRate}</span>
+                                    </div>
+                                    <span class="a11y-bar-label">#${build.buildNumber}</span>
+                                </div>
+                            </j:forEach>
+                        </div>
+                    </div>
+
+                    <div class="a11y-chart-container">
+                        <h3>Build History</h3>
+                        <table class="a11y-trends-table">
+                            <thead>
+                                <tr>
+                                    <th>Build</th>
+                                    <th>Tests</th>
+                                    <th>Results</th>
+                                    <th>Pass Rate</th>
+                                    <th>Violations</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <j:forEach var="build" items="${builds}">
+                                    <tr>
+                                        <td>
+                                            <a href="${it.project.absoluteUrl}${build.buildNumber}/accessibility-results/">#${build.buildNumber}</a>
+                                        </td>
+                                        <td>${build.totalTests}</td>
+                                        <td>
+                                            <j:if test="${build.passedTests > 0}">
+                                                <span class="a11y-mini-bar passed" style="width: ${build.passedTests * 10}px"></span>
+                                            </j:if>
+                                            <j:if test="${build.failedTests > 0}">
+                                                <span class="a11y-mini-bar failed" style="width: ${build.failedTests * 10}px"></span>
+                                            </j:if>
+                                            ${build.passedTests} passed, ${build.failedTests} failed
+                                        </td>
+                                        <td>
+                                            <j:choose>
+                                                <j:when test="${build.passRate >= 80}">
+                                                    <span class="a11y-stat-inline good">${build.formattedPassRate}</span>
+                                                </j:when>
+                                                <j:otherwise>
+                                                    <span class="a11y-stat-inline bad">${build.formattedPassRate}</span>
+                                                </j:otherwise>
+                                            </j:choose>
+                                        </td>
+                                        <td>
+                                            <j:choose>
+                                                <j:when test="${build.violations == 0}">
+                                                    <span class="a11y-stat-inline good">0</span>
+                                                </j:when>
+                                                <j:otherwise>
+                                                    <span class="a11y-stat-inline bad">${build.violations}</span>
+                                                </j:otherwise>
+                                            </j:choose>
+                                        </td>
+                                    </tr>
+                                </j:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </j:if>
+            </div>
+        </l:main-panel>
+    </l:layout>
+</j:jelly>

@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://example.com",
+    "goal": "Navigate to the main content area and verify all headings are properly structured"
+  },
+  {
+    "url": "https://example.com/login",
+    "goal": "Navigate to the login form, verify form labels are associated with inputs, and attempt to log in"
+  },
+  {
+    "url": "https://example.com/products",
+    "goal": "Browse the product listing using keyboard navigation and verify all products are accessible"
+  }
+]

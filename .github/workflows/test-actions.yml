@@ -1,0 +1,55 @@
+# .github/workflows/test-actions.yml
+name: Test GitHub Actions
+
+on:
+  push:
+    paths:
+      - 'integrations/github-actions/**'
+      - '.github/workflows/test-actions.yml'
+  pull_request:
+    paths:
+      - 'integrations/github-actions/**'
+
+jobs:
+  test-audit-scripts:
+    name: Test Audit Scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run audit script tests
+        run: bash integrations/github-actions/audit/run.test.sh
+
+      - name: Run audit summary tests
+        run: bash integrations/github-actions/scripts/audit-summary.test.sh
+
+  test-flow-scripts:
+    name: Test Flow Scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run flow script tests
+        run: bash integrations/github-actions/flow/run.test.sh
+
+      - name: Run flow summary tests
+        run: bash integrations/github-actions/scripts/flow-summary.test.sh
+
+  test-audit-action:
+    name: Test Audit Action (Live)
+    runs-on: ubuntu-latest
+    # Only run on main to avoid unnecessary API calls
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./integrations/github-actions/audit
+        id: audit
+        with:
+          url: https://www.w3.org/WAI/demos/bad/before/home.html
+          fail-on: none  # Don't fail, just test
+
+      - name: Check outputs
+        run: |
+          echo "Violations: ${{ steps.audit.outputs.violations }}"
+          [ -n "${{ steps.audit.outputs.violations }}" ]
