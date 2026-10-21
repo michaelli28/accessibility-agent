@@ -2,7 +2,7 @@
 
 A command-line tool that checks web pages for accessibility problems. It runs axe-core scans, compares a page's DOM against the browser's accessibility tree to find controls that screen reader and keyboard users can't reach, walks the page with the Tab key to look for keyboard traps, and can hand the browser to an LLM agent that tries to finish a task (like "add an item to the cart") while auditing along the way.
 
-Built as a team project. The repository is named accessibility-agent; the command it installs is `at-agent`.
+Built by Matthew Li, Pius Lee, Seunghyun Bae and Michael Li. The repository is named accessibility-agent; the command it installs is `at-agent`.
 
 ## How it works
 
